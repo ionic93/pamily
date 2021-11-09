@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+<th:block th:fragment="content">
+    <form action="/sample/myParm" class="parmbody" method="post"
+                th:style="'background-image:url(' + @{/assets/img/parm.png} + '); background-repeat: no-repeat; background-size: contain;'">
+    <div>
+        <div class="parmname"> My Farm</div>
+    </div>
+    <div class="guide_btn">
+        <button type='button' id="modal_btn">My Parm 가이드</button>
+    </div>
+    <div class="black_bg"></div>
+    <div class="modal_wrap">
+        <div class="modal_close"><a href="#">close</a></div>
+        <div>
+            <h2> My Parm 기본 가이드 </h2>
+            <p>1. ~~~</p>
+            <p>2. ~~~</p>
+            <p>3. ~~~</p>
+        </div>
+    </div>
+    <div>
+        <div class="parmpoint"> 0 P</div>
+    </div>
+        <img src="${parmImage}">
+
+    <img th:src="@{/assets/img/caticon.png}" id="cat" style="width:100px; height:100px">
+        <form id="ajaxform" enctype="multipart/form-data">
+            <input type="file" multiple id="photo_upload">
+            <output id="list"></output>
+            <input type="button" value="완료" id="files_send">
+        </form>
+    </form>
+    <nav>
+        <table class="parmmenu">
+        <thead>
+        <tr>
+            <th scope="col">동물</th>
+            <th scope="col">장식</th>
+            <th scope="col">기타</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td scope="row">[[dto.puid]]</td>
+            <td scope="row">[[dto.pimageName]]</td>
+            <td scope="row">[[dto.path]]</td>
+        </tr>
+        <tr>
+            <td scope="row">[[dto.puid]]</td>
+            <td scope="row">[[dto.pimageName]]</td>
+            <td scope="row">[[dto.path]]</td>
+        </tr>
+        <tr>
+            <td scope="row">[[dto.puid]]</td>
+            <td scope="row">[[dto.pimageName]]</td>
+            <td scope="row">[[dto.path]]</td>
+        </tr>
+        </tbody>
+    </table>
+    </nav>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            let currentDroppable = null;
+            cat.onmousedown = function(event) {
+                let shiftX = event.clientX - cat.getBoundingClientRect().left;
+                let shiftY = event.clientY - cat.getBoundingClientRect().top;
+
+                cat.style.position = 'absolute';
+                cat.style.zIndex = 1000;
+                document.body.append(cat);
+
+                moveAt(event.pageX, event.pageY);
+
+                // 초기 이동을 고려한 좌표 (pageX, pageY)에서
+                // 고양이를 이동합니다.
+                function moveAt(pageX, pageY) {
+                    cat.style.left = pageX - shiftX + 'px';
+                    cat.style.top = pageY - shiftY + 'px';
+                }
+                function onMouseMove(event) {
+                    moveAt(event.pageX, event.pageY);
+                }
+                // mousemove로 공을 움직입니다.
+                document.addEventListener('mousemove', onMouseMove);
+                // 고양이을 드롭하고, 불필요한 핸들러를 제거합니다.
+                cat.onmouseup = function() {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    cat.onmouseup = null;
+                };
+            };
+            cat.ondragstart = function() {
+                return false;
+            };
+
+            $("#files_send").click(function(){
+                    var formData = new FormData();
+                    var temp = $("#photo_upload")[0].files[0];
+                    console.log(temp);
+
+                    for(var i=0; i<$('#photo_upload')[0].files.length; i++){
+                        formData.append('uploadFile', $('#photo_upload')[0].files[i]);
+                    }
+                    for (var key of formData.keys()) {
+                        console.log(key);
+                    }
+                $.ajax({
+                    type : "POST",
+                    url : "/data/uploadImage",
+                    processData: false,
+                    contentType: false,
+                    data : formData,
+                    success : function(data) {
+                    alert('업로드 성공')
+                    },
+                    error : function(xhr, status, error) {
+                        alert(error);
+                    }
+                });
+            });
+            function onClick() {
+                document.querySelector('.modal_wrap').style.display ='block';
+                document.querySelector('.black_bg').style.display ='block';
+            }
+            function offClick() {
+                document.querySelector('.modal_wrap').style.display ='none';
+                document.querySelector('.black_bg').style.display ='none';
+            }
+            document.getElementById('modal_btn').addEventListener('click', onClick);
+            document.querySelector('.modal_close').addEventListener('click', offClick);
+        });
+    </script>
+
+    <style>
+        .parmbody {display:inline-block; width:1280px; height:720px;}
+        .parmname {display:inline-block; width: 100px; height: 50px; align:center; margin-left:640px;}
+        .parmmenu {margin-top:180px; margin-left:1260px;}
+        .parmpoint {display:inline-block; width:100px; height: 50px; align:right; margin-left:1250px;}
+        @cat {width: 100px; height: 120px; margin-top:100px;}
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0; top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            -webkit-animation-name: fadeIn; /* Fade in the background */
+            -webkit-animation-duration: 0.4s;
+            animation-name: fadeIn;
+            animation-duration: 0.4s
+        }
+        .guide_btn { float: right; }
+        .modal-header { padding: 2px 16px; background-color: rgb(97, 53, 53); color: rgb(97, 53, 53)e; }
+        .modal-body {padding: 2px 16px;}
+        .modal-body p{color: white;}
+        .modal_wrap { display: none; width: 500px; height: 500px; position: absolute; top:50%;
+                            left: 50%; margin: -250px 0 0 -250px; background:#eee; z-index: 2; }
+        .black_bg{ display: none; position: absolute; content: ""; width: 100%; height: 100%;
+                    background-color:rgba(0, 0,0, 0.5); top:0; left: 0; z-index: 1; }
+        .modal_close{ width: 26px; height: 26px; position: absolute; top: -30px; right: 0; }
+        .modal_close> a{ display: block; width: 100%; height: 100%;
+                            background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+                            text-indent: -9999px;
+        }
+    </style>
+</th:block>
+</th:block>

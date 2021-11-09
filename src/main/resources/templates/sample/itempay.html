@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <th:block th:fragment="content">
+            <head>
+
+                <!-- ==============================================
+                Title and Meta Tags
+                =============================================== -->
+                <meta charset="utf-8">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Fluffs - Ultimate Bootstrap Social Network UI Kit</title>
+                <meta name="description" content="" />
+                <meta name="keywords" content="" />
+                <meta property="og:title" content="" />
+                <meta property="og:url" content="" />
+                <meta property="og:description" content="" />
+
+                <!-- ==============================================
+                Favicons
+                =============================================== -->
+                <link rel="icon" href="assets/img/logo.jpg">
+                <link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png">
+                <link rel="apple-touch-icon" sizes="72x72" href="img/favicons/apple-touch-icon-72x72.png">
+                <link rel="apple-touch-icon" sizes="114x114" href="img/favicons/apple-touch-icon-114x114.png">
+
+                <!-- ==============================================
+                CSS
+                =============================================== -->
+                <link type="text/css" href="assets/css/demos/photo.css" rel="stylesheet" />
+
+                <!-- ==============================================
+                Feauture Detection
+                =============================================== -->
+                <script th:src="@{/assets/js/modernizr-custom.js}"></script>
+
+                <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+                <!--[if lt IE 9]>
+                <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                <![endif]-->
+
+            </head>
+            <section class="channel-one">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <aside class="sidebar">
+                                <ul>
+                                    <li class="active sideText"><a href=""><i class="fa fa-align-left"></i> BEST </a></li>
+                                    <li class="sideText"><a href=""><i class="fa fa-align-left"></i> IVENT </a></li>
+                                    <li class="sideText"><a href=""><i class="fa fa-users"></i> 인벤토리 </a></li>
+                                    <li class="hr"></li>
+                                    <li class="sideText"><a href=""><i class="fa fa-align-left"></i> 동물</a></li>
+                                    <li class="sideText"><a href=""><i class="fa fa-chart-bar"></i> 꾸미기 </a></li>
+                                    <li class="sideText"><a href=""><i class="far fa-copy"></i> 패션 잡화 </a></li>
+                                    <li class="sideText"><a href=""><i class="fa fa-align-left"></i> 인테리어</a></li>
+                                    <li class="hr"></li>
+                                    <li class="sideText"><a href=""><i class="fa fa-user"></i> Heart </a></li>
+                                    <li class="sideText"><a href=""><i class="fa fa-align-left"></i> Cart </a></li>
+                                </ul>
+                            </aside>
+                        </div><!--/ col-lg-3 -->
+
+                        <!-- ==============================================
+                        Modal Section
+                        =============================================== -->
+
+                        <div class="modal-content">
+                            <div class="modal-body">
+
+                                <div class="row">
+
+                                    <div class="col-md-8 modal-image">
+                                        <img class="img-responsive" th:src="@{/assets/img/posts/15.jpg}" alt="Image"/>
+                                    </div><!--/ col-md-8 -->
+                                    <div class="col-md-4 modal-meta">
+                                        <div class="item-detail">
+                                            <button class="follow-box kafe-btn kafe-btn-mint pull-right"><i class="fa fa-check"></i> 입양 하기 </button>
+                                            <div class="item-name">푸들</div>
+                                            <hr>
+                                            <div style="height:350px;"><span style="font-size:16pt;">어쩌구 저쩌구 귀여운 설명 주저리주저리 데려가세요</span></div>
+                                            <div class="btn-box">
+                                                <button class="kafe-btn kafe-btn-mint btn-auto" type="button" name="button" id="heartBtn">찜하기</button>
+                                                <button class="kafe-btn kafe-btn-mint btn-auto" type="button" name="button" id="cartBtn">장바구니</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <div class="photo-rounded-fluffs item-detail">
+                                                    <a th:href="@{/sample/itempay}">
+
+                                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/1.jpg}" alt="Image">
+                                                        <h1 class="text-center"> 푸들 </h1>
+                                                        <div class="explore-top">
+                                                            <div class="explore-body">
+                                                                <div class="explore-like"><i class="fa fa-heart"></i></div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <div class="photo-rounded-fluffs item-detail">
+                                                    <a href="#">
+                                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/2.jpg}" alt="Image">
+                                                        <h1 class="text-center"> 까마귀 </h1>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <div class="photo-rounded-fluffs item-detail">
+                                                    <a href="#">
+                                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/3.jpg}" alt="Image">
+                                                        <h1 class="text-center"> 햄스터 </h1>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-3 col-sm-6 col-xs-12">
+                                                <div class="photo-rounded-fluffs item-detail">
+                                                    <a href="#">
+                                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/4.jpg}" alt="Image">
+                                                        <h1 class="text-center"> 샴고양이 </h1>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div><!--/ row -->
+                                    </div><!--/ col-lg-9 -->
+
+                                </div><!--/ row -->
+                            </div><!--/ modal-body -->
+                        </div><!--/ modal-content -->
+
+
+
+
+                    </div><!--/ row -->
+                </div><!--/ container -->
+            </section><!--/ newsfeed -->
+
+
+
+            <!-- ==============================================
+            Scripts
+            =============================================== -->
+            <script th:src="@{/assets/js/jquery.min.js}"></script>
+            <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+            <script th:src="@{/assets/js/base.js}"></script>
+            <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
+            <script>
+                $('#Slim,#Slim2').slimScroll({
+                    height:"auto",
+                    position: 'right',
+                    railVisible: true,
+                    alwaysVisible: true,
+                    size:"8px",
+                });
+            </script>
+        </th:block>
+    </th:block>
+</th:block>

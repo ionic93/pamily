@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <h1>My Profile</h1>
+        <h1><a th:href="@{/h2-console}">h2-console</a></h1>
+        <h1>/sample/all <a th:href="@{/sample/all}">/sample/all</a></h1>
+        <h1>/sample/member <a th:href="@{/sample/member}">/sample/member</a></h1>
+        <h1>/sample/admin <a th:href="@{/sample/admin}">/sample/admin</a></h1>
+        <h1>/sample/exOnly <a th:href="@{/sample/admin}">/sample/exOnly</a></h1>
+    </th:block>
+</th:block>

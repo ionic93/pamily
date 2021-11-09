@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 
     <!-- ==============================================
@@ -27,7 +26,7 @@
     <!-- ==============================================
     CSS
     =============================================== -->
-    <link type="text/css" href="assets/css/demos/photo.css" rel="stylesheet" />
+    <link type="text/css" href="../assets/css/demos/photo.css" rel="stylesheet" />
 
     <!-- ==============================================
     Feauture Detection
@@ -47,28 +46,33 @@
 <!-- ==============================================
 Header Section
 =============================================== -->
-<section class="login">
+<section class="signup">
     <div class="container">
         <div class="banner-content">
 
             <h1><a href="/pamily">Pamily</a></h1>
-            <form method="get" class="form-signin btn" action="/pamily/sample/all">
-                <h3 class="form-signin-heading">Please sign in</h3>
+            <form method="post" action="/pamily/sample/signUp" class="form-signin">
+                <h3 class="form-signin-heading">Please register</h3>
                 <div class="form-group">
-                    <input name="email" type="text" class="form-control" placeholder="Email">
+                    <input name="email" type="text" class="form-control" placeholder="Email(ID)">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Password">
+                    <input name="name" type="text" class="form-control" placeholder="Username">
                 </div>
-                <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">Sign in</button>
+                <div class="form-group">
+                    <input name="password" type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input name="check-password" type="password" class="form-control" placeholder="Check-Password">
+                </div>
+                <div class="form-group">
+                    <input name="mobile" type="text" class="form-control" placeholder="mobile">
+                </div>
+                <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">Sign Up</button>
                 <br/>
                 <a class="google font" th:href="@{/oauth2/authorization/google}" name="GoogleLogin">Google</a>
                 <a class="naver font" th:href="@{/oauth2/authorization/naver}" name="naverLogin">NAVER</a>
-                <br/>
-                <div class="help">
-                    <a class="btn btn-dark " href="sample/signUp" role="button">Don't have an account yet? Register Here.</a><br/>
-                    <a class="btn btn-dark " href="sample/findPass" role="button">Forgot your password?</a>
-                </div>
+                <a class="btn btn-dark " href="/pamily" role="button">Already have an account? Click Here.</a>
             </form>
 
         </div><!--/. banner-content -->

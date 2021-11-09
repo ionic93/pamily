@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <section class="upload">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="box">
+                            <form th:action="@{/sample/uploadPage}" th:method="post">
+                                <textarea class="form-control no-border" rows="3" placeholder="Type something..."></textarea>
+                                <div class="box-footer clearfix">
+                                    <button id="btnFilter" class="kafe-btn kafe-btn-mint-small pull-right btn-sm">적용
+                                    </button>
+                                    <button class="kafe-btn kafe-btn-mint-small pull-right btn-sm uploadBtn">Upload
+                                    </button>
+                                    <ul class="nav nav-pills nav-sm">
+                                        <li class="nav-item">
+                                            <label for="fileInput">
+                                                <i class="fa fa-camera text-muted"
+                                                   style="background-color:white; border:0; outline:0; cursor: pointer;">
+                                                </i>
+                                            </label>
+                                            <input name="uploadFiles" class="custom-file-input files" id="fileInput" type="file" multiple style="display:none">
+                                        </li>
+                                        <li class="nav-item"><a class="nav-link" href=""><i
+                                                class="fa fa-video text-muted"></i></a></li>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row one-row">
+                    <div class="col-lg-12">
+                        <a href="https://picturepan2.github.io/instagram.css/" target="_blank"><h4>Instagram Filters
+                            from Picture Pan 2</h4></a>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image">
+
+                            </div>
+                            <div class="card-header">
+                                <span>Normal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image filter-1977">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">1977</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image filter-willow">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Willow</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--/ row-->
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image filter-sutro">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Sutro</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image filter-reyes">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Reyes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image filter-poprocket">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Poprocket</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--/ row-->
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image filter-inkwell">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Inkwell</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image filter-nashville">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Nashville</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                        <div class="card">
+                            <div class="card-image filter-moon">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Moon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--/ row-->
+
+
+            </div><!--/ container -->
+        </section><!--/ newsfeed -->
+        <style>
+            .uploadResult { width: 100%;background:gray;margin-top:10px;}
+            .uploadResult ul {
+                display:flex;flex-flow:row;justify-content:center;
+                align-items:center;vertical-align:top;overflow:auto;
+            }
+            .uploadResult ul li{ list-style:none;padding:10px;margin-left:2em;}
+            .uploadResult ul li img{ width:100px;}
+
+        </style>
+        <div class="uploadResult">
+            <ul>
+
+            </ul>
+        </div>
+
+        <script>
+            $(document).ready(function(e){
+
+                var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
+                var maxSize = 10485760;
+
+                function checkExtension(fileName, fileSize){
+                    if(fileSize >= maxSize){
+                        alert("파일 사이즈 초과");
+                        return false;
+                    }
+                    if(regex.test(fileName)){
+                        alert("해당 파일은 업로드 할 수 없습니다.");
+                        return false;
+                    }
+                    return true;
+                }
+
+                 function showImage(uploadResultArr){
+
+                    var uploadUL = $(".card-image");
+                    var str = "";
+
+                    $(uploadResultArr).each(function(i,obj){
+                        str += "<div data-name='" + obj.fileName + "' data-path='"
+                            + obj.folderPath + "' data-uuid='"+obj.uuid+"'>";
+                        str += "<img src='/pamily/display?fileName="+obj.imageURL+"' class='img-responsive' alt='Image' >";
+                        str += "</div>";
+                    });
+                    uploadUL.append(str);
+                }
+
+                function showResult(uploadResultArr){
+                    var uploadUL = $(".uploadResult ul");
+                    var str = "";
+                    $(uploadResultArr).each(function(i,obj){
+                        str += "<li data-name='" + obj.fileName + "' data-path='"
+                            + obj.folderPath + "' data-uuid='"+obj.uuid+"'>";
+                        str += "<div>";
+                        str += "<button type='button' data-file='" + obj.imageURL
+                            + "\' class='btn-warning btn-sm'>X</button><br>";
+                        str += "<img src='/pamily/display?fileName="+obj.thumbnailURL+"'>";
+                        str += "</div>";
+                        str += "</li>";
+                    });
+                    uploadUL.append(str);
+                }
+                $(".custom-file-input").on("change", function(){
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label")
+                        .addClass("selected").html(fileName);
+                    var formData = new FormData();
+                    var inputFile = $(this);
+                    var files = inputFile[0].files;
+                    var append = false;
+                    for(var i=0;i<files.length;i++){
+                        if(!checkExtension(files[i].name, files[i].size)) return false;
+                        console.log(files[i]);
+                        formData.append("uploadFiles", files[i]);
+                        append = true;
+                    }
+                    if(!append) return;
+                    for(var value of formData.values()) {
+                        console.log(value);
+                    }
+                    $.ajax({
+                        url: '/pamily/uploadAjax',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type:'POST',
+                        dataType: 'json',
+                        success: function(result){
+                            console.log("result: " + result);
+                            showResult(result);
+                            showImage(result);
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            console.log(textStatus);
+                        }
+                    });
+                    $('.uploadResult').on('click','li button',function(e){
+                        console.log("delete file");
+                        var targetFile = $(this).data("file");
+                        var targetLi = $(this).closest("li");
+                        $.ajax({
+                            url: '/pamily/removeFile',
+                            data: {fileName: targetFile},
+                            dataType: 'text',
+                            type: 'POST',
+                            success: function(result){
+                                alert("파일을 지웁니다.");
+                                targetLi.remove();
+                            }
+                        });
+                    });
+                });
+                $(".uploadBtn").on("click", function(e){
+                    e.preventDefault();
+                    var str = "";
+                    $(".uploadResult li").each(function(i, obj){
+                        var target = $(obj);
+                        str += "<input type='hidden' name='imageDTOList[" + i
+                            + "].imgName' value='" + target.data('name') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i
+                            + "].path' value='" + target.data('path') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i
+                            + "].uuid' value='" + target.data('uuid') + "'>";
+                    });
+                    $(".box").html(str);
+                    $("form").submit();
+                });
+            });
+
+        </script>
+    </th:block>
+</th:block>

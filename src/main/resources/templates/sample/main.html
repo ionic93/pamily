@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <section class="profile-two">
+            <div class="container-fluid">
+                <div class="row">
+                    <!--                    메인 페이지 중 왼쪽 프로필 라인-->
+                    <div class="col-lg-3">
+                        <aside id="leftsidebar" class="sidebar">
+                            <ul class="list">
+                                <li>
+                                    <div class="user-info">
+                                        <div class="image">
+                                            <a th:href="@{/sample/myProfile}">
+                                                <img th:src="@{/assets/img/users/1.jpg}"
+                                                     class="img-responsive img-circle" alt="User">
+                                                <span class="online-status online"></span>
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <h4>Vanessa Wells</h4>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <small class="text-muted"><a href="photo_profile_two.html">320 Posts <em
+                                            class="fa fa-angle-right pull-right"></em></a> </small><br/>
+                                    <small class="text-muted"><a href="photo_followers.html">2456 Followers <em
+                                            class="fa fa-angle-right pull-right"></em></a> </small><br/>
+                                    <small class="text-muted"><a href="photo_followers.html">456 Following <em
+                                            class="fa fa-angle-right pull-right"></em></a> </small>
+                                </li>
+                            </ul>
+                        </aside>
+                    </div><!--/ col-lg-3-->
+
+                    <!--                    메인 페이지중 자기가 팔로워한 글 + 본인 게시물 라인-->
+                    <div class="col-lg-6" style="background: #fff;">
+
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <a href="#myModal" data-toggle="modal">
+                                    <div class="explorebox"
+                                         style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2));
+					  background-size: cover;
+					  background-position: center center;
+					  -webkit-background-size: cover;
+					  -moz-background-size: cover;
+					  -o-background-size: cover; position: relative;">
+                                            <img th:src="@{/assets/img/users/3.jpg}" class="explorebox" style="position: absolute; z-index=1">
+                                        <div class="explore-top" style="position:absolute; z-index:2;">
+                                            <div class="explore-like"><i class="fa fa-heart"></i> <span>312</span></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <a href="#myModal" data-toggle="modal">
+                                    <div class="explorebox"
+                                         style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
+					  background-size: cover;
+					  background-position: center center;
+					  -webkit-background-size: cover;
+					  -moz-background-size: cover;
+					  -o-background-size: cover;">
+                                        <div class="explore-top">
+                                            <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span></div>
+                                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div><!--/ row -->
+                    </div>
+                    <!--                    메인 페이지중 유명인들을 추가할수 있는 섹션-->
+                    <div class="col-lg-3">
+
+                        <div class="suggestion-box full-width">
+                            <div class="suggestions-list">
+                                <!--                                여기서부터 반복하면 됨-->
+                                <div class="suggestion-body">
+                                    <img class="img-responsive img-circle" th:src="@{/assets/img/users/1.jpg}" alt="">
+                                    <div class="name-box">
+                                        <h4>Vanessa Wells</h4>
+                                        <span>@vannessa</span>
+                                    </div>
+                                    <span><i class="fa fa-plus"></i></span>
+                                </div>
+
+                            </div><!--suggestions-list end-->
+                        </div>
+                        <!--                        랜덤 농장이 보여지는 라인-->
+                        <div class="trending-box">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h2>Best Parms</h2>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="trending-box">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <a href="#"><img th:src="@{/assets/img/posts/17.jpg}" class="img-responsive"
+                                                     alt="Image"/></a>
+                                </div>
+                                <div class="col-lg-6">
+                                    <a href="#"><img th:src="@{/assets/img/posts/12.jpg}" class="img-responsive"
+                                                     alt="Image"/></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--/ row-->
+            </div><!--/ container -->
+        </section><!--/ profile -->
+        <!-- ==============================================
+        Modal Section
+        =============================================== -->
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+
+                        <div class="row">
+
+                            <div class="col-md-8 modal-image">
+                                <img class="img-responsive" th:src="@{/assets/img/users/3.jpg}" alt="Image"/>
+                            </div><!--/ col-md-8 -->
+                            <div class="col-md-4 modal-meta">
+                                <div class="modal-meta-top">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                        <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                    </button><!--/ button -->
+                                    <div class="img-poster clearfix">
+                                        <a href=""><img class="img-responsive img-circle" th:src="@{/assets/img/users/18.jpg}" alt="Image"/></a>
+                                        <strong><a href="">Benjamin</a></strong>
+                                        <span>12 minutes ago</span><br/>
+                                        <a href="" class="kafe kafe-btn-mint-small"><i class="fa fa-check-square"></i> Following</a>
+                                    </div><!--/ img-poster -->
+
+                                    <ul class="img-comment-list">
+                                        <li>
+                                            <div class="comment-img">
+                                                <img th:src="@{/assets/img/users/17.jpeg}" class="img-responsive img-circle" alt="Image"/>
+                                            </div>
+                                            <div class="comment-text">
+                                                <strong><a href="">Anthony McCartney</a></strong>
+                                                <p>Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
+                                            </div>
+                                        </li><!--/ li -->
+                                        <li>
+                                            <div class="comment-img">
+                                                <img th:src="@{/assets/img/users/15.jpg}" class="img-responsive img-circle" alt="Image"/>
+                                            </div>
+                                            <div class="comment-text">
+                                                <strong><a href="">Vanessa Wells</a></strong>
+                                                <p>Hello this is a test comment and this comment is particularly very long and it goes on and on and on.</p> <span>on December 5th, 2016</span>
+                                            </div>
+                                        </li><!--/ li -->
+                                        <li>
+                                            <div class="comment-img">
+                                                <img th:src="@{/assets/img/users/14.jpg}" class="img-responsive img-circle" alt="Image"/>
+                                            </div>
+                                            <div class="comment-text">
+                                                <strong><a href="">Sean Coleman</a></strong>
+                                                <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
+                                            </div>
+                                        </li><!--/ li -->
+                                        <li>
+                                            <div class="comment-img">
+                                                <img th:src="@{/assets/img/users/13.jpeg}" class="img-responsive img-circle" alt="Image"/>
+                                            </div>
+                                            <div class="comment-text">
+                                                <strong><a href="">Anna Morgan</a></strong>
+                                                <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
+                                            </div>
+                                        </li><!--/ li -->
+                                        <li>
+                                            <div class="comment-img">
+                                                <img th:src="@{/assets/img/users/3.jpg}" class="img-responsive img-circle" alt="Image"/>
+                                            </div>
+                                            <div class="comment-text">
+                                                <strong><a href="">Allison Fowler</a></strong>
+                                                <p class="">Hello this is a test comment.</p> <span class="date sub-text">on December 5th, 2016</span>
+                                            </div>
+                                        </li><!--/ li -->
+                                    </ul><!--/ comment-list -->
+
+                                    <div class="modal-meta-bottom">
+                                        <ul>
+                                            <li><a class="modal-like" href="#"><i class="fa fa-heart"></i></a><span class="modal-one"> 786,286</span> |
+                                                <a class="modal-comment" href="#"><i class="fa fa-comments"></i></a><span> 786,286</span> </li>
+                                            <li>
+			   <span class="thumb-xs">
+				<img class="img-responsive img-circle" th:src="@{/assets/img/users/13.jpeg}" alt="Image">
+			   </span>
+                                                <div class="comment-body">
+                                                    <input class="form-control input-sm" type="text" placeholder="Write your comment...">
+                                                </div><!--/ comment-body -->
+                                            </li>
+                                        </ul>
+                                    </div><!--/ modal-meta-bottom -->
+
+                                </div><!--/ modal-meta-top -->
+                            </div><!--/ col-md-4 -->
+
+                        </div><!--/ row -->
+                    </div><!--/ modal-body -->
+
+                </div><!--/ modal-content -->
+            </div><!--/ modal-dialog -->
+        </div><!--/ modal -->
+        <script th:inline="javascript">
+            var msg=[[${mid}]];
+            console.log(msg);
+        </script>
+    </th:block>
+</th:block>
