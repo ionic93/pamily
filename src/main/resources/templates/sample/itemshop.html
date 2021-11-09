@@ -2,7 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <link type="text/css" href="assets/css/demos/photo.css" rel="stylesheet" />
+        <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet" />
+        <link type="text/css" th:href="@{/assets/css/demos/interest.css}" rel="stylesheet" />
+        <link type="text/css" th:href="@{/assets/css/skins/two.css}" rel="stylesheet" />
+        <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet" />
         <script th:src="@{/assets/js/modernizr-custom.js}"></script>
         <section class="channel-one">
             <div class="container-fluid">
@@ -24,7 +27,9 @@
                             </ul>
                         </aside>
                     </div><!--/ col-lg-3 -->
-
+<!--                    <div>-->
+<!--                        <span th:each="item : ${itemList}">[[${item.itemName}]]</span>-->
+<!--                    </div>-->
                     <div class="col-lg-9">
                         <div class="row">
                             <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
@@ -155,7 +160,7 @@
                         <div class="modal-content item-modal-box">
                             <div class="">
 
-                                <div class="col-md-4 modal-meta item-close">
+                                <div class="col-md-textbox modal-meta item-close">
                                     <div class="modal-meta-top">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                             <span aria-hidden="true">×</span><span class="sr-only">Close</span>
@@ -164,10 +169,10 @@
                                 </div>
                                 <div class="row">
 
-                                    <div class="col-md-8 modal-image-item">
+                                    <div class="col-md-item modal-image-item">
                                         <img class="item-img" th:src="@{/assets/img/posts/15.jpg}" alt="Image"/>
                                     </div><!--/ col-md-8 -->
-                                    <div class="col-md-4 modal-meta item-text-box">
+                                    <div class="col-md-textbox modal-meta item-text-box">
                                         <div class="item-detail">
                                             <button class="follow-box kafe-btn kafe-btn-mint pull-right get-btn"><i class="fa fa-check"></i> 입양 하기 </button>
                                             <div class="item-name">푸들</div>

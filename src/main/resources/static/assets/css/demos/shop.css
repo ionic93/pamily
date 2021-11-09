@@ -1,0 +1,44 @@
+.col-md-item{
+position:relative;min-height:1px;padding-right:15px;
+padding-left:15px;float:left
+}
+.col-md-textbox{
+position:relative;min-height:1px;
+padding-right:15px;padding-left:15px;width:400px;
+float:left;width:400px;
+}
+
+a {
+    color: #757e85;
+}
+.col-lg-3{width:20%}
+.col-lg-9{width:80%}
+
+.channel-one .photo-rounded-fluffs{margin-bottom: 120px;}
+
+.channel-one .item-detail{
+padding: 10px;
+margin-bottom: 25px;
+}
+
+.btn-auto{
+    margin-left:35px;
+}
+
+.item-img{width:300px;}
+
+.item-modal-box{
+    width:790px;
+    padding:20px 40px 25px 40px;
+    margin-top: 20%;
+}
+.item-name{
+ font-family: 'Abhaya Libre', serif;
+ font-size: 30pt;
+}
+.item-text-box{margin-bottom:40px;}
+.item-close{width:740px;margin-bottom:10px;}
+.item-top-margin{margin-top:10px;}
+.itemgetYN{width:400px;padding:15px 20px 20px 20px;margin-top:40%;margin-left:33%;}
+.modal-body-item{padding:40px 40px 20px 40px;text-align:center;}
+.btn-margin{margin:20px 15px;}
