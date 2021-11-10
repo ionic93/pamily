@@ -11,9 +11,12 @@
 
                         <div class="box">
                             <form th:action="@{/sample/uploadPage}" th:method="post">
-                                <textarea class="form-control no-border" rows="3" placeholder="Type something..."></textarea>
+                                <textarea class="form-control no-border content" rows="3"
+                                          placeholder="Type something..."></textarea>
                                 <div class="box-footer clearfix">
-                                    <button class="kafe-btn kafe-btn-mint-small pull-right btn-sm" id="uploadBtn">Upload
+                                    </button>
+                                    <button class="kafe-btn kafe-btn-mint-small pull-right btn-sm uploadBtn btn-primary">
+                                        Upload
                                     </button>
                                     <ul class="nav nav-pills nav-sm">
                                         <li class="nav-item">
@@ -22,10 +25,20 @@
                                                    style="background-color:white; border:0; outline:0; cursor: pointer;">
                                                 </i>
                                             </label>
-                                            <input name="uploadFiles" class="custom-file-input files" id="fileInput" type="file" multiple style="display:none">
+                                            <input name="uploadFiles" class="custom-file-input files" id="fileInput"
+                                                   type="file" multiple style="display:none">
                                         </li>
-                                        <li class="nav-item"><a class="nav-link" href=""><i
-                                                class="fa fa-video text-muted"></i></a></li>
+                                        <li class="nav-item">
+                                            <label for="fileInput">
+                                                <!--                                            <a class="nav-link" href="">-->
+                                                <i class="fa fa-video text-muted"
+                                                   style="background-color:white; border:0; outline:0; cursor: pointer; margin-left: 10px;">
+                                                </i>
+                                            </label>
+                                            <input name="uploadFiles" class="custom-file-input files"
+                                                   type="file" multiple style="display:none">
+                                            <!--                                            </a>-->
+                                        </li>
                                     </ul>
                                 </div>
                             </form>
@@ -41,29 +54,159 @@
                 </div>
 
                 <div class="row test">
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px; ">
+                        <div class="card">
+                            <div class="card-image uploadImageResult img-responsive" alt="Image"
+                                 style="overflow: hidden; width:350px; height:320px;">
 
+                            </div>
+                            <div class="card-header">
+                                <span>Normal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px; ">
+                        <div class="card">
+                            <div class="card-image uploadImageResult filter-1977"
+                                 style="overflow: hidden; width:350px; height:320px;">
+
+                            </div>
+                            <div class="card-header" style="overflow: hidden;">
+                                <span class="h6">1977</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px; ">
+                        <div class="card">
+                            <div class="card-image uploadImageResult filter-willow"
+                                 style="overflow: hidden; width:350px; height:320px;">
+
+                            </div>
+                            <div class="card-header" style="overflow: hidden;">
+                                <span class="h6">Willow</span>
+                            </div>
+                        </div>
+                    </div>
 
                 </div><!--/ row-->
 
+                <div class="row">
 
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px;">
+                        <div class="card">
+                            <div class="card-image uploadImageResult filter-sutro"
+                                 style="overflow: hidden; width:350px; height:320px;">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Sutro</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px;">
+                        <div class="card">
+                            <div class="card-image uploadImageResult filter-reyes"
+                                 style="overflow: hidden; width:350px; height:320px;">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Reyes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px;">
+                        <div class="card">
+                            <div class="card-image uploadImageResult filter-poprocket"
+                                 style="overflow: hidden; width:350px; height:320px;">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Poprocket</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--/ row-->
+
+                <div class="row">
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px;">
+                        <div class="card">
+                            <div class="card-image uploadImageResult filter-inkwell"
+                                 style="overflow: hidden; width:350px; height:320px;">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Inkwell</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px;">
+                        <div class="card">
+                            <div class="card-image uploadImageResult filter-nashville"
+                                 style="overflow: hidden; width:350px; height:320px;">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Nashville</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 image-container"
+                         style="width:350px; height:350px;">
+                        <div class="card">
+                            <div class="card-image uploadImageResult filter-moon"
+                                 style="overflow: hidden; width:350px; height:320px;">
+
+                            </div>
+                            <div class="card-header">
+                                <span class="h6">Moon</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!--/ row-->
+                <div>
+                    <span></span><br>
+                    <span></span><br>
+                    <span></span><br>
+                    <span></span><br>
+                    <span></span><br>
+                    <span></span><br>
+                    <span></span><br>
+                </div>
+                <div class="box">
+
+                </div>
             </div><!--/ container -->
-        </section><!--/ newsfeed -->
+        </section>
         <style>
-            .uploadResult { width: 100%;background:gray;margin-top:10px;}
+            .uploadResult { width: 100%;background:gray;margin-top:10px; position: fixed; bottom:0;}
             .uploadResult ul {
                 display:flex;flex-flow:row;justify-content:center;
                 align-items:center;vertical-align:top;overflow:auto;
             }
             .uploadResult ul li{ list-style:none;padding:10px;margin-left:2em;}
             .uploadResult ul li img{ width:100px;}
-
         </style>
         <div class="uploadResult">
             <ul>
-
             </ul>
         </div>
-
         <script>
             $(document).ready(function(e){
 
@@ -82,30 +225,13 @@
                     return true;
                 }
 
-                function showImage(uploadResultArr){
-
-                    var uploadUL = $(".test");
-                    var str = "";
-
-                    $(uploadResultArr).each(function(i,obj){
-                        str+= "<div class='col-lg-4 col-md-3 col-sm-6 col-xs-12 "+obj.uuid+"' >",
-                        str+= "<div class='card'>",
-                        str+= "<div class='card-image'>",
-                        str += "<div data-name='" + obj.fileName + "' data-path='"
-                            + obj.folderPath + "' data-uuid='"+obj.uuid+"'>";
-                        str += "<img src='/pamily/display?fileName="+obj.imageURL+"' class='img-responsive' alt='Image' >";
-                        str += "</div>";
-                        str+= "</div>",
-                        str+= "<div class='card-header'>",
-                        str+= "<span>",
-                        str+= "Normal",
-                        str+= "</span>",
-                        str+= "</div>",
-                        str+= "</div>",
-                        str+= "</div>";
-                    });
-                    uploadUL.append(str);
-                 }
+                function showImage(arr){
+                    console.log("arr: " + arr);
+                    var divArea = $(".uploadImageResult");
+                    for(var i = 0; i< arr.length; i++){
+                        divArea.append("<img src='/pamily/display?fileName="+arr[i].thumbnailURL+"' style='width:320px; height:320px;' >");
+                    }
+                }
 
                 function showResult(uploadResultArr){
                     var uploadUL = $(".uploadResult ul");
@@ -157,6 +283,7 @@
                             console.log(textStatus);
                         }
                     });
+
                     $('.uploadResult').on('click','li button',function(e){
                         console.log("delete file");
                         var targetFile = $(this).data("file");
@@ -176,8 +303,10 @@
                         });
                     });
                 });
-                $("#uploadBtn").on("click", function(e){
+
+                $(".btn-primary").on("click", function(e){
                     e.preventDefault();
+                    alert('uploadbtn');
                     var str = "";
                     $(".uploadResult li").each(function(i, obj){
                         var target = $(obj);
@@ -189,10 +318,9 @@
                             + "].uuid' value='" + target.data('uuid') + "'>";
                     });
                     $(".box").html(str);
-                    $("form").submit();
+<!--                    $("form").submit();-->
                 });
             });
-
         </script>
     </th:block>
 </th:block>
