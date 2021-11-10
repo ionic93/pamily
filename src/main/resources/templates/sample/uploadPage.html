@@ -9,13 +9,12 @@
                 <div class="row">
                     <div class="col-lg-12">
 
-                        <div class="box">
                             <form th:action="@{/sample/uploadPage}" th:method="post">
                                 <textarea class="form-control no-border content" rows="3"
                                           placeholder="Type something..."></textarea>
                                 <div class="box-footer clearfix">
                                     </button>
-                                    <button class="kafe-btn kafe-btn-mint-small pull-right btn-sm uploadBtn btn-primary">
+                                    <button class="kafe-btn kafe-btn-mint-small pull-right btn-sm uploadBtn btn-primary" id="uploadImgBtn">
                                         Upload
                                     </button>
                                     <ul class="nav nav-pills nav-sm">
@@ -41,8 +40,10 @@
                                         </li>
                                     </ul>
                                 </div>
+                                <div class="box">
+
+                                </div>
                             </form>
-                        </div>
                     </div>
                 </div>
 
@@ -304,9 +305,9 @@
                     });
                 });
 
-                $(".btn-primary").on("click", function(e){
+                $("#uploadImgBtn").on("click", function(e){
                     e.preventDefault();
-                    alert('uploadbtn');
+                    alert('uploadbtn'+$("form").attr('action'));
                     var str = "";
                     $(".uploadResult li").each(function(i, obj){
                         var target = $(obj);
@@ -318,7 +319,7 @@
                             + "].uuid' value='" + target.data('uuid') + "'>";
                     });
                     $(".box").html(str);
-<!--                    $("form").submit();-->
+                    $("form").submit();
                 });
             });
         </script>

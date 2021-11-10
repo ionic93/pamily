@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -51,18 +52,22 @@ public class PostController {
 //        return "redirect:/sample/main";
 //    }
 
+//    @PreAuthorize("hasRole('USER')")
     @PreAuthorize("permitAll()")
     @GetMapping("/uploadPage")
-    public void register() {
+    public void register(Principal principal) {
+        log.info("principal>>"+principal.getName());
+        log.info("role>>");
         log.info("uploadPage..........");
     }
 
+//    @PreAuthorize("hasRole('USER')")
     @PreAuthorize("permitAll()")
     @PostMapping("/uploadPage")
     public String register(PostDTO postDTO, RedirectAttributes redirectAttributes){
-        log.info("postDTO:>> " + postDTO);
         Long pid = postService.register(postDTO);
         redirectAttributes.addFlashAttribute("msg", pid);
+        log.info("postDTOpostDTO:>> " + postDTO);
         return "redirect:/sample/homePage";
     }
 
