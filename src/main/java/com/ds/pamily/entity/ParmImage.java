@@ -15,11 +15,15 @@ public class ParmImage extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pinum;
 
-    private String puid;
+    // ParmImage 순번
+    private int puid;
+    private String piname;
 
-    private String pimgName;
     private String path;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Parm parm;
+
+    public void setPuid(int puid) {this.puid = puid;}
+    public void setParm(Parm parm) {this.parm = parm;}
 }

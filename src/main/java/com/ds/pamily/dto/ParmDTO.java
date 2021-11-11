@@ -18,12 +18,12 @@ public class ParmDTO {
 
     private Long fno;
     private String fname;
-    private Long point;
+//    private Long point;
 
     @Builder.Default
     private List<ParmImageDTO> imageDTOList = new ArrayList<>();
 
-    private Long itemCnt;
+//    private Long itemCnt;
 
     private LocalDateTime regDate;
     private LocalDateTime modDate;
