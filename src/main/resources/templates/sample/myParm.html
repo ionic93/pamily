@@ -4,7 +4,15 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
 <th:block th:fragment="content">
     <form action="/sample/myParm" class="parmbody" method="post"
-                th:style="'background-image:url(' + @{/assets/img/parm.png} + '); background-repeat: no-repeat; background-size: contain;'">
+                th:style="'background-image:url(' + @{/assets/img/parm.png} + '); background-repeat: no-repeat;
+                 background-size: contain;'">
+
+        <input name="uploadFiles" type="file" multiple >
+        <button clas="uploadBtn" > Upload </button>
+        <div class="uploadResult">
+
+        </div>
+
     <div>
         <div class="parmname"> My Farm</div>
     </div>
@@ -21,46 +29,48 @@
             <p>3. ~~~</p>
         </div>
     </div>
+        <br /><br />
     <div>
+        <nav class="toggle_nav">
+            <input type="checkbox" id="side_btn" class="side_input side_blind" />
+            <label for="side_btn" class="side_toggle_btn"></label>
+            <ul class="side_list">
+                <li>동물
+                    <ul class="submenu side_link toggle_a" >
+                        <li><a href="">submenu1</a></li>
+                        <li><a href="">submenu2</a></li>
+                        <li><a href="">submenu3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    장식
+                    <ul class="submenu side_link toggle_a" >
+                        <li><a href="">submenu1</a></li>
+                        <li><a href="">submenu2</a></li>
+                        <li><a href="">submenu3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    기타
+                    <ul class="submenu side_link toggle_a" >
+                        <li><a href="">submenu1</a></li>
+                        <li><a href="">submenu2</a></li>
+                        <li>
+                            <a href="">submenu3</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
         <div class="parmpoint"> 0 P</div>
     </div>
-        <img src="${parmImage}">
 
-    <img th:src="@{/assets/img/caticon.png}" id="cat" style="width:100px; height:100px">
-        <form id="ajaxform" enctype="multipart/form-data">
-            <input type="file" multiple id="photo_upload">
-            <output id="list"></output>
-            <input type="button" value="완료" id="files_send">
-        </form>
+        <img th:src="@{/assets/img/caticon.png}" id="cat" style="width:100px; height:100px">
+
+
     </form>
-    <nav>
-        <table class="parmmenu">
-        <thead>
-        <tr>
-            <th scope="col">동물</th>
-            <th scope="col">장식</th>
-            <th scope="col">기타</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td scope="row">[[dto.puid]]</td>
-            <td scope="row">[[dto.pimageName]]</td>
-            <td scope="row">[[dto.path]]</td>
-        </tr>
-        <tr>
-            <td scope="row">[[dto.puid]]</td>
-            <td scope="row">[[dto.pimageName]]</td>
-            <td scope="row">[[dto.path]]</td>
-        </tr>
-        <tr>
-            <td scope="row">[[dto.puid]]</td>
-            <td scope="row">[[dto.pimageName]]</td>
-            <td scope="row">[[dto.path]]</td>
-        </tr>
-        </tbody>
-    </table>
-    </nav>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous"></script>
@@ -98,31 +108,41 @@
                 return false;
             };
 
-            $("#files_send").click(function(){
-                    var formData = new FormData();
-                    var temp = $("#photo_upload")[0].files[0];
-                    console.log(temp);
 
-                    for(var i=0; i<$('#photo_upload')[0].files.length; i++){
-                        formData.append('uploadFile', $('#photo_upload')[0].files[i]);
-                    }
-                    for (var key of formData.keys()) {
-                        console.log(key);
-                    }
-                $.ajax({
-                    type : "POST",
-                    url : "/data/uploadImage",
+
+            $('.uploadBtn').click(function() {
+                var formData = new FormData();
+                var inputFile = $("input[type='file']");
+                var files = inputFile[0].files;
+
+                for (var i=0; i<files.length; i++) {
+                    console.log(files[i]);
+                    formData.append("uploadFiles", files[i]);
+                }
+            });
+            $.ajax({
+                    url : '/uploadAjax',
                     processData: false,
                     contentType: false,
                     data : formData,
-                    success : function(data) {
-                    alert('업로드 성공')
+                    type : 'POST',
+                    success : function(result) {
+                        alert('업로드 성공');
+                        showUploadedImages(result);
                     },
-                    error : function(xhr, status, error) {
+                    error : function(jqXHR, textStatus, errorThrown) {
                         alert(error);
                     }
-                });
             });
+
+            function showUploadedImages(arr) {
+                console.log(arr);
+                var divArea = $(".uploadResult");
+                for (var i = 0; i < arr.length; i++) {
+                    divArea.append("<img src='/display?fileName="+arr[i].imageURL+"'>");
+                }
+            }
+
             function onClick() {
                 document.querySelector('.modal_wrap').style.display ='block';
                 document.querySelector('.black_bg').style.display ='block';
@@ -133,6 +153,16 @@
             }
             document.getElementById('modal_btn').addEventListener('click', onClick);
             document.querySelector('.modal_close').addEventListener('click', offClick);
+
+            $("li").click(function () {
+               if ($(this).hasClass("active")) {
+                    $(this).children().css("display", "none");
+                    $(this).removeClass();
+               } else {
+                    $(this).addClass("active");
+                    $(this).children().css("display", "block");
+               }
+            });
         });
     </script>
 
@@ -154,9 +184,7 @@
             background-color: rgb(0,0,0); /* Fallback color */
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
             -webkit-animation-name: fadeIn; /* Fade in the background */
-            -webkit-animation-duration: 0.4s;
-            animation-name: fadeIn;
-            animation-duration: 0.4s
+            -webkit-animation-duration: 0.4s; animation-name: fadeIn; animation-duration: 0.4s
         }
         .guide_btn { float: right; }
         .modal-header { padding: 2px 16px; background-color: rgb(97, 53, 53); color: rgb(97, 53, 53)e; }
@@ -171,6 +199,15 @@
                             background:url(https://img.icons8.com/metro/26/000000/close-window.png);
                             text-indent: -9999px;
         }
+
+        .side_blind { position: absolute; top: 0; left: 0; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0 ,0, 0); }
+        .toggle_nav { float: right;}
+        .toggle_a {text-decoration: none; background-color: #AAA;}
+
+        .side_list { position: absolute; top: 215px; bottom: 0; right: 0;
+                     border-right: 1px solid #000; width: 300px; height:100%; font-size:24px; transition: 0.7s ease-in; }
+        .side_link { display: block; text-align: center; padding: 40px 0; border-bottom: 1px solid #000; }
+        .submenu { list-style-type: none; position: right;display: none; <!--로드했을 때 submenu가 안보이게 하기 위함 --> }
     </style>
 </th:block>
 </th:block>

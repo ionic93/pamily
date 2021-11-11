@@ -11,10 +11,10 @@ import java.util.Locale;
 @RequestMapping("/sample/myParm")
 public class ParmImageController {
 
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String parm(Locale locale, Model model) {
-//        model.addAttribute("parmImage", "assets/img/parm.png");
-//        model.addAttribute("item", "exItemPicture");
-//        return "/sample/myParm";
-//    }
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String parm(Locale locale, Model model) {
+        model.addAttribute("parmImage", "assets/img/parm.png");
+        model.addAttribute("item", "exItemPicture");
+        return "/sample/myParm";
+    }
 }

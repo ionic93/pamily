@@ -13,13 +13,16 @@ import java.net.URLEncoder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ParmImageDTO {
-    private String puid;
+
+    private int puid;
     private String pimgName;
-    private String path;
+    private String pPath;
+
+//    private Long fileSize;
 
     public String getImageURL() {
         try {
-            return URLEncoder.encode(path+"/"+puid+"_"+pimgName, "UTF-8");
+            return URLEncoder.encode(pPath+"/"+puid+"_"+pimgName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -28,7 +31,7 @@ public class ParmImageDTO {
 
     public String getThumbnailURL() {
         try {
-            return URLEncoder.encode(path+"/s_"+puid+"_"+pimgName, "UTF-8");
+            return URLEncoder.encode(pPath+"/s_"+puid+"_"+pimgName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
