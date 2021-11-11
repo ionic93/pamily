@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @ToString
-public class ShopItem {
+public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ino;
