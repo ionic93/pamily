@@ -7,6 +7,11 @@
         <link type="text/css" th:href="@{/assets/css/skins/two.css}" rel="stylesheet" />
         <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet" />
         <script th:src="@{/assets/js/modernizr-custom.js}"></script>
+        <script th:inline="javascript">
+            var list = JSON.parse([[${cateDTOS}]]);
+
+            console.log(list);
+        </script>
         <section class="channel-one">
             <div class="container-fluid">
                 <div class="row">
@@ -17,136 +22,19 @@
                                 <li class="sideText"><a href=""><i class="fa fa-align-left"></i> IVENT </a></li>
                                 <li class="sideText"><a href=""><i class="fa fa-users"></i> 인벤토리 </a></li>
                                 <li class="hr"></li>
-                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> 동물</a></li>
-                                <li class="sideText"><a href=""><i class="fa fa-chart-bar"></i> 꾸미기 </a></li>
-                                <li class="sideText"><a href=""><i class="far fa-copy"></i> 패션 잡화 </a></li>
-                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> 인테리어</a></li>
+                                <li th:each="type:${typeDTOS}" class="sideText type-btn"><i class="fa fa-align-left"></i>
+                                    [[${type.typeName}]]
+                                </li>
                                 <li class="hr"></li>
                                 <li class="sideText"><a href=""><i class="fa fa-user"></i> Heart </a></li>
                                 <li class="sideText"><a href=""><i class="fa fa-align-left"></i> Cart </a></li>
                             </ul>
                         </aside>
                     </div><!--/ col-lg-3 -->
-<!--                    <div>-->
-<!--                        <span th:each="item : ${itemList}">[[${item.itemName}]]</span>-->
-<!--                    </div>-->
+
                     <div class="col-lg-9">
                         <div class="row">
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/1.jpg}" alt="Image">
-                                        <h1 class="text-center"> 푸들 </h1>
-                                    </a>
-                                </div>
-                            </div>
 
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/2.jpg}" alt="Image">
-                                        <h1 class="text-center"> 까마귀 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/3.jpg}" alt="Image">
-                                        <h1 class="text-center"> 햄스터 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/4.jpg}" alt="Image">
-                                        <h1 class="text-center"> 샴고양이 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div><!--/ row -->
-
-                        <div class="row">
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/5.jpg}" alt="Image">
-                                        <h1 class="text-center"> 호랑이 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/6.jpg}" alt="Image">
-                                        <h1 class="text-center"> 병아리 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/7.jpg}" alt="Image">
-                                        <h1 class="text-center"> 뱀 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/11.jpg}" alt="Image">
-                                        <h1 class="text-center"> 코끼리 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div><!--/ row -->
-
-                        <div class="row">
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/8.jpg}" alt="Image">
-                                        <h1 class="text-center"> 여우 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/9.jpg}" alt="Image">
-                                        <h1 class="text-center"> 토끼 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/10.jpg}" alt="Image">
-                                        <h1 class="text-center"> 얼룩 고양이 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/12.jpg}" alt="Image">
-                                        <h1 class="text-center"> 갈색 토끼 </h1>
-                                    </a>
-                                </div>
-                            </div>
                         </div><!--/ row -->
                     </div><!--/ col-lg-9 -->
                 </div><!--/ row -->
@@ -282,6 +170,7 @@
                 var itemmodal = $(".item-modal");
 
                 $(".modal-btn").click(function() {
+
                     itemmodal.modal('show');
                 });
                 $(".get-btn").click(function(){

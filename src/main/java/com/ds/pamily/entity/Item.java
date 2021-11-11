@@ -16,7 +16,7 @@ public class Item {
     private Long ino;
 
     @ManyToOne
-    private ItemCate icno;
+    private ItemCate itemCate;
 
     private String itemName;
     private String itemFileName;

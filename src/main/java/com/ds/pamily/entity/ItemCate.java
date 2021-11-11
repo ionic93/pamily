@@ -18,5 +18,5 @@ public class ItemCate {
     private String cateName;
 
     @ManyToOne
-    private ItemType itno;
+    private ItemType itemType;
 }
