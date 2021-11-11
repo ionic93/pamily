@@ -31,13 +31,14 @@ public class PostServiceImpl implements PostService{
     @Transactional //2개의 테이블을 동시에 사용하므로
     @Override
     public Long register(PostDTO postDTO) {
+        log.info("postDTO>>"+postDTO);
         Map<String, Object> entityMap = dtoToEntity(postDTO);
         Post post = (Post) entityMap.get("post"); //movie라고 이름지어진 Map을 호출
+        log.info("post>>"+post);
         List<PostImage> postImageList = (List<PostImage>) entityMap.get("imgList");
+        log.info(">>"+postImageList);
 
         postRepository.save(post);
-        log.info("postImageList...");
-        log.info(postImageList);
         postImageList.forEach(postImage -> {
             postImageRepository.save(postImage);
         });
