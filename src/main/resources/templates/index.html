@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script th:inline="javascript">
+    location.href = '[[@{/member/login}]]';
+</script>
 
 <head>
 
@@ -27,7 +30,7 @@
     <!-- ==============================================
     CSS
     =============================================== -->
-    <link type="text/css" href="assets/css/demos/photo.css" rel="stylesheet" />
+    <link type="text/css" href="assets/css/demos/custom-M.css" rel="stylesheet" />
 
     <!-- ==============================================
     Feauture Detection
@@ -49,27 +52,11 @@ Header Section
 =============================================== -->
 <section class="login">
     <div class="container">
-        <div class="banner-content">
+        <div class="banner-content banner-content-M">
 
-            <h1><a href="/pamily">Pamily</a></h1>
-            <form method="get" class="form-signin btn" action="/pamily/sample/all">
-                <h3 class="form-signin-heading">Please sign in</h3>
-                <div class="form-group">
-                    <input name="email" type="text" class="form-control" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Password">
-                </div>
-                <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">Sign in</button>
-                <br/>
-                <a class="google font" th:href="@{/oauth2/authorization/google}" name="GoogleLogin">Google</a>
-                <a class="naver font" th:href="@{/oauth2/authorization/naver}" name="naverLogin">NAVER</a>
-                <br/>
-                <div class="help">
-                    <a class="btn btn-dark " href="sample/signUp" role="button">Don't have an account yet? Register Here.</a><br/>
-                    <a class="btn btn-dark " href="sample/findPass" role="button">Forgot your password?</a>
-                </div>
-            </form>
+            <h1><a th:href="@{/}">Pamily</a></h1>
+            <h1><a th:href="@{/member/login}">Login</a></h1>
+
 
         </div><!--/. banner-content -->
     </div><!-- /.container -->

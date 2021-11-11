@@ -20,8 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @Log4j2
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private PamilyUserDetailsService pamilyUserDetailsService;
 
@@ -29,22 +29,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin()
+        http.formLogin().loginPage("/member/login")
                 .loginProcessingUrl("/login")
-                .successHandler(successHandler());
-//                .failureUrl("/sample/login?error");
+                .successHandler(successHandler())
+                .failureUrl("/member/login?error");
         http.csrf().disable();
         http.logout();
         http.oauth2Login().successHandler(successHandler());
         http.rememberMe().tokenValiditySeconds(60*60*24*7).userDetailsService(pamilyUserDetailsService);
-
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(apiLoginFilter(), UsernamePasswordAuthenticationFilter.class);
-
         http.headers().frameOptions().sameOrigin();
-
     }
 
     @Bean

@@ -3,10 +3,12 @@ package com.ds.pamily.service;
 import com.ds.pamily.dto.MemberDTO;
 import com.ds.pamily.entity.Member;
 
-import java.util.List;
-
 public interface MemberService {
+    Member add(Member member) throws Exception;
+
     Long register(MemberDTO memberDTO);
+
+    MemberDTO get(String email);
 
     void modify(MemberDTO memberDTO);
     void remove(Long mid);

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 
     <!-- ==============================================
@@ -18,16 +19,15 @@
     <!-- ==============================================
     Favicons
     =============================================== -->
-    <link rel="icon" href="assets/img/logo.jpg">
-    <link rel="apple-touch-icon" href="img/favicons/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="img/favicons/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="img/favicons/apple-touch-icon-114x114.png">
+    <link rel="icon" th:href="@{assets/img/logo.jpg}">
+    <link rel="apple-touch-icon" th:href="@{img/favicons/apple-touch-icon.png}">
+    <link rel="apple-touch-icon" sizes="72x72" th:href="@{img/favicons/apple-touch-icon-72x72.png}">
+    <link rel="apple-touch-icon" sizes="114x114" th:href="@{img/favicons/apple-touch-icon-114x114.png}">
 
     <!-- ==============================================
     CSS
     =============================================== -->
-    <link type="text/css" href="../assets/css/demos/photo.css" rel="stylesheet" />
-
+    <link type="text/css" th:href="@{../assets/css/demos/custom-M.css}" rel="stylesheet" />
     <!-- ==============================================
     Feauture Detection
     =============================================== -->
@@ -46,19 +46,29 @@
 <!-- ==============================================
 Header Section
 =============================================== -->
-<section class="findpass">
+<section class="updateMInfo">
     <div class="container">
-        <div class="banner-content">
+        <div class="banner-content banner-content-M">
 
-            <h1><a href="/pamily">Pamily</a></h1>
+            <h1><a th:href="@{/}">Pamily</a></h1>
             <form method="post" class="form-signin">
+                <h3 class="form-signin-heading">Update Your Information</h3>
                 <div class="form-group">
-                    <input name="email" type="text" class="form-control" placeholder="Email">
+                    <input type="text" class="form-control border-bottom-radius" name="email" placeholder="Email(ID)">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="password" placeholder="Mobile">
+                    <input type="text" class="form-control border-bottom-radius" name="password" placeholder="Username">
                 </div>
-                <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">Find</button>
+                <div class="form-group">
+                    <input type="text" class="form-control border-bottom-radius" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control border-bottom-radius" name="Check-Password" placeholder="Check-Password">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control border-bottom-radius" name="password" placeholder="Mobile">
+                </div>
+                <button class="kafe-btn kafe-btn-mint btn-block btn-M" type="submit" name="subm">Update</button>
                 <br/>
                 <div class="help">
                 </div>

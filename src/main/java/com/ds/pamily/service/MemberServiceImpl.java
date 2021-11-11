@@ -2,12 +2,12 @@ package com.ds.pamily.service;
 
 import com.ds.pamily.dto.MemberDTO;
 import com.ds.pamily.entity.Member;
+import com.ds.pamily.entity.MemberRole;
 import com.ds.pamily.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,13 +17,35 @@ public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
 
     @Override
-    public Long register(MemberDTO memberDTO) {
-        Member member = dtoToEntity(memberDTO);
+    public Member add(Member member) throws Exception {
+        return memberRepository.save(member);
+    }
+
+    @Override
+    public Long register(MemberDTO pamilyMemberDTO) {
+        Member member = dtoToEntity(pamilyMemberDTO);
+        if (get(member.getEmail()) == null) {
+            try {
+                member.addMemberRole(MemberRole.USER);
+                add(member);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else {
+            return 0L;
+        }
         log.info("===<pamilyMember>=================");
         log.info(member);
-
-        memberRepository.save(member);
         return member.getMid();
+    }
+
+    @Override
+    public MemberDTO get(String email) {
+        Optional<Member> result = memberRepository.findByEmail(email,false);
+        if (result.isPresent()) {
+            return entityToDTO(result.get());
+        }
+        return null;
     }
 
     @Override
