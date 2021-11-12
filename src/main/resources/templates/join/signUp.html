@@ -41,47 +41,7 @@
 
 </head>
 
-<script type="text/javascript">
-  window.onload = function(){
-    document.getElementById('signupBtn').onclick = function(){
-      email = document.getElementById('email').value;
-      name = document.getElementById('name').value;
-      password = document.getElementById('password').value;
-      check-password = document.getElementById('check-password').value;
-      mobile = document.getElementById('mobile').value;
 
-      if(email == undefined || email == ''){
-        alert("이메일 주소가 입력되지 않았습니다.");
-        document.getElementById('email').focus();
-        break;
-      }
-      else if(name == undefined || name == ''){
-        alert("닉네임이 입력되지 않았습니다.");
-        document.getElementById('username').focus();
-        return false;
-      }
-      else if(password == undefined || password == ''){
-        alert("비밀번호가 입력되지 않았습니다.");
-        document.getElementById('password').focus();
-        return false;
-      }
-      else if(!check-password == password){
-        alert("비밀번호가 일치하지 않습니다.");
-        getElementById('password').val("");
-        check-password.val("");
-        document.getElementById('re-pass').focus();
-        return false;
-      }
-      else if(mobile == undefined || mobile == '') {
-        alert("전화번호를 확인해주세요");
-        document.getElementById('mobile').focus();
-        return false;
-      }
-      document.frm.submit();
-    }
-  }
-
-</script>
 
 <body>
 
@@ -126,6 +86,69 @@ Header Section
 <!-- ==============================================
 Scripts
 =============================================== -->
+<script src="assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+  window.onload = function(){
+    const signupBtn = document.getElementById('signupBtn');
+    signupBtn.addEventListener ('click', function(e) {
+        e.preventDefault();
+        let email = document.getElementById('email');
+        let name = document.getElementById('name');
+        let password = document.getElementById('password');
+        let check_password = document.getElementById('check-password');
+        let mobile = document.getElementById('mobile');
+        let reg_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+        let reg_pw = /^[a-z0-9_-]{6,18}$/;
+        let reg_mobile = /^\d{3}-?\d{3,4}-?\d{4}$/;
+
+         if(email.value == undefined || email.value == '') {
+            alert("이메일 주소가 입력되지 않았습니다.");
+            email.focus();
+            return;
+         } else if (!reg_email.test(email.value)) {
+            alert("올바른 이메일 형식이 아닙니다.")
+            email.value = "";
+            email.focus();
+            return;
+         }
+         if(name.value == undefined || name.value == '') {
+            alert("사용할 닉네임을 입력해주세요.");
+            name.focus();
+            return;
+         }
+         if(password.value == undefined || password.value == '') {
+            alert("비밀번호가 입력되지 않았습니다.");
+            password.focus();
+            return;
+         }
+         if (!reg_pw.test(password.value)){
+            alert("비밀번호는 6-18 글자여야 합니다.");
+            password.value = "";
+            check_password.value = "";
+            password.focus();
+            return;
+         }
+         if(check_password.value != password.value) {
+            alert("비밀번호가 일치하지 않습니다.");
+            password.value = "";
+            check_password.value = "";
+            password.focus();
+            return;
+         }
+         if(mobile.value == undefined || mobile.value == '') {
+            alert("전화번호가 입력되지 않았습니다.");
+            mobile.focus();
+            return;
+         }
+         if(!reg_mobile.test(mobile.value)) {
+            alert("휴대폰 번호를 확인해주세요.")
+            mobile.focus();
+            return;
+         }
+          document.frm.submit();
+    });
+  }
+</script>
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/base.js"></script>

@@ -41,7 +41,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         boolean passwordResult = passwordEncoder.matches("1111",authMember.getPassword());
         if (fromSocial && passwordResult) {
-            redirectStrategy.sendRedirect(request,response,"/sample/updateMinfo?from=social");
+            redirectStrategy.sendRedirect(request,response,"/sample/main?from=social");
             return;
         }
         //권한을 기준으로 url 넘겨주기
