@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @ToString
 public class ShopCate {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scno;
 
     private String cateName;
