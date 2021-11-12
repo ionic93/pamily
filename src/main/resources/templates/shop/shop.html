@@ -35,122 +35,60 @@
                     <div class="col-lg-9">
                         <div class="row">
 
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/2.jpg}" alt="Image">
-                                        <h1 class="text-center"> 푸들 </h1>
-                                    </a>
+                            <a href="#">
+                                <button class="btn btn-outline-primary">글쓰기</button>
+                            </a>
+                            </h1>
+                            <form action="#" method="get" id="searchForm">
+                                <div class="input-group">
+                                    <input type="hidden" name="page" value="1">
+                                    <div class="input-group-prepend">
+                                        <select class="custom-select" name="type">
+                                            <option th:selected="${pageRequestDTO.type == null}">------</option>
+                                            <option value="t">제목</option>
+                                            <option value="c">내용</option>
+                                            <option value="tc">제목 + 내용</option>
+                                        </select>
+                                    </div>
+                                    <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
+                                    <div class="input-group-append" id="button-addon4">
+                                        <button class="btn btn-outline-secondary btn-search">Search</button>
+                                        <button class="btn btn-outline-secondary btn-clear">Clear</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">*</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">작성자</th>
+                                    <th scope="col">작성일</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="shop : ${shopDTOS}" class="tr-list">
+                                    <th scope="row">[[${shop.sid}]]</th>
+                                    <td>[[${shop.title}]]</td>
 
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/2.jpg}" alt="Image">
-                                        <h1 class="text-center"> 까마귀 </h1>
-                                    </a>
-                                </div>
-                            </div>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <ul class="pagination h-100 justify-content-center align-items-center">
+                                <li class="page-item" th:if="${result.prev}">
+                                    <a class="page-link" href="#"
+                                       tabindex="-1">Previous</a>
+                                </li>
 
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/3.jpg}" alt="Image">
-                                        <h1 class="text-center"> 햄스터 </h1>
-                                    </a>
-                                </div>
-                            </div>
+                                <li th:class=" 'page-item ' + ${result.page == page?'active':''}"
+                                    th:each="page: ${result.pageList}">
+                                    <a class="page-link" href="#">[[${page}]]</a>
+                                </li>
 
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/4.jpg}" alt="Image">
-                                        <h1 class="text-center"> 샴고양이 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div><!--/ row -->
-
-                        <div class="row">
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/5.jpg}" alt="Image">
-                                        <h1 class="text-center"> 호랑이 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/6.jpg}" alt="Image">
-                                        <h1 class="text-center"> 병아리 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/7.jpg}" alt="Image">
-                                        <h1 class="text-center"> 뱀 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/11.jpg}" alt="Image">
-                                        <h1 class="text-center"> 코끼리 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div><!--/ row -->
-
-                        <div class="row">
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/8.jpg}" alt="Image">
-                                        <h1 class="text-center"> 여우 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/9.jpg}" alt="Image">
-                                        <h1 class="text-center"> 토끼 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/10.jpg}" alt="Image">
-                                        <h1 class="text-center"> 얼룩 고양이 </h1>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <div class="col-md-3 col-sm-6 col-xs-12 modal-btn">
-                                <div class="photo-rounded-fluffs">
-                                    <a href="#">
-                                        <img class="img-responsive" th:src="@{/assets/img/fluffs/12.jpg}" alt="Image">
-                                        <h1 class="text-center"> 갈색 토끼 </h1>
-                                    </a>
-                                </div>
-                            </div>
+                                <li class="page-item" th:if="${result.next}">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
 
                         </div><!--/ row -->
                     </div><!--/ col-lg-9 -->

@@ -2,7 +2,9 @@ package com.ds.pamily.controller;
 
 import com.ds.pamily.dto.PageRequestDTO;
 import com.ds.pamily.dto.ShopCateDTO;
+import com.ds.pamily.dto.ShopDTO;
 import com.ds.pamily.service.ShopCateService;
+import com.ds.pamily.service.ShopService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,14 +23,18 @@ import java.util.List;
 public class ShopController {
 
     private final ShopCateService shopCateService;
+    private final ShopService shopService;
 
     @PreAuthorize("permitAll()")
     @GetMapping("/shop")
     public String exItemShop(PageRequestDTO pageRequestDTO, Model model) throws JsonProcessingException {
         List<ShopCateDTO> cateDTOS = shopCateService.getCate();
         model.addAttribute(("cateDTOS"), cateDTOS);
-        log.info("cateDTOS >>>>>>>>>"+cateDTOS);
+        List<ShopDTO> shopDTOS = shopService.getShop();
+        model.addAttribute(("shopDTOS"), shopDTOS);
+        log.info("shopDTOS >>>>>>>>>"+shopDTOS);
 
+        model.addAttribute("result", shopService.getShopList(pageRequestDTO));
 
         log.info("exitemshop..........");
         return "shop/shop";
