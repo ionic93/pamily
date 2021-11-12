@@ -1,5 +1,8 @@
 package com.ds.pamily.controller;
 
+import com.ds.pamily.dto.PageRequestDTO;
+import com.ds.pamily.dto.ShopCateDTO;
+import com.ds.pamily.service.ShopCateService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -9,19 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @Log4j2
 @RequiredArgsConstructor
 @RequestMapping("/shop/")
 public class ShopController {
 
+    private final ShopCateService shopCateService;
+
     @PreAuthorize("permitAll()")
     @GetMapping("/shop")
-    public String exItemShop(Model model) throws JsonProcessingException {
-//        model.addAttribute("itemTypes", itemTypes);
-//        model.addAttribute("itemCates", itemCates);
-//
-//        log.info("item>>>>>>" + itemList.size());
+    public String exItemShop(PageRequestDTO pageRequestDTO, Model model) throws JsonProcessingException {
+        List<ShopCateDTO> cateDTOS = shopCateService.getCate();
+        model.addAttribute(("cateDTOS"), cateDTOS);
+        log.info("cateDTOS >>>>>>>>>"+cateDTOS);
+
 
         log.info("exitemshop..........");
         return "shop/shop";
