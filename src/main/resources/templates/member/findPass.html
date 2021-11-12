@@ -50,14 +50,14 @@ Header Section
         <div class="banner-content banner-content-M">
 
             <h1><a th:href="@{/}">Pamily</a></h1>
-            <form method="post" class="form-signin">
+            <form method="post" class="form-signin" th:action="@{/member/findPass}" name="frm">
                 <div class="form-group">
-                    <input name="email" type="text" class="form-control border-bottom-radius" placeholder="Email">
+                    <input name="email" type="text" id="email" class="form-control border-bottom-radius" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control border-bottom-radius" name="password" placeholder="Mobile">
+                    <input type="text" id="mobile" class="form-control border-bottom-radius" name="mobile" placeholder="Mobile">
                 </div>
-                <button class="kafe-btn kafe-btn-mint btn-block btn-M" type="submit" name="subm">Find</button>
+                <button class="kafe-btn kafe-btn-mint btn-block btn-M" type="submit" id="findpassBtn" name="subm">Find</button>
                 <br/>
                 <div class="help">
                 </div>
@@ -72,6 +72,42 @@ Header Section
 <!-- ==============================================
 Scripts
 =============================================== -->
+<script type="text/javascript">
+  window.onload = function(){
+    const findpassBtn = document.getElementById('findpassBtn');
+    findpassBtn.addEventListener ('click', function(e) {
+        e.preventDefault();
+        let email = document.getElementById('email');
+        let mobile = document.getElementById('mobile');
+        let reg_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+        let reg_mobile = /^\d{3}-?\d{3,4}-?\d{4}$/;
+
+         if(email.value == undefined || email.value == '') {
+            alert("이메일 주소가 입력되지 않았습니다.");
+            email.focus();
+            return;
+         } else if (!reg_email.test(email.value)) {
+            alert("올바른 이메일 형식이 아닙니다.")
+            email.value = "";
+            email.focus();
+            return;
+         }
+         if(mobile.value == undefined || mobile.value == '') {
+            alert("전화번호가 입력되지 않았습니다.");
+            mobile.focus();
+            return;
+         }
+         if(!reg_mobile.test(mobile.value)) {
+            alert("휴대폰 번호를 확인해주세요.")
+            mobile.focus();
+            return;
+         }
+          document.frm.submit();
+    });
+  }
+</script>
+
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/base.js"></script>

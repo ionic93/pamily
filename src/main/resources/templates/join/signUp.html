@@ -92,14 +92,14 @@ Scripts
     const signupBtn = document.getElementById('signupBtn');
     signupBtn.addEventListener ('click', function(e) {
         e.preventDefault();
-                let email = document.getElementById('email');
+        let email = document.getElementById('email');
         let name = document.getElementById('name');
         let password = document.getElementById('password');
         let check_password = document.getElementById('check-password');
         let mobile = document.getElementById('mobile');
         let reg_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
         let reg_pw = /^[a-z0-9_-]{4,18}$/;
-        let reg_mobile = /^\d{3}-\d{3,4}-\d{4}$/;
+        let reg_mobile = /^\d{3}-?\d{3,4}-?\d{4}$/;
 
          if(email.value == undefined || email.value == '') {
             alert("이메일 주소가 입력되지 않았습니다.");
@@ -147,9 +147,9 @@ Scripts
          }
           document.frm.submit();
     });
-
   }
 </script>
+<script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/base.js"></script>
 
