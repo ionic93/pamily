@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/demos/interest.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/skins/two.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet"/>
+        <script th:src="@{/assets/js/modernizr-custom.js}"></script>
+        <section class="channel-one">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <aside class="sidebar">
+                            <ul>
+                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> BEST </a></li>
+                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> IVENT </a></li>
+                                <li class="sideText"><a href=""><i class="fa fa-users"></i> 인벤토리 </a></li>
+                                <li class="hr"></li>
+                                <li th:each="type:${typeDTOS}" class="sideText type-btn"><i
+                                        class="fa fa-align-left"></i>
+                                    [[${type.typeName}]]
+                                </li>
+                                <li class="hr"></li>
+                                <li class="sideText"><a href=""><i class="fa fa-user"></i> Heart </a></li>
+                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> Cart </a></li>
+                            </ul>
+                        </aside>
+                    </div><!--/ col-lg-3 -->
+
+                    <h1 class="mt-4">Pamily Mart
+                    </h1>
+                    <div class="col-lg-9" style="text-align:center;">
+                    <!--        검색 창-->
+                    <form action="/pamily/exshop" method="get" id="searchForm">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <a th:href="@{/shop/exshopreg}">
+                                    <button class="btn btn-outline-primary">Register</button>
+                                </a>
+                            </div><!-- /.col-lg-6 -->
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+                                </div><!-- /input-group -->
+                            </div><!-- /.col-lg-6 -->
+                        </div><!-- /.row -->
+                    </form>
+                    <!--        페이지 목록 출력-->
+                    <table class="table table-hover ">
+                        <thead>
+                        <tr>
+                            <th scope="col">Sid</th>
+                            <th scope="col">Cate</th>
+                            <th scope="col">Title & Picture</th>
+                            <th scope="col">Reply Count</th>
+                            <th scope="col">작성자</th>
+                            <th scope="col">Regdate</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dto : ${result.dtoList}">
+                            <th scope="row"><a th:href="@{/exshop/read(sid=${dto.sid}, page=${result.page})}">[[${dto.sid}]]</a>
+                            </th>
+                            <td>[[${dto.cateName}]]</td>
+                            <td>[[${dto.title}]]</td>
+                            <td><b>[[${dto.shopReplyCnt}]]</b></td>
+                            <td>[[${dto.name}]]</td>
+                            <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!--        페이지 하단 처리-->
+
+                    <ul class="pagination h-100">
+                        <li class="page-item" th:if="${result.prev}">
+                            <a class="page-link" th:href="@{/shop/exshop(page=${result.start-1})}"
+                               tabindex="-1">Previous</a>
+                        </li>
+
+                        <li th:class=" 'page-item ' + ${result.page == page?'active':''}"
+                            th:each="page: ${result.pageList}">
+                            <a class="page-link" th:href="@{/shop/exshop(page=${page})}">[[${page}]]</a>
+                        </li>
+
+                        <li class="page-item" th:if="${result.next}">
+                            <a class="page-link" th:href="@{/shop/exshop(page=${result.end+1})}">Next</a>
+                        </li>
+                    </ul>
+                    </div>
+                </div><!--/ row -->
+            </div><!--/ container -->
+        </section><!--/ newsfeed -->
+
+        <!-- ==============================================
+        Scripts
+        =============================================== -->
+        <script th:src="@{/assets/js/jquery.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+        <script th:src="@{/assets/js/base.js}"></script>
+        <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+        <script th:inline="javascript">
+            $('#Slim,#Slim2').slimScroll({
+                height:"auto",
+                position: 'right',
+                railVisible: true,
+                alwaysVisible: true,
+                size:"8px",
+            });
+            $(document).ready(function(){
+
+                var itemmodal = $(".item-modal");
+
+                $(".modal-btn").click(function() {
+
+                    itemmodal.modal('show');
+                });
+                $(".get-btn").click(function(){
+                    $(".getModal").modal('show');
+                });
+
+            });
+
+
+        </script>
+
+    </th:block>
+</th:block>

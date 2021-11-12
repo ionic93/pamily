@@ -22,6 +22,7 @@ public class ShopDTO {
     private Long mid;
     private String name; //member nickname
 
+    private Long scno;
     private String cateName;
 
     @Builder.Default
