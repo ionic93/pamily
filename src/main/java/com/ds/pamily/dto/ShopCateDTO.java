@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemTypeDTO {
-    private Long itno;
-    private String typeName;
+public class ShopCateDTO {
+    private Long scno;
+
+    private String cateName;
 }

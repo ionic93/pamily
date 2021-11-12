@@ -13,10 +13,10 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Getter
 @ToString
-public class ItemType {
+public class ShopCate {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long itno;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long scno;
 
-    private String typeName;
+    private String cateName;
 }
