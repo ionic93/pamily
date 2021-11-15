@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.IntStream;
@@ -81,6 +83,16 @@ class ShopRepositoryTest {
     public void testSearchPage() {
         Pageable pageable = PageRequest.of(0,10,Sort.by("sid").descending());
         Page<Object[]> result = shopRepository.searchPage("t","1",pageable);
+    }
+
+    @Test
+    public void testGetAll() {
+        List<Object[]> result = shopRepository.getShopWithAll(30L);
+        System.out.println(result);
+
+        for (Object[] arr : result) {
+            System.out.println(Arrays.toString(arr));
+        }
     }
 
 }
