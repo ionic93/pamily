@@ -28,6 +28,9 @@ public class Member extends BaseEntity{
     @Column(length = 30 )
     private String name;
 
+    @Column(length = 30, nullable = false)
+    private String mobile;
+
     private boolean fromSocial;
 
     @ElementCollection(fetch = FetchType.LAZY)
@@ -38,10 +41,16 @@ public class Member extends BaseEntity{
         roleSet.add(memberRole);
     }
 
+    public void changeEmail(String email) {
+        this.email = email;
+    }
     public void changePassword(String password) {
         this.password = password;
     }
     public void changeName(String name) {
         this.name = name;
+    }
+    public void changeMobile(String mobile) {
+        this.mobile = mobile;
     }
 }
