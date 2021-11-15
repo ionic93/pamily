@@ -22,6 +22,42 @@ public interface PostService {
     //목록 처리
     PageResultDTO<PostDTO, Object[]> getList(PageRequestDTO requestDTO);
 
+
+
+    default Map<String, Object> PostDtoToEntity(PostDTO postDTO){ // Map = key, value
+        // movie와 movieImage를 같이 처리하기 위해 Map 사용
+        Map<String, Object> entityMap = new HashMap<>();
+
+        Post post = Post.builder()
+                .pid(postDTO.getPid())
+                .member(Member.builder().mid(postDTO.getMid()).build())
+                .mainPick(postDTO.isMainPick())
+                .content(postDTO.getContent())
+                .build();
+        //"movie"
+        entityMap.put("post",post);
+
+        List<PostImageDTO> imageDTOList = postDTO.getImageDTOList();
+
+        //MovieImageDTO처리
+        if (imageDTOList !=null && imageDTOList.size() > 0){
+            List<PostImage> postImageList = imageDTOList.stream()
+                    .map(postImageDTO -> {
+                        PostImage postImage = PostImage.builder()
+                                .path(postImageDTO.getPath())
+                                .imgName(postImageDTO.getImgName())
+                                .uuid(postImageDTO.getUuid())
+                                .post(post)
+                                .build();
+                        return postImage;
+                    }).collect(Collectors.toList());
+            //"imgList"
+            entityMap.put("imgList", postImageList);
+        }
+        return entityMap;
+    }
+
+
     default Map<String, Object> dtoToEntity(PostDTO postDTO){ // Map = key, value
         // movie와 movieImage를 같이 처리하기 위해 Map 사용
         Map<String, Object> entityMap = new HashMap<>();

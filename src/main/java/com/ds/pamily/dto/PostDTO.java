@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostDTO {
+
     private Long pid;
     private String content;
 
@@ -24,6 +25,8 @@ public class PostDTO {
     //기본값
     private List<PostImageDTO> imageDTOList = new ArrayList<>();
 
+
+    private boolean mainPick;
     //댓글수 jpa의 count()
     private int replyCnt;
 

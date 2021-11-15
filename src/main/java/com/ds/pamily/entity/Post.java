@@ -20,6 +20,9 @@ public class Post extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Member member;
 
+    private boolean mainPick = false;
+
     public void changeContent(String content) {this.content = content;}
+
 
 }
