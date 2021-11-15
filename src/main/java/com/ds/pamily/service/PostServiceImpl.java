@@ -25,6 +25,7 @@ import java.util.function.Function;
 @Log4j2
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService{
+
     private final PostRepository postRepository;
     private final PostImageRepository postImageRepository;
 

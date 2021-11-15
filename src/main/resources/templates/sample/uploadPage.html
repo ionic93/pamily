@@ -10,8 +10,8 @@
                     <div class="col-lg-12">
 
                             <form th:action="@{/sample/uploadPage}" th:method="post">
-                                <textarea class="form-control no-border content" rows="3"
-                                          placeholder="Type something..."></textarea>
+                                <textarea class="form-control no-border " rows="3"
+                                          placeholder="Type something..." th:value=""></textarea>
                                 <div class="box-footer clearfix">
                                     </button>
                                     <button class="kafe-btn kafe-btn-mint-small pull-right btn-sm uploadBtn btn-primary" id="uploadImgBtn">
@@ -307,7 +307,6 @@
 
                 $("#uploadImgBtn").on("click", function(e){
                     e.preventDefault();
-                    alert('uploadbtn'+$("form").attr('action'));
                     var str = "";
                     $(".uploadResult li").each(function(i, obj){
                         var target = $(obj);

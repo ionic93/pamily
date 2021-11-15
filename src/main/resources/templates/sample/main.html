@@ -65,7 +65,43 @@
 					  background-position: center center;
 					  -webkit-background-size: cover;
 					  -moz-background-size: cover;
-					  -o-background-size: cover;">
+					  -o-background-size: cover;" >
+<!--                                        <img-->
+<!--                                             th:src="|display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="">-->
+                                        <div class="explore-top">
+                                            <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span></div>
+                                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <a href="#myModal" data-toggle="modal">
+                                    <div class="explorebox"
+                                         style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
+					  background-size: cover;
+					  background-position: center center;
+					  -webkit-background-size: cover;
+					  -moz-background-size: cover;
+					  -o-background-size: cover;" >
+                                        <div class="explore-top">
+                                            <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span></div>
+                                            <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-6" >
+                                <a href="#myModal" data-toggle="modal">
+                                    <div class="explorebox"
+                                         style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
+					  background-size: cover;
+					  background-position: center center;
+					  -webkit-background-size: cover;
+					  -moz-background-size: cover;
+					  -o-background-size: cover;" >
+
                                         <div class="explore-top">
                                             <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span></div>
                                             <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
@@ -115,7 +151,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div><!--/ row-->
             </div><!--/ container -->
         </section><!--/ profile -->
@@ -219,6 +254,8 @@
         <script th:inline="javascript">
             var msg=[[${mid}]];
             console.log(msg);
+
+
         </script>
     </th:block>
 </th:block>

@@ -1,6 +1,6 @@
 	$('.dropdown-toggle').click(function(event){
 		 event.stopPropagation();
-	 });​
+	 });
 
 $(document).ready(function() {
     

@@ -20,13 +20,12 @@ public class Member extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long mid;
 
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100,  unique = true)
     private String email;
 
-    @Column(nullable = false)
     private String password;
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 30 )
     private String name;
 
     private boolean fromSocial;

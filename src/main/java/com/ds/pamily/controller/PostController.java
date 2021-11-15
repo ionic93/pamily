@@ -68,7 +68,7 @@ public class PostController {
         Long pid = postService.register(postDTO);
         redirectAttributes.addFlashAttribute("msg", pid);
         log.info("postDTOpostDTO:>> " + postDTO);
-        return "redirect:/sample/homePage";
+        return "redirect:/sample/main";
     }
 
 }
