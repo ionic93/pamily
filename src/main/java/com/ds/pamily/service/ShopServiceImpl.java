@@ -2,11 +2,15 @@ package com.ds.pamily.service;
 
 import com.ds.pamily.dto.PageRequestDTO;
 import com.ds.pamily.dto.PageResultDTO;
+import com.ds.pamily.dto.PostDTO;
 import com.ds.pamily.dto.ShopDTO;
+import com.ds.pamily.entity.QShop;
 import com.ds.pamily.entity.Shop;
 import com.ds.pamily.entity.ShopImage;
 import com.ds.pamily.repository.ShopImageRepository;
 import com.ds.pamily.repository.ShopRepository;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -46,11 +50,12 @@ public class ShopServiceImpl implements ShopService{
         Pageable pageable = requestDTO.getPageable(Sort.by("sid").descending());
 
         Page<Object[]> result = shopRepository.getShopListPage(pageable);
+        log.info("requestDTO: "+requestDTO);
 
         Function<Object[], ShopDTO> fn = (arr -> entitiesToDTO(
-                (Shop)arr[0],
-                (List<ShopImage>) (Arrays.asList((ShopImage)arr[1])),
-                (Long)arr[2])
+                (Shop) arr[0],
+                (List<ShopImage>)(Arrays.asList((ShopImage)arr[1])),
+                (Long) arr[2])
         );
         return new PageResultDTO<>(result, fn);
     }

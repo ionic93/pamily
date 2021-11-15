@@ -1,5 +1,8 @@
 package com.ds.pamily.repository;
 
+import com.ds.pamily.dto.PageRequestDTO;
+import com.ds.pamily.dto.PageResultDTO;
+import com.ds.pamily.dto.ShopDTO;
 import com.ds.pamily.entity.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -68,51 +71,16 @@ class ShopRepositoryTest {
             shopRepository.save(shop);
         }
     }
-
-    @Transactional
     @Test
-    public void testQuery1() {
-        Pageable pageable = PageRequest.of(0,10, Sort.by("sid").descending());
-
-        QShop qShop = QShop.shop;
-
-        String keyword = "사료";
-
-
-        BooleanBuilder builder = new BooleanBuilder();
-
-//        BooleanExpression expression = qShop.title.contains(keyword);
-        BooleanExpression expression = qShop.scno.cateName.contains("사료");
-        builder.and(expression);
-
-        Page<Shop> result = shopRepository.findAll(builder,pageable);
-        result.stream().forEach(shop -> {
-            System.out.println(shop);
-        });
+    public void testSearch1() {
+        shopRepository.search1();
     }
 
     @Transactional
     @Test
-    public void testQuery2() {
-        Pageable pageable = PageRequest.of(0,10, Sort.by("sid").descending());
-
-        QShop qShop = QShop.shop;
-
-        String keyword = "사료";
-        String cont = "1";
-
-        BooleanBuilder builder = new BooleanBuilder();
-
-        BooleanExpression exCate = qShop.scno.cateName.contains(keyword);
-        BooleanExpression exContent = qShop.content.contains(cont);
-        BooleanExpression exAll = exCate.and(exContent);
-        builder.and(exAll);
-        builder.and(qShop.sid.gt(0L));
-
-
-        Page<Shop> result = shopRepository.findAll(builder,pageable);
-        result.stream().forEach(shop -> {
-            System.out.println(shop);
-        });
+    public void testSearchPage() {
+        Pageable pageable = PageRequest.of(0,10,Sort.by("sid").descending());
+        Page<Object[]> result = shopRepository.searchPage("t","1",pageable);
     }
+
 }
