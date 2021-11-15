@@ -1,10 +1,14 @@
 package com.ds.pamily.repository;
 
+import com.ds.pamily.entity.Shop;
 import com.ds.pamily.entity.ShopCate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,4 +28,5 @@ class ShopCateRepositoryTest {
             System.out.println(shopCateRepository.save(shopCate));
         });
     }
+
 }

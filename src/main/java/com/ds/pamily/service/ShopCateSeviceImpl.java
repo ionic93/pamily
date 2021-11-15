@@ -17,9 +17,5 @@ public class ShopCateSeviceImpl implements ShopCateService{
 
     private final ShopCateRepository shopCateRepository;
 
-    @Override
-    public List<ShopCateDTO> getCate() {
-        List<ShopCate> result = shopCateRepository.findAll();
-        return result.stream().map(shopCate -> entityToDTO(shopCate)).collect(Collectors.toList());
-    }
+
 }
