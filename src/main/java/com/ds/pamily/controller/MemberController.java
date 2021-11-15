@@ -53,8 +53,6 @@ public class MemberController {
     @PostMapping("/updateMInfo")
     public void updateMInfo(MemberDTO memberDTO, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
         MemberDTO changeMInfo = memberService.get(authMemberDTO.getUsername());
-        log.info("ㅎㅎ"+changeMInfo);
-        log.info("코끼리아저씨"+authMemberDTO);
         changeMInfo.setEmail(memberDTO.getEmail());
         changeMInfo.setName(memberDTO.getName());
         changeMInfo.setPassword(passwordEncoder.encode(changeMInfo.getPassword()));
