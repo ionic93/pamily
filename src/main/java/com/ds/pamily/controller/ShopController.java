@@ -32,7 +32,7 @@ public class ShopController {
         model.addAttribute("result", shopService.getList(pageRequestDTO));
     }
 
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/shopreg")
     public void exshopReg(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
         String name = authMemberDTO.getName();
@@ -40,7 +40,7 @@ public class ShopController {
         log.info("ShopReg...");
     }
 
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/shopreg")
     public String exshopRegPost(ShopDTO shopDTO, RedirectAttributes redirectAttributes, PageRequestDTO pageRequestDTO, Model model) {
         log.info("shopDTO..."+shopDTO);
