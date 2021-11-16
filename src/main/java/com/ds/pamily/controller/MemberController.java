@@ -46,11 +46,11 @@ public class MemberController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/updateMInfo")
-    public void updateMInfo(MemberDTO memberDTO, Model model) {
-
-        model.addAttribute("email", memberDTO.getEmail());
-        model.addAttribute("nickname", memberDTO.getName());
-        model.addAttribute("mobile", memberDTO.getMobile());
+    public void updateMInfo(MemberDTO memberDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
+        log.info("g:"+authMemberDTO);
+        model.addAttribute("email", authMemberDTO.getEmail());
+        model.addAttribute("nickname", authMemberDTO.getName());
+        model.addAttribute("mobile", authMemberDTO.getMobile());
     }
 
     @PreAuthorize("hasRole('USER')")

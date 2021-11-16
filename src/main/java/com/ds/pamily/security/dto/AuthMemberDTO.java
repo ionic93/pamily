@@ -21,6 +21,7 @@ public class AuthMemberDTO extends User implements OAuth2User {
     private String email;
     private String password;
     private String name;
+    private String mobile;
     private boolean fromSocial;
     private Map<String, Object> attr; //구글로부터 받아오는 정보 (구글 id, picture 등 )
 
