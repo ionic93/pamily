@@ -54,7 +54,7 @@ Header Section
             <form method="post" class="form-signin" th:action="@{/member/updateMInfo}" name="frm">
                 <h3 class="form-signin-heading">Update Your Information</h3>
                 <div class="form-group">
-                    <input type="text" class="form-control border-bottom-radius" id="email" name="email" placeholder="Email(ID)">
+                    <input type="text" class="form-control border-bottom-radius" id="email" name="email" placeholder="Email(ID)" th:value="${email}">
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control border-bottom-radius" id="name" name="name" placeholder="Nickname">

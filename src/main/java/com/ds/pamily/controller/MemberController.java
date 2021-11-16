@@ -46,12 +46,18 @@ public class MemberController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/updateMInfo")
-    public void updateMInfo() {
+    public void updateMInfo(MemberDTO memberDTO, Model model) {
+
+        model.addAttribute("email", memberDTO.getEmail());
+        model.addAttribute("nickname", memberDTO.getName());
+        model.addAttribute("mobile", memberDTO.getMobile());
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/updateMInfo")
     public void updateMInfo(MemberDTO memberDTO, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
+
+
         MemberDTO changeMInfo = memberService.get(authMemberDTO.getUsername());
         changeMInfo.setEmail(memberDTO.getEmail());
         changeMInfo.setName(memberDTO.getName());
