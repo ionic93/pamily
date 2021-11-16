@@ -1,40 +1,37 @@
 package com.ds.pamily.controller;
 
 import com.ds.pamily.dto.PageRequestDTO;
+import com.ds.pamily.dto.PageResultDTO;
 import com.ds.pamily.dto.PostDTO;
-import com.ds.pamily.dto.PostImageDTO;
-import com.ds.pamily.repository.PostImageRepository;
-import com.ds.pamily.repository.PostRepository;
-import com.ds.pamily.security.dto.AuthMemberDTO;
 import com.ds.pamily.service.PostService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.dom4j.rule.Mode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @Log4j2
 @RequiredArgsConstructor
 @RequestMapping("/sample/")
 public class MainController {
+
+    @Autowired
     private final PostService postService;
 
     @PreAuthorize("permitAll()")
     @GetMapping("/main")
-    public void mainList(PageRequestDTO pageRequestDTO, Model model, PostDTO postDTO){
-        log.info("PostDTO:>>>>> " + postDTO);
-        model.addAttribute("msg" + postService.getList(pageRequestDTO));
+    public void mainList(PageRequestDTO pageRequestDTO, Model model){
+        PageResultDTO<PostDTO, Object[]> result = postService.getList(pageRequestDTO);
+        log.info("result.getDtoList()>>>>>>>>>>>" + result.getDtoList());
+//        model.addAttribute("result" + result.getDtoList());
+        model.addAttribute("result" + result.getDtoList());
         log.info( "model >>>>>>" + model );
-        log.info(pageRequestDTO.getPage());
-        log.info("pageRequestDTO?>>>>>: " + pageRequestDTO);
-        log.info("PostDTO:>>>>> " + postDTO);
-
+        log.info("result>>>>>>>>" + result.getDtoList());
     }
 }
