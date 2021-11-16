@@ -50,6 +50,7 @@ public class PamilyUserDetailsService implements UserDetailsService {
         );
         authMemberDTO.setMid(member.getMid());
         authMemberDTO.setName(member.getName());
+        authMemberDTO.setMobile(member.getMobile());
         authMemberDTO.setFromSocial(member.isFromSocial());
 
         return authMemberDTO;
