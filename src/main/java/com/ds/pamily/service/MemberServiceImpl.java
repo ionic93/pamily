@@ -54,8 +54,10 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> result = memberRepository.findById(mid);
         if (result.isPresent()) {
             Member member = result.get();
+            member.changeEmail(memberDTO.getEmail());
             member.changeName(memberDTO.getName());
             member.changePassword(memberDTO.getPassword());
+            member.changeMobile(memberDTO.getMobile());
             memberRepository.save(member);
         }
     }

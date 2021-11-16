@@ -19,6 +19,7 @@ public interface MemberService {
                 .email(memberDTO.getEmail())
                 .password(memberDTO.getPassword())
                 .name(memberDTO.getName())
+                .mobile(memberDTO.getMobile())
                 .fromSocial(memberDTO.isFromSocial())
                 .build();
         return member;
@@ -30,6 +31,7 @@ public interface MemberService {
                 .email(member.getEmail())
                 .password(member.getPassword())
                 .name(member.getName())
+                .mobile(member.getMobile())
                 .fromSocial(member.isFromSocial())
                 .build();
         return memberDTO;

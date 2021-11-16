@@ -16,6 +16,7 @@ public class MemberDTO {
     private String email;
     private String password;
     private String name;
+    private String mobile;
     private boolean fromSocial;
 
     private LocalDateTime regDate, modDate;
