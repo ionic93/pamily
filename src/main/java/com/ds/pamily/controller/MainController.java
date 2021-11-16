@@ -26,24 +26,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
     private final PostService postService;
 
-
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping("/main")
-    public void exmainPage(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
-        //@AuthenticationPrincipal : 컨트롤러에서 로그인된 사용자의 정보를 확인
-
-        log.info("main..........");
-        log.info("----------------------");
-        log.info(authMemberDTO);
-        model.addAttribute("mid",authMemberDTO.getMid());
-    }
-
     @PreAuthorize("permitAll()")
-    @PostMapping("/main")
-    public void mainList(PageRequestDTO pageRequestDTO, Model model){
-        log.info("PageRequestDTO:>>>>> " + pageRequestDTO);
-        model.addAttribute("result" + postService.getList(pageRequestDTO));
+    @GetMapping("/main")
+    public void mainList(PageRequestDTO pageRequestDTO, Model model, PostDTO postDTO){
+        log.info("PostDTO:>>>>> " + postDTO);
+        model.addAttribute("msg" + postService.getList(pageRequestDTO));
+        log.info( "model >>>>>>" + model );
+        log.info(pageRequestDTO.getPage());
+        log.info("pageRequestDTO?>>>>>: " + pageRequestDTO);
+        log.info("PostDTO:>>>>> " + postDTO);
 
     }
-
 }

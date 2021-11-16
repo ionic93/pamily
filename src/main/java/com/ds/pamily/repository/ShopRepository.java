@@ -9,9 +9,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
+import java.util.List;
+
 public interface ShopRepository extends JpaRepository<Shop,Long>, SearchShopRepository {
     @Query("select s, min(si), count(distinct r) from Shop s " +
             " left outer join ShopImage si on si.shop = s " +
             " left outer join ShopReply r on r.shop = s group by s")
     Page<Object[]> getShopListPage(Pageable pageable); //샵 게시글+이미지+댓글 페이징처리
+
+    @Query("select s, si, count(r) from Shop s left outer join ShopImage si on si.shop = s " +
+            " left outer join ShopReply r on r.shop = s " +
+            " where s.sid = :sid group by si")
+    List<Object[]> getShopWithAll(Long sid); //특정 게시물 조회
 }

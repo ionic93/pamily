@@ -50,6 +50,7 @@ public class ShopServiceImpl implements ShopService{
         Pageable pageable = requestDTO.getPageable(Sort.by("sid").descending());
 
         Page<Object[]> result = shopRepository.getShopListPage(pageable);
+        log.info("result: "+result);
         log.info("requestDTO: "+requestDTO);
 
         Function<Object[], ShopDTO> fn = (arr -> entitiesToDTO(
