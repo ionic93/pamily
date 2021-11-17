@@ -21,7 +21,8 @@ public class Post extends BaseEntity{
     private Member member;
 
     @Builder.Default
-    private boolean mainPick = false;
+
+    @Builder.Default private boolean mainPick = false;
 
     public void changeContent(String content) {this.content = content;}
 
