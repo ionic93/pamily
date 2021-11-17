@@ -10,15 +10,19 @@
             th {
                 text-align:center;
             }
+
         </style>
-        <script th:src="@{/assets/js/modernizr-custom.js}"></script>
         <section class="channel-one">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3">
                         <aside class="sidebar">
                             <ul>
-
+                                <li class="sideText ctg" th:each=" cate : ${category}">
+                                    <i class="fa fa-align-left"></i>
+                                    <a href="" th:text="${cate.cateName}"></a>
+                                <li class="hr"></li>
+                                </li>
                             </ul>
                         </aside>
                     </div><!--/ col-lg-3 -->
@@ -69,7 +73,8 @@
                             <th scope="row"><a th:href="@{/shop/read(sid=${dto.sid}, page=${result.page})}">[[${dto.sid}]]</a>
                             </th>
                             <td>[[${dto.cateName}]]</td>
-                            <td>[[${dto.title}]]</td>
+                            <td><img th:if="${dto.shopImageDTOList.size() > 0 && dto.shopImageDTOList[0].path != null}"
+                                     th:src="|/pamily/display?fileName=${dto.shopImageDTOList[0].getThumbnailURL()}|" style="margin-right: 30px;">[[${dto.title}]]</td>
                             <td><b>[[${dto.shopReplyCnt}]]</b></td>
                             <td>[[${dto.name}]]</td>
                             <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
@@ -132,8 +137,15 @@
                     $(".getModal").modal('show');
                 });
 
-                var msg = [[${msg}]]
+                var msg = [[${result}]]
                 console.log(msg);
+                var nickName = [[${nickname}]];
+                console.log(nickName);
+
+                var category = [[${category}]];
+                console.log(category);
+
+
 
                 var searchForm = $("#searchForm");
                 $('.btn-search').click(function(e){
@@ -142,6 +154,9 @@
                 $('.btn-clear').click(function(e){
                     searchForm.empty().submit();
                 });
+                $('.btn1').click(function(e){
+
+                })
             });
 
 

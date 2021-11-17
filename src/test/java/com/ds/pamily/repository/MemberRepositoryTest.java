@@ -64,8 +64,9 @@ class MemberRepositoryTest {
             Member member = Member.builder()
                     .email("user"+i+"@ds.com")
                     .name("user"+i)
+                    .mobile("000-1111-0000")
                     .fromSocial(false)
-                    .password(passwordEncoder.encode("1"))
+                    .password(passwordEncoder.encode("123456"))
                     .build();
 
             //default role

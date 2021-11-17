@@ -67,7 +67,7 @@ public class UploadImageController {
                 String thumbnailSaveName = uploadPath + File.separator + folderPath
                         + File.separator + "s_" + uuid + "_" + fileName;
                 File thumbnailFile = new File(thumbnailSaveName);
-                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 768 , 768);
+                Thumbnailator.createThumbnail(savePath.toFile(), thumbnailFile, 100 , 100);
 
                 resultDTOList.add(new UploadResultDTO(fileName,uuid,folderPath));
             } catch (IOException e) {

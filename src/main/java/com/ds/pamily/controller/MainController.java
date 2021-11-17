@@ -28,13 +28,13 @@ public class MainController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/main")
-    public void mainList(PageRequestDTO pageRequestDTO, Model model, PostDTO postDTO){
+    public void mainList(PageRequestDTO pageRequestDTO, Model model, PostDTO postDTO,@AuthenticationPrincipal AuthMemberDTO authMemberDTO){
         log.info("PostDTO:>>>>> " + postDTO);
         model.addAttribute("msg" + postService.getList(pageRequestDTO));
         log.info( "model >>>>>>" + model );
         log.info(pageRequestDTO.getPage());
         log.info("pageRequestDTO?>>>>>: " + pageRequestDTO);
         log.info("PostDTO:>>>>> " + postDTO);
-
+        model.addAttribute("nickname", authMemberDTO.getName());
     }
 }

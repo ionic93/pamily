@@ -4,9 +4,7 @@ import com.ds.pamily.dto.PageRequestDTO;
 import com.ds.pamily.dto.PageResultDTO;
 import com.ds.pamily.dto.PostDTO;
 import com.ds.pamily.dto.ShopDTO;
-import com.ds.pamily.entity.QShop;
-import com.ds.pamily.entity.Shop;
-import com.ds.pamily.entity.ShopImage;
+import com.ds.pamily.entity.*;
 import com.ds.pamily.repository.ShopImageRepository;
 import com.ds.pamily.repository.ShopRepository;
 import com.querydsl.core.BooleanBuilder;
@@ -14,6 +12,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -49,15 +48,18 @@ public class ShopServiceImpl implements ShopService{
     public PageResultDTO<ShopDTO, Object[]> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("sid").descending());
 
-        Page<Object[]> result = shopRepository.getShopListPage(pageable);
-        log.info("result: "+result);
         log.info("requestDTO: "+requestDTO);
 
-        Function<Object[], ShopDTO> fn = (arr -> entitiesToDTO(
-                (Shop) arr[0],
-                (List<ShopImage>)(Arrays.asList((ShopImage)arr[1])),
-                (Long) arr[2])
-        );
+        //엔티티를 DTO로 바꿀 로직 선언  = 받아온 엔티티의 배열중 0번째는 Board타입으로, 1번째는 Member타입으로, 2번째는 Long타입으로 변환
+        Function<Object[], ShopDTO> fn =
+                (arr -> entitiesToDTO((Shop) arr[0], (List<ShopImage>)(Arrays.asList((ShopImage)arr[1])), (Long)arr[2]));
+
+        Page<Object[]> result = shopRepository.searchPage(
+                requestDTO.getType(),
+                requestDTO.getKeyword(),
+                pageable);
+
+        log.info("serviceSearch: "+result);
         return new PageResultDTO<>(result, fn);
     }
 }

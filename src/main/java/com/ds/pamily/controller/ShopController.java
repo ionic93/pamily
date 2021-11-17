@@ -26,9 +26,11 @@ public class ShopController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/shop")
-    public void exshop(PageRequestDTO pageRequestDTO, Model model) {
+    public void exshop(PageRequestDTO pageRequestDTO, Model model,@AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
         log.info("exitemshop..........");
         log.info("pageRequestDTO: " + pageRequestDTO);
+        model.addAttribute("category",shopCateService.getCateList());
+        model.addAttribute("nickname", authMemberDTO.getName());
         model.addAttribute("result", shopService.getList(pageRequestDTO));
     }
 
@@ -36,6 +38,7 @@ public class ShopController {
     @GetMapping("/shopreg")
     public void exshopReg(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
         String name = authMemberDTO.getName();
+        model.addAttribute("category",shopCateService.getCateList());
         model.addAttribute("name",name);
         log.info("ShopReg...");
     }

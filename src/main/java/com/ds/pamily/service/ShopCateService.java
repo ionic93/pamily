@@ -1,11 +1,15 @@
 package com.ds.pamily.service;
 
+import com.ds.pamily.dto.PageRequestDTO;
+import com.ds.pamily.dto.PageResultDTO;
 import com.ds.pamily.dto.ShopCateDTO;
+import com.ds.pamily.dto.ShopDTO;
 import com.ds.pamily.entity.ShopCate;
 
 import java.util.List;
 
 public interface ShopCateService {
+    public List<ShopCateDTO> getCateList();
 
     default ShopCate dtoToEntity(ShopCateDTO shopCateDTO) {
         ShopCate shopCate = ShopCate.builder()
