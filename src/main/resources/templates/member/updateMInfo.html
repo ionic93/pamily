@@ -68,6 +68,7 @@ Header Section
                 <div class="form-group">
                     <input name="mobile" type="text" id="mobile" class="form-control border-bottom-radius" placeholder="Mobile" th:value="${mobile}">
                 </div>
+                <input type="hidden" name="mid" th:value="${mid}"/>
                 <button class="kafe-btn kafe-btn-mint btn-block btn-M" id="updateBtn" type="submit" name="subm">Update</button>
                 <br/>
                 <div class="help">
@@ -110,18 +111,6 @@ Scripts
          if(name.value == undefined || name.value == '') {
             alert("사용할 닉네임을 입력해주세요.");
             name.focus();
-            return;
-         }
-         if(password.value == undefined || password.value == '') {
-            alert("비밀번호가 입력되지 않았습니다.");
-            password.focus();
-            return;
-         }
-         if (!reg_pw.test(password.value)){
-            alert("비밀번호는 6-18 글자여야 합니다.");
-            password.value = "";
-            check_password.value = "";
-            password.focus();
             return;
          }
          if(check_password.value != password.value) {

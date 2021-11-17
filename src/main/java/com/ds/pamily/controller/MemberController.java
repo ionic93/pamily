@@ -17,6 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import static java.lang.System.out;
+
 @Controller
 @Log4j2
 @RequiredArgsConstructor
@@ -48,25 +55,35 @@ public class MemberController {
     @GetMapping("/updateMInfo")
     public void updateMInfo(MemberDTO memberDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
         log.info("g:"+authMemberDTO);
+        model.addAttribute("mid", authMemberDTO.getMid());
         model.addAttribute("email", authMemberDTO.getEmail());
         model.addAttribute("nickname", authMemberDTO.getName());
         model.addAttribute("mobile", authMemberDTO.getMobile());
+        model.addAttribute("password", authMemberDTO.getPassword());
+        model.addAttribute("check-password", authMemberDTO.getPassword());
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/updateMInfo")
-    public void updateMInfo(MemberDTO memberDTO, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
-
-
-        MemberDTO changeMInfo = memberService.get(authMemberDTO.getUsername());
-        changeMInfo.setEmail(memberDTO.getEmail());
-        changeMInfo.setName(memberDTO.getName());
-        changeMInfo.setPassword(passwordEncoder.encode(changeMInfo.getPassword()));
-        changeMInfo.setMobile(memberDTO.getMobile());
-        memberService.modify(changeMInfo);
-
-
+    public String updateMInfo(MemberDTO changeMInfo, @AuthenticationPrincipal AuthMemberDTO authMemberDTO,  HttpServletResponse response) throws IOException {
         log.info("updateMInfo~");
+
+        MemberDTO beforeMInfo = memberService.get(authMemberDTO.getUsername());
+        changeMInfo.setPassword(passwordEncoder.encode(changeMInfo.getPassword()));
+        memberService.modify(changeMInfo);
+        String url= "";
+        if (beforeMInfo.getEmail() != changeMInfo.getEmail()&&beforeMInfo.getName() != changeMInfo.getName()&&
+                beforeMInfo.getPassword() != changeMInfo.getPassword()&&beforeMInfo.getMobile() != changeMInfo.getMobile()) {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('변경되었습니다.');</script>");
+            out.flush();
+            url = "redirect:/pamily";
+        }else{
+            out.println("<script>alert('정보 변경이 취소되었습니다.');</script>");
+            url ="redirect:/";//  "/admin/main/dashboard";
+        }
+        return url;
     }
 
 //    @PostMapping("/login")
