@@ -68,8 +68,7 @@
 					  -webkit-background-size: cover;
 					  -moz-background-size: cover;
 					  -o-background-size: cover;">
-                                            <!--                                        <img-->
-                                            <!--                                             th:src="|display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="">-->
+
                                             <div class="explore-top">
                                                 <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span>
                                                 </div>
@@ -117,18 +116,29 @@
                                     </a>
                                 </div>
 
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">AAA</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="dto : ${result?.dtoList}" >
-                                        <th scope="row">[[${dto.pid}]]</th>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="col-lg-6" th:each="dto : ${msg}" style="overflow: hidden;">
+                                    <a href="#myModal" data-toggle="modal">
+                                        <div class="explorebox"
+                                             style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
+					  background-size: cover;
+					  background-position: center center;
+					  -webkit-background-size: cover;
+					  -moz-background-size: cover;
+					  -o-background-size: cover;">
+
+                                            <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                                 th:src="|/pamily/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" class="explorebox"
+                                                 style="overflow: hidden; position: absolute; z-index=1" >
+
+                                            <div class="explore-top" style="position:absolute; z-index:2;">
+                                                <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span>
+                                                </div>
+                                                <div class="explore-circle pull-right"><i class="far fa-bookmark"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
 
                             </div><!--/ row -->
                         </div>
@@ -287,11 +297,15 @@
                 </div><!--/ modal-content -->
             </div><!--/ modal-dialog -->
         </div><!--/ modal -->
+
+        <script th:src="@{/assets/js/jquery.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+        <script th:src="@{/assets/js/base.js}"></script>
+        <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
+
         <script th:inline="javascript">
-            window.onload = function() {
-                var msg = [[${result}]]
-                console.log(msg)
-            }
+            var msg = [[${msg}]];
+            console.log(msg)
 
         </script>
     </th:block>
