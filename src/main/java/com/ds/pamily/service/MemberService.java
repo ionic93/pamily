@@ -11,6 +11,9 @@ public interface MemberService {
     MemberDTO get(String email);
 
     void modify(MemberDTO memberDTO);
+
+    void modifyNpass(MemberDTO memberDTO);
+
     void remove(Long mid);
 
     default Member dtoToEntity(MemberDTO memberDTO) {

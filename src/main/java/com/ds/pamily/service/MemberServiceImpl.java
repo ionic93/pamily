@@ -51,6 +51,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void modify(MemberDTO memberDTO) {
         Long mid = memberDTO.getMid();
+        log.info("mid: "+mid);
         Optional<Member> result = memberRepository.findById(mid);
         if (result.isPresent()) {
             Member member = result.get();
@@ -58,6 +59,17 @@ public class MemberServiceImpl implements MemberService {
             member.changeName(memberDTO.getName());
             member.changePassword(memberDTO.getPassword());
             member.changeMobile(memberDTO.getMobile());
+            memberRepository.save(member);
+        }
+    }
+    @Override
+    public void modifyNpass(MemberDTO memberDTO) {
+        Long mid = memberDTO.getMid();
+        log.info("mid: "+mid);
+        Optional<Member> result = memberRepository.findById(mid);
+        if (result.isPresent()) {
+            Member member = result.get();
+            member.changePassword(memberDTO.getPassword());
             memberRepository.save(member);
         }
     }

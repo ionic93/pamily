@@ -2363,7 +2363,10 @@ a.navbar-brand:hover {
 .findpass{
   background: linear-gradient( rgba(34,34,34,0.7), rgba(34,34,34,0.7) ), url('../../img/bg/11.jpg') no-repeat center center fixed;
  }
- .login,.signup,.findpass,.updateMInfo{
+.newPass {
+  background: linear-gradient( rgba(34,34,34,0.7), rgba(34,34,34,0.7) ), url('../../img/bg/5.jpg') no-repeat center center fixed;
+}
+ .login,.signup,.findpass,.updateMInfo,.newPass{
    background-size: cover;
    background-position: center center;
    -webkit-background-size: cover;
@@ -2395,7 +2398,13 @@ a.navbar-brand:hover {
  .findpass input{
   width: 300px;
  }
+ .newPass input{
+  width: 300px;
+ }
  .findpass .form-signin{
+     margin-top: 50px;
+ }
+ .newPass .form-signin{
      margin-top: 50px;
  }
  .banner-content-M{

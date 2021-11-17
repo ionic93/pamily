@@ -42,10 +42,10 @@ public class JoinController {
 
         if (reg == 0) {
             out.println("<script>alert('이미 가입된 계정입니다.'); </script>");
-            out.println("<script> location.href='/pamily' </script>");
+            out.println("<script> location.href='/pamily'; </script>");
         } else {
             out.println("<script>alert('가입이 완료되었습니다.'); </script>");
-            out.println("<script> location.href='/pamily/sample/main' </script>");
+            out.println("<script> location.href='/pamily/sample/main'; </script>");
         }
         out.flush();
     }
