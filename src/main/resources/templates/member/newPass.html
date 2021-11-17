@@ -45,19 +45,20 @@
 <!-- ==============================================
 Header Section
 =============================================== -->
-<section class="findpass">
+<section class="newPass">
     <div class="container">
         <div class="banner-content banner-content-M">
 
             <h1><a th:href="@{/}">Pamily</a></h1>
             <form method="post" class="form-signin" th:action="@{/member/newPass}" name="frm">
+                <h3 class="form-signin-heading">Set a New Password</h3>
                 <div class="form-group">
-                    <input name="email" type="text" id="email" class="form-control border-bottom-radius" placeholder="Email">
+                    <input name="password" type="password" id="password"  class="form-control border-bottom-radius" placeholder="New Password">
                 </div>
                 <div class="form-group">
-                    <input type="text" id="mobile" class="form-control border-bottom-radius" name="mobile" placeholder="Mobile">
+                    <input name="check-password" type="password" id="check-password"  class="form-control border-bottom-radius" placeholder="Check Password">
                 </div>
-                <button class="kafe-btn kafe-btn-mint btn-block btn-M" type="submit" id="findpassBtn" name="subm">Find</button>
+                <button class="kafe-btn kafe-btn-mint btn-block btn-M" id="changePassBtn" type="submit" name="subm">Change</button>
                 <br/>
             </form>
 
@@ -72,32 +73,30 @@ Scripts
 =============================================== -->
 <script type="text/javascript">
   window.onload = function(){
-    const findpassBtn = document.getElementById('findpassBtn');
-    findpassBtn.addEventListener ('click', function(e) {
+    const changePassBtn = document.getElementById('changePassBtn');
+    changePassBtn.addEventListener ('click', function(e) {
         e.preventDefault();
-        let email = document.getElementById('email');
-        let mobile = document.getElementById('mobile');
-        let reg_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-        let reg_mobile = /^\d{3}-?\d{3,4}-?\d{4}$/;
+        let password = document.getElementById('password');
+        let check_password = document.getElementById('check-password');
+        let reg_pw = /^[a-z0-9_-]{6,18}$/;
 
-         if(email.value == undefined || email.value == '') {
-            alert("이메일 주소가 입력되지 않았습니다.");
-            email.focus();
-            return;
-         } else if (!reg_email.test(email.value)) {
-            alert("올바른 이메일 형식이 아닙니다.")
-            email.value = "";
-            email.focus();
+         if(password.value == undefined || password.value == '') {
+            alert("비밀번호가 입력되지 않았습니다.");
+            password.focus();
             return;
          }
-         if(mobile.value == undefined || mobile.value == '') {
-            alert("전화번호가 입력되지 않았습니다.");
-            mobile.focus();
+         if (!reg_pw.test(password.value)){
+            alert("비밀번호는 6-18 글자여야 합니다.");
+            password.value = "";
+            check_password.value = "";
+            password.focus();
             return;
          }
-         if(!reg_mobile.test(mobile.value)) {
-            alert("휴대폰 번호를 확인해주세요.")
-            mobile.focus();
+         if(check_password.value != password.value) {
+            alert("비밀번호가 일치하지 않습니다.");
+            password.value = "";
+            check_password.value = "";
+            password.focus();
             return;
          }
           document.frm.submit();
