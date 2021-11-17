@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,9 +28,9 @@ public class MainController {
     public void mainList(PageRequestDTO pageRequestDTO, Model model){
         PageResultDTO<PostDTO, Object[]> result = postService.getList(pageRequestDTO);
         log.info("result.getDtoList()>>>>>>>>>>>" + result.getDtoList());
-//        model.addAttribute("result" + result.getDtoList());
-        model.addAttribute("result" + result.getDtoList());
+        model.addAttribute("msg" , result.getDtoList());
         log.info( "model >>>>>>" + model );
-        log.info("result>>>>>>>>" + result.getDtoList());
+        log.info( "result1>>>>>>" + result );
+        log.info("result2>>>>>>>>" + result.getDtoList());
     }
 }
