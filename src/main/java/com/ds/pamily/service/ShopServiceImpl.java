@@ -22,7 +22,9 @@ import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -35,10 +37,12 @@ public class ShopServiceImpl implements ShopService{
     @Override
     public Long shopRegister(ShopDTO shopDTO) {
         Map<String, Object> entityMap = dtoToEntity(shopDTO);
+        log.info(entityMap);
         Shop shop = (Shop) entityMap.get("shop");
+        log.info("HERE1111"+ shop);
         List<ShopImage> shopImageList = (List<ShopImage>) entityMap.get("shopImgList");
-
         shopRepository.save(shop);
+        log.info("HERE~"+shopImageList);
         shopImageList.forEach(shopImage -> {
             shopImageRepository.save(shopImage);
         });
@@ -59,5 +63,28 @@ public class ShopServiceImpl implements ShopService{
                 (Long) arr[2])
         );
         return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public ShopDTO read(Long sid) {
+        Optional<Shop> result = shopRepository.findById(sid);
+        log.info("result>>>>>>>>>>>>"+result);
+        return result.isPresent()?shopEntityToDTO(result.get()):null;
+    }
+
+    @Override
+    public void remove(Long sid) {
+        shopRepository.deleteById(sid);
+    }
+
+    @Override
+    public void modify(ShopDTO shopDTO) {
+        Optional<Shop> result = shopRepository.findById(shopDTO.getSid());
+        if (result.isPresent()) {
+            Shop entity = result.get();
+            entity.changeShopTitle(shopDTO.getTitle());
+            entity.changeShopContent(shopDTO.getContent());
+            shopRepository.save(entity);
+        }
     }
 }

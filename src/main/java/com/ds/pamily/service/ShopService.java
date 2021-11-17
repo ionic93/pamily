@@ -74,4 +74,18 @@ public interface ShopService {
         }
         return entityMap;
     }
+
+    ShopDTO read(Long sid);
+    void remove(Long sid);
+    void modify(ShopDTO shopDTO);
+
+    default ShopDTO shopEntityToDTO(Shop shop) {
+        ShopDTO shopDTO = ShopDTO.builder()
+                .sid(shop.getSid())
+                .name(shop.getMember().getName())
+                .content(shop.getContent())
+                .title(shop.getTitle())
+                .build();
+        return shopDTO;
+    }
 }
