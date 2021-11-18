@@ -58,6 +58,7 @@ Header Section
                 <div class="form-group">
                     <input name="check-password" type="password" id="check-password"  class="form-control border-bottom-radius" placeholder="Check Password">
                 </div>
+                <input type="hidden" name="email" th:value="${param.email}"/>
                 <button class="kafe-btn kafe-btn-mint btn-block btn-M" id="changePassBtn" type="submit" name="subm">Change</button>
                 <br/>
             </form>
