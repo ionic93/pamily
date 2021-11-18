@@ -34,14 +34,14 @@ public class MemberController {
     private final MemberServiceImpl memberService;
 
     @GetMapping("/login")
-    public void login(String error, String logout, Model model){
-        log.info("login error: "+error);
-        log.info("login logout: "+logout);
+    public void login(String error, String logout, Model model) {
+        log.info("login error: " + error);
+        log.info("login logout: " + logout);
         if (error != null) {
-            model.addAttribute("error","Login Error Check Your Account");
+            model.addAttribute("error", "Login Error Check Your Account");
         }
         if (logout != null) {
-            model.addAttribute("logout","Logout");
+            model.addAttribute("logout", "Logout");
         }
     }
 
@@ -53,20 +53,21 @@ public class MemberController {
 
     @PreAuthorize("permitAll()")
     @PostMapping("/findPass")
-    public void findPass(MemberDTO memberDTO, @AuthenticationPrincipal AuthMemberDTO authMemberDTO,  HttpServletResponse response) throws IOException {
-        MemberDTO beforeMInfo = memberService.get(authMemberDTO.getUsername());
+    public void findPass(MemberDTO findMemberDTO, HttpServletResponse response) throws IOException {
         log.info("findMyPass!");
         log.info("updateMInfo~");
+        log.info("findMemberDTO>>" + findMemberDTO);
+        MemberDTO originMember = memberService.get(findMemberDTO.getEmail());
+        log.info("originMember>>" + originMember);
+
+
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        String find_email = beforeMInfo.getEmail();
-        String email = memberDTO.getEmail();
-
-        if (find_email.equals(email)) {
+        if (originMember.getMobile().equals(findMemberDTO.getMobile()) && originMember.getEmail().equals(findMemberDTO.getEmail())) {
             out.println("<script>alert('확인되었습니다.');</script>");
-            out.println("<script> location.href='/pamily/member/newPass'; </script>");
-        }else{
+            out.println("<script> location.href='/pamily/member/newPass?email=" + originMember.getEmail() + "'; </script>");
+        } else {
             out.println("<script>alert('가입되지 않은 이메일입니다.');</script>");
             out.println("<script> location.href='/pamily/member/findPass'; </script>");
         }
@@ -75,39 +76,31 @@ public class MemberController {
 
     @PreAuthorize("permitAll()")
     @GetMapping("/newPass")
-    public void newPass(MemberDTO memberDTO, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
+    public void newPass(String email, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
         log.info("New Pass");
+        model.addAttribute("email", email);
     }
 
     @PreAuthorize("permitAll()")
     @PostMapping("/newPass")
-    public void newPass(MemberDTO newMInfo, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, HttpServletResponse response) throws IOException {
-        log.info("New Pass");
+    public void newPass(MemberDTO newMInfo, HttpServletResponse response) throws IOException {
 
-        MemberDTO beforeMInfo = memberService.get(authMemberDTO.getUsername());
-        if (!newMInfo.getPassword().equals("")){
-            newMInfo.setPassword(passwordEncoder.encode(newMInfo.getPassword()));
-        } else {
-            return;
-        }
-        memberService.modify(newMInfo);
+        log.info("New Pass newMInfo>>" + newMInfo);
+        MemberDTO beforeMInfo = memberService.get(newMInfo.getEmail());
+        beforeMInfo.setPassword(newMInfo.getPassword());
+        memberService.modify(beforeMInfo);
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        if (!beforeMInfo.equals(newMInfo)) {
-            out.println("<script>alert('변경되었습니다.');</script>");
-            out.println("<script> location.href='/pamily/sample/main'; </script>");
-        }else{
-            out.println("<script>alert('정보 변경이 취소되었습니다.');</script>");
-            out.println("<script> location.href='/pamily/sample/main'; </script>");
-        }
+        out.println("<script>alert('변경되었습니다.');</script>");
+        out.println("<script> location.href='/pamily/sample/main'; </script>");
         out.flush();
     }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/updateMInfo")
     public void updateMInfo(MemberDTO memberDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
-        log.info("g:"+authMemberDTO);
+        log.info("g:" + authMemberDTO);
         model.addAttribute("mid", authMemberDTO.getMid());
         model.addAttribute("email", authMemberDTO.getEmail());
         model.addAttribute("nickname", authMemberDTO.getName());
@@ -118,11 +111,11 @@ public class MemberController {
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/updateMInfo")
-    public void updateMInfo(MemberDTO changeMInfo, @AuthenticationPrincipal AuthMemberDTO authMemberDTO,  HttpServletResponse response) throws IOException {
+    public void updateMInfo(MemberDTO changeMInfo, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, HttpServletResponse response) throws IOException {
         log.info("updateMInfo~");
 
         MemberDTO beforeMInfo = memberService.get(authMemberDTO.getUsername());
-        if (!changeMInfo.getPassword().equals("")){
+        if (!changeMInfo.getPassword().equals("")) {
             changeMInfo.setPassword(passwordEncoder.encode(changeMInfo.getPassword()));
         } else {
             changeMInfo.setPassword(beforeMInfo.getPassword());
@@ -134,7 +127,7 @@ public class MemberController {
         if (!beforeMInfo.equals(changeMInfo)) {
             out.println("<script>alert('변경되었습니다.');</script>");
             out.println("<script> location.href='/pamily/sample/main'; </script>");
-        }else{
+        } else {
             out.println("<script>alert('정보 변경이 취소되었습니다.');</script>");
             out.println("<script> location.href='/pamily/sample/main'; </script>");
         }

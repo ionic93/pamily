@@ -132,7 +132,7 @@
                         </a>
                     </div><!--/ col-lg-4 -->
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" th:each="dto : ${result}" style="overflow: hidden;">
                         <a href="#myModal" data-toggle="modal">
                             <div class="explorebox"
                                  style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2));
@@ -141,24 +141,9 @@
 					  -webkit-background-size: cover;
 					  -moz-background-size: cover;
 					  -o-background-size: cover; position: relative;">
-                                <img th:src="@{/assets/img/users/3.jpg}" class="explorebox" style="position: absolute; z-index=1">
-                                <div class="explore-top" style="position:absolute; z-index:2;">
-                                    <div class="explore-like"><i class="fa fa-heart"></i> <span>312</span></div>
-                                </div>
-                            </div>
-                        </a>
-                    </div><!--/ col-lg-4 -->
-
-                    <div class="col-lg-4">
-                        <a href="#myModal" data-toggle="modal">
-                            <div class="explorebox"
-                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2));
-					  background-size: cover;
-					  background-position: center center;
-					  -webkit-background-size: cover;
-					  -moz-background-size: cover;
-					  -o-background-size: cover; position: relative;">
-                                <img th:src="@{/assets/img/users/3.jpg}" class="explorebox" style="position: absolute; z-index=1">
+                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                     th:src="|/pamily/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" class="explorebox"
+                                     style="overflow: hidden; position: absolute; z-index=1" th:onclick="${dto.pid}">
                                 <div class="explore-top" style="position:absolute; z-index:2;">
                                     <div class="explore-like"><i class="fa fa-heart"></i> <span>312</span></div>
                                 </div>
@@ -268,5 +253,10 @@
                 </div><!--/ modal-content -->
             </div><!--/ modal-dialog -->
         </div><!--/ modal -->
+
+        <script>
+
+
+        </script>
     </th:block>
 </th:block>
