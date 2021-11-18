@@ -6,6 +6,7 @@ import com.ds.pamily.dto.PostDTO;
 import com.ds.pamily.dto.ShopDTO;
 import com.ds.pamily.entity.*;
 import com.ds.pamily.repository.ShopImageRepository;
+import com.ds.pamily.repository.ShopReplyRepository;
 import com.ds.pamily.repository.ShopRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ import java.util.function.Function;
 public class ShopServiceImpl implements ShopService{
     private final ShopRepository shopRepository;
     private final ShopImageRepository shopImageRepository;
+    private final ShopReplyRepository shopReplyRepository;
 
     @Transactional
     @Override
@@ -42,6 +45,14 @@ public class ShopServiceImpl implements ShopService{
             shopImageRepository.save(shopImage);
         });
         return shop.getSid();
+    }
+
+    @Transactional //삭제 기능 구현 위해 추가
+    @Override
+    public void removeWithShopImageAndReply(Long sid) {
+        shopReplyRepository.deleteBySid(sid); //댓글부터 먼저 삭제
+        shopImageRepository.deleteShopImageBySid(sid); //관련 이미지 삭제
+        shopRepository.deleteById(sid); //게시글 삭제
     }
 
     @Override
@@ -61,5 +72,27 @@ public class ShopServiceImpl implements ShopService{
 
         log.info("serviceSearch: "+result);
         return new PageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public ShopDTO getShop(Long sid) {
+        //Movie와 MovieImage들, 평균 평점과 리뷰 개수 등이 필요함
+
+        List<Object[]> result = shopRepository.getShopWithAll(sid);
+
+        //Shop 엔티티는 가장 앞에 존재 - 모든 Row가 동일한 값
+        Shop shop = (Shop) result.get(0)[0];
+
+        //영화의 이미지 개수만큼 MovieImage 객체 필요
+        List<ShopImage> shopImageList = new ArrayList<>();
+
+        result.forEach(arr->{
+            ShopImage shopImage = (ShopImage) arr[1];
+            shopImageList.add(shopImage);
+        });
+
+        Long shopReplyCnt = (Long) result.get(0)[2]; //리뷰 개수 - 모든 Row가 동일한 값
+
+        return entitiesToDTO(shop, shopImageList, shopReplyCnt);
     }
 }

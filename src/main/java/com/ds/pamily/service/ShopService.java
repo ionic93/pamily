@@ -17,6 +17,10 @@ import java.util.stream.Collectors;
 public interface ShopService {
     Long shopRegister(ShopDTO shopDTO);
 
+    ShopDTO getShop(Long sid); //상세보기
+
+    void removeWithShopImageAndReply(Long sid); //삭제 기능 (게시글 삭제되면 댓글도 자동 삭제)
+
     PageResultDTO<ShopDTO, Object[]> getList(PageRequestDTO requestDTO); //목록처리
 
     default ShopDTO entitiesToDTO(Shop shop, List<ShopImage> shopImages, Long shopReplyCnt ) {
@@ -52,7 +56,7 @@ public interface ShopService {
                 .sid(shopDTO.getSid())
                 .title(shopDTO.getTitle())
                 .content(shopDTO.getContent())
-                .member(Member.builder().mid(shopDTO.getMid()).build())
+                .member(Member.builder().mid(shopDTO.getMid()).name(shopDTO.getName()).build())
                 .scno(ShopCate.builder().scno(shopDTO.getScno()).build())
                 .build();
 

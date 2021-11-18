@@ -11,9 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -24,9 +22,26 @@ public class ShopController {
     private final ShopService shopService;
     private final ShopCateService shopCateService;
 
+    @GetMapping("/read")
+    public void shopRead(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long sid, Model model) {
+        log.info("sid: "+ sid);
+        ShopDTO shopDTO = shopService.getShop(sid);
+        log.info(shopDTO);
+        model.addAttribute("dto",shopDTO);
+    }
+
+    @PostMapping("/remove")
+    public String remove(@PathVariable("sid") Long sid, RedirectAttributes redirectAttributes){
+        log.info("deletesid: "+ sid);
+        shopService.removeWithShopImageAndReply(sid);
+        redirectAttributes.addFlashAttribute("msg",sid);
+        redirectAttributes.addFlashAttribute("noti","삭제");
+        return "redirect:/shop/shop";
+    }
+
     @PreAuthorize("permitAll()")
     @GetMapping("/shop")
-    public void exshop(PageRequestDTO pageRequestDTO, Model model,@AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
+    public void exshop(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
         log.info("exitemshop..........");
         log.info("pageRequestDTO: " + pageRequestDTO);
         model.addAttribute("category",shopCateService.getCateList());
