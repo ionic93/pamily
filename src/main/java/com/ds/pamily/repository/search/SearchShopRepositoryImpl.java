@@ -7,10 +7,7 @@ import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.PathBuilder;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,6 +24,7 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
         super(Shop.class);
     }
 
+
     @Override
     public Page<Object[]> searchPage(String type, String keyword, Pageable pageable) {
         log.info("searchPage..........");
@@ -34,7 +32,6 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
         QShop shop = QShop.shop;
         QShopReply qShopReply = QShopReply.shopReply;
         QShopImage qShopImage = QShopImage.shopImage;
-
 
         JPQLQuery<Shop> jpqlQuery = from(shop);
         jpqlQuery.leftJoin(qShopReply).on(qShopReply.shop.eq(shop));

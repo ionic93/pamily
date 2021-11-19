@@ -28,6 +28,8 @@ public class ShopController {
         log.info("sid: "+ sid);
         ShopDTO shopDTO = shopService.getShop(sid);
         log.info(shopDTO);
+        model.addAttribute("authMid", authMemberDTO.getMid());
+        model.addAttribute("authName", authMemberDTO.getName());
         model.addAttribute("dto",shopDTO);
     }
 

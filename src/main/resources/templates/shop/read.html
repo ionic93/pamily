@@ -73,6 +73,17 @@
                                 <div>[[${dto.content}]]</div>
                             </div>
                         </form>
+                        <div style="margin-bottom: 20px;"></div>
+                        <button type="button" class="btn btn-primary">
+                            Review Count <span class="badge badge-light">[[${dto.shopReplyCnt}]]</span>
+                        </button>
+                        <button type="button" class="btn btn-info addReviewBtn">
+                            Review Register
+                        </button>
+                        <div style="margin-bottom: 30px;"></div>
+                        <div class="list-group reviewList">
+
+                        </div>
                             <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
                                 <button class="btn btn-info">목록보기</button>
                             </a>
@@ -82,7 +93,7 @@
                             <span th:if="${#authentication.principal.name} == ${dto.name} or ${#authorization.expression('hasRole(''ADMIN'')')}">
                                  <form id="delete-form">
                                         <input type="hidden" th:value="${dto.sid}"/>
-                                        <button class="btn btn-danger removeBtn">삭제</button>
+                                        <button class="btn btn-danger">삭제</button>
                                  </form>
                             </span>
                         <!--        페이지 목록 출력-->
@@ -91,6 +102,34 @@
                 </div><!--/ row -->
             </div><!--/ container -->
         </section><!--/ newsfeed -->
+        <!--모달 창-->
+        <div class="reviewModal modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Shop Reply</h5>
+                        <button type="button" class="btn btn-close replyClose" data-dismiss="modal" aria-label="Close"/>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Reviewer ID</label>
+                            <input type="text" class="form-control" th:value="${authName}" name="loginName" readonly>
+                            <input type="hidden" th:value="${authMid}" name="mid">
+                        </div>
+                        <div class="form-group">
+                            <label>Review Text</label>
+                            <input type="text" class="form-control" name="text" placeholder="Good!">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary replyClose" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary reviewSaveBtn">Save changes</button>
+                        <button type="button" class="btn btn-warning modifyBtn">Modify</button>
+                        <button type="button" class="btn btn-danger removeBtn">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- ==============================================
         Scripts
@@ -111,20 +150,100 @@
             $(document).ready(function(){
                 var actionForm = $("form");
 
-                var itemmodal = $(".item-modal");
-
-                $(".modal-btn").click(function() {
-
-                    itemmodal.modal('show');
-                });
-                $(".get-btn").click(function(){
-                    $(".getModal").modal('show');
-                });
-
                 var dto = [[${dto}]]
                 console.log(dto);
-            });
 
+                var sid = [[${dto.sid}]];
+
+                var reviewModal = $(".reviewModal");
+                var inputMid = $('input[name="mid"]');
+                var inputText = $('input[name="text"]');
+
+                $(".addReviewBtn").click(function(){
+                inputMid.val();
+                inputText.val();
+                $(".removeBtn, .modifyBtn").hide();
+                $(".reviewSaveBtn").show();
+
+                    reviewModal.modal('show');
+                });
+
+                // 리뷰 닫기 버튼
+                $(".replyClose").click(function(){
+                    inputMid.val("");
+                    inputText.val("");
+                    reviewModal.modal('hide');
+                });
+
+                //리뷰 저장
+                $('.reviewSaveBtn').click(function(){
+                    var data = {sid:sid, text:inputText.val(), mid:inputMid.val()};
+                    console.log(data);
+
+                    $.ajax({
+                        url: '/pamily/shop/reviews/'+sid,
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        success: function(result){
+                            console.log("result: "+result);
+                            self.location.reload();
+                        }
+                     })
+                    reviewModal.modal('hide');
+                });
+
+                //페이지가 열리면 바로 리뷰 데이터들을 가져와서 사용
+                function getShopReplies(){
+                    function formatTime(str){
+                        var date = new Date(str);
+
+                        return date.getFullYear() + '/' +
+                        (date.getMonth()+1) + '/' +
+                        date.getDate() + ' ' +
+                        date.getHours() + ':' +
+                        date.getMinutes();
+                    }
+
+                    $.getJSON("/pamily/shop/reviews/"+sid+"/all", function(arr){
+                        var str = "";
+
+                        $.each(arr, function(idx, reply){
+                            console.log(reply);
+
+                            str += '<div class="card-body" data-srid='+reply.srid+' data-mid='+reply.mid+'>';
+                            str += '<h4 class="card-subtitle mb-2 text-muted">'+reply.name+'</h4>';
+                            str += '<h4 class="card-title">'+reply.text+'</h4>';
+                            str += '<p class="card-text">'+formatTime(reply.regDate)+'</p>';
+                            str += '<div style="margin-bottom: 20px;">';
+                            str += '</div>';
+                            str += '</div>';
+                        });
+                        $(".reviewList").html(str);
+                    });
+                }
+                getShopReplies();
+
+                //특정 리뷰 선택
+                var srid;
+                $(".reviewList").on("click", ".card-body", function(){
+                    $(".reviewSaveBtn").hide();
+                    $(".removeBtn, .modifyBtn").show();
+
+                    var targetReview = $(this);
+                    srid = targetReview.data("srid");
+                    console.log("srid: "+srid);
+                    inputMid.val(targetReview.data("mid"));
+                    // children() : 자식 태그를 들고 오되 주석이나 태그가 아닌 문자들은 전부 제외
+                    // childNodes() : 자식 태그들 들고 오되 주석이나 태그들을 전부 들고옴
+                    // end() : 선택한 요소의 이전 요소
+                    inputText.val(targetReview.find('.card-title').clone().children()
+                    .remove().end().text());
+
+                    $('.reviewModal').modal('show');
+                });
+            });
         </script>
 
     </th:block>
