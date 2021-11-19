@@ -33,5 +33,4 @@ public class MainController {
         log.info( "result1>>>>>>" + result );
         log.info("result2>>>>>>>>" + result.getDtoList());
     }
-
 }

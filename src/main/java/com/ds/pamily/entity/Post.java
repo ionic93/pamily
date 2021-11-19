@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Getter
 @ToString(exclude = "member")
 public class Post extends BaseEntity{
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;

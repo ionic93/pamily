@@ -8,7 +8,7 @@
 
                     <div class="col-lg-3">
                         <div class="profilebox hidden-xs hidden-sm"
-                             style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), th:url('@{/assets/img/posts/4.jpg}') no-repeat;
+                             style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('assets/img/posts/4.jpg') no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
@@ -16,7 +16,7 @@
                   -o-background-size: cover;">
                         </div>
                         <div class="profilebox hidden-xs hidden-sm"
-                             style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), th:url('@{/assets/img/posts/1.jpg}') no-repeat;
+                             style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('assets/img/posts/1.jpg') no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="profilebox-large hidden-xs hidden-sm"
-                             style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), th:url('@{/assets/img/posts/9.jpg}') no-repeat;
+                             style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('assets/img/posts/9.jpg') no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-lg-3">
                         <div class="profilebox hidden-xs hidden-sm"
-                             style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), th:url('@{/assets/img/posts/11.jpg}') no-repeat;
+                             style="background: linear-gradient( rgba(34,34,34,0.45), rgba(34,34,34,0.45)), url('assets/img/posts/11.jpg') no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
@@ -44,7 +44,7 @@
                   -o-background-size: cover;">
                         </div>
                         <div class="profilebox"
-                             style="background: linear-gradient( rgba(34,34,34,0.6), rgba(34,34,34,0.6)), th:url('@{/assets/img/posts/12.jpg}') no-repeat;
+                             style="background: linear-gradient( rgba(34,34,34,0.6), rgba(34,34,34,0.6)), url('assets/img/posts/12.jpg') no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
@@ -67,7 +67,7 @@
                     <div class="col-lg-12">
                         <div class="post-content">
                             <div class="author-post text-center">
-                                <a href="#"><img class="img-fluid img-circle" th:src="@{/assets/img/users/13.jpeg}"
+                                <a href="#"><img class="img-fluid img-circle" src="assets/img/users/13.jpeg"
                                                  alt="Image"></a>
                             </div><!-- /author -->
                         </div><!-- /.post-content -->
@@ -133,41 +133,113 @@
 
                 <div class="row">
 
-                    <div class="col-lg-4" >
+                    <div class="col-lg-4">
                         <a href="#myModal" data-toggle="modal">
                             <div class="explorebox"
-                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), th:url('@{/assets/img/posts/14.jpg}') no-repeat;
+                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/14.jpg') no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
                   -moz-background-size: cover;
                   -o-background-size: cover;">
-                                <div class="explore-top" style="position:absolute; z-index:2;">
+                                <div class="explore-top">
                                     <div class="explore-like"><i class="fa fa-heart"></i> <span>14,100</span></div>
+                                    <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
                                 </div>
                             </div>
                         </a>
                     </div><!--/ col-lg-4 -->
 
-                    <div class="col-lg-4" th:each="dto : ${result}" style="overflow: hidden;">
+                    <div class="col-lg-4">
                         <a href="#myModal" data-toggle="modal">
                             <div class="explorebox"
-                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), th:url('@{/assets/img/posts/18.jpg}') no-repeat;
+                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/18.jpg') no-repeat;
 		          background-size: cover;
                   background-position: center center;
                   -webkit-background-size: cover;
                   -moz-background-size: cover;
                   -o-background-size: cover;">
-                                <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                     th:src="|/pamily/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" class="explorebox"
-                                     style="overflow: hidden; position: absolute; z-index=1" th:onclick="${dto.pid}">
-
-                                <div class="explore-top" style="position:absolute; z-index:2;">
+                                <div class="explore-top">
                                     <div class="explore-like"><i class="fa fa-heart"></i> <span>100,100</span></div>
+                                    <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
                                 </div>
                             </div>
                         </a>
                     </div><!--/ col-lg-4 -->
+
+                    <div class="col-lg-4">
+                        <a href="#myModal" data-toggle="modal">
+                            <div class="explorebox"
+                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/15.jpg') no-repeat;
+		          background-size: cover;
+                  background-position: center center;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;">
+                                <div class="explore-top">
+                                    <div class="explore-like"><i class="fa fa-heart"></i> <span>100</span></div>
+                                    <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div><!--/ col-lg-4 -->
+
+                </div><!--/ row -->
+
+                <div class="row">
+
+                    <div class="col-lg-4">
+                        <a href="#myModal" data-toggle="modal">
+                            <div class="explorebox"
+                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/25.jpg') no-repeat;
+		          background-size: cover;
+                  background-position: center center;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;">
+                                <div class="explore-top">
+                                    <div class="explore-like"><i class="fa fa-heart"></i> <span>324</span></div>
+                                    <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div><!--/ col-lg-4 -->
+
+                    <div class="col-lg-4">
+                        <a href="#myModal" data-toggle="modal">
+                            <div class="explorebox"
+                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/36.jpg') no-repeat;
+		          background-size: cover;
+                  background-position: center center;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;">
+                                <div class="explore-top">
+                                    <div class="explore-like"><i class="fa fa-heart"></i> <span>1023</span></div>
+                                    <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div><!--/ col-lg-4 -->
+
+                    <div class="col-lg-4">
+                        <a href="#myModal" data-toggle="modal">
+                            <div class="explorebox"
+                                 style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), url('assets/img/posts/26.jpg') no-repeat;
+		          background-size: cover;
+                  background-position: center center;
+                  -webkit-background-size: cover;
+                  -moz-background-size: cover;
+                  -o-background-size: cover;">
+                                <div class="explore-top">
+                                    <div class="explore-like"><i class="fa fa-heart"></i> <span>40</span></div>
+                                    <div class="explore-circle pull-right"><i class="far fa-bookmark"></i></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div><!--/ col-lg-4 -->
+
+                </div><!--/ row -->
 
             </div><!--/ container -->
         </section><!--/ newsfeed -->
@@ -183,7 +255,7 @@
                         <div class="row">
 
                             <div class="col-md-8 modal-image">
-                                <img class="img-responsive" th:src="@{/assets/img/posts/15.jpg}" alt="Image"/>
+                                <img class="img-responsive" src="assets/img/posts/15.jpg" alt="Image"/>
                             </div><!--/ col-md-8 -->
                             <div class="col-md-4 modal-meta">
                                 <div class="modal-meta-top">
@@ -191,7 +263,7 @@
                                         <span aria-hidden="true">×</span><span class="sr-only">Close</span>
                                     </button><!--/ button -->
                                     <div class="img-poster clearfix">
-                                        <a href=""><img class="img-responsive img-circle" th:src="@{/assets/img/users/18.jpg}"
+                                        <a href=""><img class="img-responsive img-circle" src="assets/img/users/18.jpg"
                                                         alt="Image"/></a>
                                         <strong><a href="">Benjamin</a></strong>
                                         <span>12 minutes ago</span><br/>
@@ -202,7 +274,8 @@
                                     <ul class="img-comment-list">
                                         <li>
                                             <div class="comment-img">
-                                                <img th:src="@{/assets/img/users/17.jpeg}" class="img-responsive img-circle"/>
+                                                <img src="assets/img/users/17.jpeg" class="img-responsive img-circle"
+                                                     alt="Image"/>
                                             </div>
                                             <div class="comment-text">
                                                 <strong><a href="">Anthony McCartney</a></strong>
@@ -211,7 +284,7 @@
                                         </li><!--/ li -->
                                         <li>
                                             <div class="comment-img">
-                                                <img th:src="@{/assets/img/users/15.jpg}" class="img-responsive img-circle"
+                                                <img src="assets/img/users/15.jpg" class="img-responsive img-circle"
                                                      alt="Image"/>
                                             </div>
                                             <div class="comment-text">
@@ -223,7 +296,7 @@
                                         </li><!--/ li -->
                                         <li>
                                             <div class="comment-img">
-                                                <img th:src="@{/assets/img/users/14.jpg}" class="img-responsive img-circle"
+                                                <img src="assets/img/users/14.jpg" class="img-responsive img-circle"
                                                      alt="Image"/>
                                             </div>
                                             <div class="comment-text">
@@ -234,7 +307,7 @@
                                         </li><!--/ li -->
                                         <li>
                                             <div class="comment-img">
-                                                <img th:src="@{/assets/img/users/13.jpeg}" class="img-responsive img-circle"
+                                                <img src="assets/img/users/13.jpeg" class="img-responsive img-circle"
                                                      alt="Image"/>
                                             </div>
                                             <div class="comment-text">
@@ -245,7 +318,7 @@
                                         </li><!--/ li -->
                                         <li>
                                             <div class="comment-img">
-                                                <img th:src="@{/assets/img/users/3.jpg}" class="img-responsive img-circle"
+                                                <img src="assets/img/users/3.jpg" class="img-responsive img-circle"
                                                      alt="Image"/>
                                             </div>
                                             <div class="comment-text">
@@ -264,7 +337,7 @@
                                                         class="fa fa-comments"></i></a><span> 786,286</span></li>
                                             <li>
 			   <span class="thumb-xs">
-				<img class="img-responsive img-circle" th:src="@{/assets/img/users/13.jpeg}" alt="...">
+				<img class="img-responsive img-circle" src="assets/img/users/13.jpeg" alt="...">
 			   </span>
                                                 <div class="comment-body">
                                                     <input class="form-control input-sm" type="text"
