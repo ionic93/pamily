@@ -7,23 +7,29 @@
         <link type="text/css" th:href="@{/assets/css/skins/two.css}" rel="stylesheet"/>
         <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet"/>
         <script th:src="@{/assets/js/modernizr-custom.js}"></script>
+        <style>
+            th {
+                text-align:center;
+            }
+            .tr-list{
+                cursor: pointer;
+            }
+            .tr-list:hover {
+                background: #c2d2ff;
+            }
+
+        </style>
         <section class="channel-one">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3">
                         <aside class="sidebar">
                             <ul>
-                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> BEST </a></li>
-                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> IVENT </a></li>
-                                <li class="sideText"><a href=""><i class="fa fa-users"></i> 인벤토리 </a></li>
+                                <li class="sideText ctg" th:each=" cate : ${category}">
+                                    <i class="fa fa-align-left"></i>
+                                    <a href="" th:text="${cate.cateName}"></a>
                                 <li class="hr"></li>
-                                <li th:each="type:${typeDTOS}" class="sideText type-btn"><i
-                                        class="fa fa-align-left"></i>
-                                    [[${type.typeName}]]
                                 </li>
-                                <li class="hr"></li>
-                                <li class="sideText"><a href=""><i class="fa fa-user"></i> Heart </a></li>
-                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> Cart </a></li>
                             </ul>
                         </aside>
                     </div><!--/ col-lg-3 -->
@@ -35,13 +41,13 @@
                         <form th:action="@{/shop/shopreg}" th:method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="inputName">닉네임</label>
-                                <input type="email" class="form-control" name="member" id="inputName" th:value="${name}" readonly>
-                                <input type="hidden" class="form-control" name="" id="mid" th:value="${mid}" readonly>
+                                <input type="email" class="form-control" name="name" id="inputName" th:value="${name}" readonly>
+                                <input type="hidden" class="form-control" name="mid" id="mid" th:value="${mid}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>카테고리</label>
-                            <select class="form-control" th:name="scno">
-                                <option th:each="cate:${cateDTOS}" th:value="${cate.scno}">[[${cate.cateName}]]</option>
+                            <select class="form-control" name="scno">
+                                <option th:each=" cate : ${category}" th:value="${cate.scno}">[[${cate.cateName}]]</option>
                             </select>
                             </div>
                             <div class="form-group">
@@ -53,12 +59,28 @@
                                 <input type="file" id="exampleInputFile" name="file">
                                 <p class="help-block">여기에 블록레벨 도움말 예제</p>
                             </div>
+
                             <div class="form-group">
                             <textarea class="form-control" rows="20" name="content"></textarea>
                             </div>
                             <button type="submit" class="btn btn-default">제출</button>
                         </form>
+                        <div class="box"></div>
                         <!--        페이지 목록 출력-->
+                        <style>
+                                .shopuploadResult { width: 100%;background:gray;margin-top:10px;}
+                                .shopuploadResult ul {
+                                    display:flex;flex-flow:row;justify-content:center;
+                                    align-items:center;vertical-align:top;overflow:auto;
+                                }
+                                .shopuploadResult ul li{ list-style:none;padding:10px;margin-left:2em;}
+                                .shopuploadResult ul li img{ width:100px;}
+                            </style>
+                        <div class="shopuploadResult">
+                            <ul>
+
+                            </ul>
+                        </div>
                     </div>
                 </div><!--/ row -->
             </div><!--/ container -->
@@ -82,6 +104,100 @@
             });
             $(document).ready(function(){
 
+                var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
+                var maxSize = 10485760;
+
+                function checkExtension(fileName, fileSize){
+                    if(fileSize >= maxSize){
+                        alert("파일 사이즈 초과");
+                        return false;
+                    }
+                    if(regex.test(fileName)){
+                        alert("해당 파일은 업로드 할 수 없습니다.");
+                        return false;
+                    }
+                    return true;
+                }
+                function showResult(shopuploadResult){
+                    var uploadUL = $(".shopuploadResult ul");
+                    var str = "";
+                    $(shopuploadResultArr).each(function(i,obj){
+                        str += "<li data-name='" + obj.fileName + "' data-path='"
+                            + obj.folderPath + "' data-uuid='"+obj.uuid+"'>";
+                        str += "<div>";
+                        str += "<button type='button' data-file='" + obj.imageURL
+                            + "\' class='btn-warning btn-sm'>X</button><br>";
+                        str += "<img src='/shopdisplay?fileName="+obj.thumbnailURL+"'>";
+                        str += "</div>";
+                        str += "</li>";
+                    });
+                    uploadUL.append(str);
+                }
+                $(".custom-file-input").on("change", function(){
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label")
+                        .addClass("selected").html(fileName);
+                    var formData = new FormData();
+                    var inputFile = $(this);
+                    var files = inputFile[0].files;
+                    var append = false;
+                    for(var i=0;i<files.length;i++){
+                        if(!checkExtension(files[i].name, files[i].size)) return false;
+                        console.log(files[i]);
+                        formData.append("uploadFiles", files[i]);
+                        append = true;
+                    }
+                    if(!append) return;
+                    for(var value of formData.values()) {
+                        console.log(value);
+                    }
+                    $.ajax({
+                        url: '/shopuploadAjax',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type:'POST',
+                        dataType: 'json',
+                        success: function(result){
+                            console.log("result: " + result);
+                            showResult(result);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            console.log(textStatus);
+                        }
+                    });
+                    $('.shopuploadResult').on('click','li button',function(e){
+                        console.log("delete file");
+                        var targetFile = $(this).data("file");
+                        var targetLi = $(this).closest("li");
+                        $.ajax({
+                            url: '/shopremoveFile',
+                            data: {fileName: targetFile},
+                            dataType: 'text',
+                            type: 'POST',
+                            success: function(result){
+                                alert("파일을 지웁니다.");
+                                targetLi.remove();
+                            }
+                        });
+                    });
+                });
+                $(".btn-primary").on("click", function(e){
+                    e.preventDefault();
+                    var str = "";
+                    $(".shopuploadResult li").each(function(i, obj){
+                        var target = $(obj);
+                        str += "<input type='hidden' name='imageDTOList[" + i
+                            + "].imgName' value='" + target.data('name') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i
+                            + "].path' value='" + target.data('path') + "'>";
+                        str += "<input type='hidden' name='imageDTOList[" + i
+                            + "].uuid' value='" + target.data('uuid') + "'>";
+                    });
+                    $(".box").html(str);
+<!--                    $("form").submit();-->
+                });
+
                 var itemmodal = $(".item-modal");
 
                 $(".modal-btn").click(function() {
@@ -93,6 +209,7 @@
                 });
 
             });
+
 
 
         </script>

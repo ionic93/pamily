@@ -4,7 +4,9 @@ import com.ds.pamily.dto.PageRequestDTO;
 import com.ds.pamily.dto.PageResultDTO;
 import com.ds.pamily.dto.PostDTO;
 import com.ds.pamily.dto.ShopDTO;
-import com.ds.pamily.entity.*;
+import com.ds.pamily.entity.QShop;
+import com.ds.pamily.entity.Shop;
+import com.ds.pamily.entity.ShopImage;
 import com.ds.pamily.repository.ShopImageRepository;
 import com.ds.pamily.repository.ShopReplyRepository;
 import com.ds.pamily.repository.ShopRepository;
@@ -13,17 +15,14 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -37,13 +36,16 @@ public class ShopServiceImpl implements ShopService{
     @Override
     public Long shopRegister(ShopDTO shopDTO) {
         Map<String, Object> entityMap = dtoToEntity(shopDTO);
+        log.info(entityMap);
         Shop shop = (Shop) entityMap.get("shop");
+        log.info("HERE1111"+ shop);
         List<ShopImage> shopImageList = (List<ShopImage>) entityMap.get("shopImgList");
-
         shopRepository.save(shop);
+        log.info("HERE~"+shopImageList);
         shopImageList.forEach(shopImage -> {
             shopImageRepository.save(shopImage);
         });
+        log.info("HERE~2"+shopImageList);
         return shop.getSid();
     }
 
@@ -59,6 +61,8 @@ public class ShopServiceImpl implements ShopService{
     public PageResultDTO<ShopDTO, Object[]> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("sid").descending());
 
+        Page<Object[]> result1 = shopRepository.getShopListPage(pageable);
+        log.info("result1: "+result1);
         log.info("requestDTO: "+requestDTO);
 
         //엔티티를 DTO로 바꿀 로직 선언  = 받아온 엔티티의 배열중 0번째는 Board타입으로, 1번째는 Member타입으로, 2번째는 Long타입으로 변환
@@ -73,6 +77,13 @@ public class ShopServiceImpl implements ShopService{
         log.info("serviceSearch: "+result);
         return new PageResultDTO<>(result, fn);
     }
+
+//    @Override
+//    public ShopDTO read(Long sid) {
+//        Optional<Shop> result = shopRepository.findById(sid);
+//        log.info("result>>>>>>>>>>>>"+result);
+//        return result.isPresent()?shopEntityToDTO(result.get()):null;
+//    }
 
     @Override
     public ShopDTO getShop(Long sid) {
@@ -94,5 +105,21 @@ public class ShopServiceImpl implements ShopService{
         Long shopReplyCnt = (Long) result.get(0)[2]; //리뷰 개수 - 모든 Row가 동일한 값
 
         return entitiesToDTO(shop, shopImageList, shopReplyCnt);
+    }
+
+    @Override
+    public void remove(Long sid) {
+        shopRepository.deleteById(sid);
+    }
+
+    @Override
+    public void modify(ShopDTO shopDTO) {
+        Optional<Shop> result = shopRepository.findById(shopDTO.getSid());
+        if (result.isPresent()) {
+            Shop entity = result.get();
+            entity.changeShopTitle(shopDTO.getTitle());
+            entity.changeShopContent(shopDTO.getContent());
+            shopRepository.save(entity);
+        }
     }
 }

@@ -7,27 +7,32 @@
         <link type="text/css" th:href="@{/assets/css/skins/two.css}" rel="stylesheet"/>
         <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet"/>
         <script th:src="@{/assets/js/modernizr-custom.js}"></script>
+        <style>
+            th {
+                text-align:center;
+            }
+            .tr-list{
+                cursor: pointer;
+            }
+            .tr-list:hover {
+                background: #c2d2ff;
+            }
+
+        </style>
         <section class="channel-one">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3">
                         <aside class="sidebar">
                             <ul>
-                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> BEST </a></li>
-                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> IVENT </a></li>
-                                <li class="sideText"><a href=""><i class="fa fa-users"></i> 인벤토리 </a></li>
+                                <li class="sideText ctg" th:each=" cate : ${category}">
+                                    <i class="fa fa-align-left"></i>
+                                    <a href="" th:text="${cate.cateName}"></a>
                                 <li class="hr"></li>
-                                <li th:each="type:${typeDTOS}" class="sideText type-btn"><i
-                                        class="fa fa-align-left"></i>
-                                    [[${type.typeName}]]
                                 </li>
-                                <li class="hr"></li>
-                                <li class="sideText"><a href=""><i class="fa fa-user"></i> Heart </a></li>
-                                <li class="sideText"><a href=""><i class="fa fa-align-left"></i> Cart </a></li>
                             </ul>
                         </aside>
                     </div><!--/ col-lg-3 -->
-
                     <h1 class="mt-4">Pamily Mart
                     </h1>
                     <div class="col-lg-9">
