@@ -40,84 +40,9 @@
 
                             <div class="row">
 
-                                <div class="col-lg-6">
-                                    <a href="#myModal" data-toggle="modal">
-                                        <div class="explorebox"
-                                             style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2));
-					  background-size: cover;
-					  background-position: center center;
-					  -webkit-background-size: cover;
-					  -moz-background-size: cover;
-					  -o-background-size: cover; position: relative;">
-                                            <img th:src="@{/assets/img/users/3.jpg}" class="explorebox"
-                                                 style="position: absolute; z-index=1">
-                                            <div class="explore-top" style="position:absolute; z-index:2;">
-                                                <div class="explore-like"><i class="fa fa-heart"></i> <span>312</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <a href="#myModal" data-toggle="modal">
-                                        <div class="explorebox"
-                                             style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
-					  background-size: cover;
-					  background-position: center center;
-					  -webkit-background-size: cover;
-					  -moz-background-size: cover;
-					  -o-background-size: cover;">
-
-                                            <div class="explore-top">
-                                                <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span>
-                                                </div>
-                                                <div class="explore-circle pull-right"><i class="far fa-bookmark"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <a href="#myModal" data-toggle="modal">
-                                        <div class="explorebox"
-                                             style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
-					  background-size: cover;
-					  background-position: center center;
-					  -webkit-background-size: cover;
-					  -moz-background-size: cover;
-					  -o-background-size: cover;">
-                                            <div class="explore-top">
-                                                <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span>
-                                                </div>
-                                                <div class="explore-circle pull-right"><i class="far fa-bookmark"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="col-lg-6">
-                                    <a href="#myModal" data-toggle="modal">
-                                        <div class="explorebox"
-                                             style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
-					  background-size: cover;
-					  background-position: center center;
-					  -webkit-background-size: cover;
-					  -moz-background-size: cover;
-					  -o-background-size: cover;">
-                                            <div class="explore-top">
-                                                <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span>
-                                                </div>
-                                                <div class="explore-circle pull-right"><i class="far fa-bookmark"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
 
                                 <div class="col-lg-6" th:each="dto : ${msg}" style="overflow: hidden;">
-                                    <a href="#myModal" data-toggle="modal">
+                                    <a href="#myModal" th:onclick="javascript:showModal([[${dto.imageDTOList[0].thumbnailURL}]])" data-toggle="modal">
                                         <div class="explorebox"
                                              style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
 					  background-size: cover;
@@ -132,8 +57,6 @@
 
                                             <div class="explore-top" style="position:absolute; z-index:2;">
                                                 <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span>
-                                                </div>
-                                                <div class="explore-circle pull-right"><i class="far fa-bookmark"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -196,7 +119,7 @@
                         <div class="row">
 
                             <div class="col-md-8 modal-image">
-                                <img class="img-responsive" th:src="@{/assets/img/users/3.jpg}" alt="Image"/>
+                                <img class="img-responsive" th:src="@{/assets/img/users/3.jpg}" alt="Image" id="modalImage"/>
                             </div><!--/ col-md-8 -->
                             <div class="col-md-4 modal-meta">
                                 <div class="modal-meta-top">
@@ -304,6 +227,12 @@
         <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
 
         <script th:inline="javascript">
+
+            function showModal(str){
+                console.log(str)
+                $('#myModal img').attr('src' , '/pamily/display?fileName='+ str)
+            }
+
             var msg = [[${msg}]];
             console.log(msg)
 

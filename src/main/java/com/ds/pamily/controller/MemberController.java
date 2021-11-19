@@ -88,12 +88,13 @@ public class MemberController {
         log.info("New Pass newMInfo>>" + newMInfo);
         MemberDTO beforeMInfo = memberService.get(newMInfo.getEmail());
         beforeMInfo.setPassword(newMInfo.getPassword());
+        beforeMInfo.setPassword(passwordEncoder.encode(beforeMInfo.getPassword()));
         memberService.modify(beforeMInfo);
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<script>alert('변경되었습니다.');</script>");
-        out.println("<script> location.href='/pamily/sample/main'; </script>");
+        out.println("<script> location.href='/pamily/member/login; </script>");
         out.flush();
     }
 
