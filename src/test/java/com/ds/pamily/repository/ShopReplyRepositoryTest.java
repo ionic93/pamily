@@ -20,7 +20,7 @@ class ShopReplyRepositoryTest {
     public void insertReply() {
         IntStream.rangeClosed(1, 50).forEach(i->{
             Long mid = (long)(Math.random()*10)+1;
-            //영화 번호
+
             Long sid = (long)(Math.random()*30)+1;
             ShopReply shopReply = ShopReply.builder()
                     .text("댓글 남겨요"+i)

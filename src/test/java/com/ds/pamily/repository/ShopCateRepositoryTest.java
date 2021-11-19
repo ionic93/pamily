@@ -6,9 +6,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootContextLoader;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,4 +35,20 @@ class ShopCateRepositoryTest {
         });
     }
 
+    @Test
+    public void findcate() {
+        List<ShopCate> result = shopCateRepository.findAll();
+        for (ShopCate c : result) {
+            System.out.println(c);
+        }
+    }
+
+    @Test
+    public void findCateName() {
+        String cateName = "악세사리";
+        Optional<ShopCate> result = shopCateRepository.findByCateName(cateName);
+        if (result.isPresent()) {
+            System.out.println(result);
+        }
+    }
 }

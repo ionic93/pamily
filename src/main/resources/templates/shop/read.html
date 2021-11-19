@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/demos/interest.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/skins/skin_two.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet"/>
+        <style>
+            .form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{background-color:#ffffff;opacity:1}
+        </style>
+        <section class="channel-one">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <aside class="sidebar">
+                            <ul>
+                                <li class="sideText ctg" th:each=" cate : ${category}">
+                                    <i class="fa fa-align-left"></i>
+                                    <a href="" th:text="${cate.cateName}"></a>
+                                <li class="hr"></li>
+                                </li>
+                            </ul>
+                        </aside>
+                    </div><!--/ col-lg-3 -->
+
+                    <h1 class="mt-4">Pamily Mart
+                    </h1>
+                    <div class="col-lg-9">
+                        <!--        검색 창-->
+                        <form>
+                            <!--            페이지 번호 유지용-->
+                            <input type="hidden" name="page" th:value="${requestDTO.page}">
+                            <input type="hidden" name="type" th:value="${requestDTO.type}">
+                            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+
+                            <div class="form-group">
+                                <label>닉네임</label>
+                                <input type="text" class="form-control" name="name"
+                                       th:value="${dto.name}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>카테고리</label>
+                                <input type="text" class="form-control" name="cateName"
+                                       th:value="${dto.cateName}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>제목</label>
+                                <input type="text" class="form-control" name="title"
+                                       th:value="${dto.title}" readonly>
+                            </div>
+                            <div class="form-inline">
+                                <label for="exampleInputFile">파일 업로드</label>
+                                <input type="file" id="exampleInputFile" disabled style="margin-bottom:10px;">
+                                <label>등록 일자</label>
+                                <input type="text" class="form-control" name="regDate"  readonly
+                                       th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}">
+                                <label>수정 일자</label>
+                                <input type="text" class="form-control" name="modDate"  readonly
+                                       th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd HH:mm:ss')}">
+                            </div>
+                            <div class="form-group" style="margin-top:10px;">
+                                <label>내용</label>
+                                <div class="uploadResult">
+                                    <ul>
+                                        <li th:each="dto: ${dto.shopImageDTOList}"
+                                            th:data-file="${dto.getImageURL()}">
+                                            <img th:if="${dto.path != null}"
+                                                 th:src="|/pamily/display?fileName=${dto.getImageURL()}|">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>[[${dto.content}]]</div>
+                            </div>
+                        </form>
+                            <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
+                                <button class="btn btn-info">목록보기</button>
+                            </a>
+                            <span th:if="${#authentication.principal.name} == ${dto.name}">
+                                <button  class="btn btn-warning">수정하기</button>
+                            </span>
+                            <span th:if="${#authentication.principal.name} == ${dto.name} or ${#authorization.expression('hasRole(''ADMIN'')')}">
+                                 <form id="delete-form">
+                                        <input type="hidden" th:value="${dto.sid}"/>
+                                        <button class="btn btn-danger removeBtn">삭제</button>
+                                 </form>
+                            </span>
+                        <!--        페이지 목록 출력-->
+                        <div style="margin-bottom: 20px;"></div>
+                    </div>
+                </div><!--/ row -->
+            </div><!--/ container -->
+        </section><!--/ newsfeed -->
+
+        <!-- ==============================================
+        Scripts
+        =============================================== -->
+        <script th:src="@{/assets/js/jquery.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+        <script th:src="@{/assets/js/base.js}"></script>
+        <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+        <script th:inline="javascript">
+            $('#Slim,#Slim2').slimScroll({
+                height:"auto",
+                position: 'right',
+                railVisible: true,
+                alwaysVisible: true,
+                size:"8px",
+            });
+            $(document).ready(function(){
+                var actionForm = $("form");
+
+                var itemmodal = $(".item-modal");
+
+                $(".modal-btn").click(function() {
+
+                    itemmodal.modal('show');
+                });
+                $(".get-btn").click(function(){
+                    $(".getModal").modal('show');
+                });
+
+                var dto = [[${dto}]]
+                console.log(dto);
+            });
+
+        </script>
+
+    </th:block>
+</th:block>

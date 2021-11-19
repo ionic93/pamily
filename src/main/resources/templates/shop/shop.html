@@ -10,15 +10,25 @@
             th {
                 text-align:center;
             }
+            .tr-list{
+                cursor: pointer;
+            }
+            .tr-list:hover {
+                background: #c2d2ff;
+            }
+
         </style>
-        <script th:src="@{/assets/js/modernizr-custom.js}"></script>
         <section class="channel-one">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-3">
                         <aside class="sidebar">
                             <ul>
-
+                                <li class="sideText ctg" th:each=" cate : ${category}">
+                                    <i class="fa fa-align-left"></i>
+                                    <a href="" th:text="${cate.cateName}"></a>
+                                <li class="hr"></li>
+                                </li>
                             </ul>
                         </aside>
                     </div><!--/ col-lg-3 -->
@@ -65,11 +75,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="dto : ${result.dtoList}">
-                            <th scope="row"><a th:href="@{/shop/read(sid=${dto.sid}, page=${result.page})}">[[${dto.sid}]]</a>
-                            </th>
+                        <tr th:each="dto : ${result.dtoList}"
+                            th:data-type="${pageRequestDTO.type}"
+                            th:data-keyword="${pageRequestDTO.keyword}"
+                            th:onclick="|javascript:read('${dto.sid}','${result.page}',this.getAttribute('data-type'),this.getAttribute('data-keyword'))|"
+                            class="tr-list">
+                            <th scope="row">[[${dto.sid}]]</th>
                             <td>[[${dto.cateName}]]</td>
-                            <td>[[${dto.title}]]</td>
+                            <td><img th:if="${dto.shopImageDTOList.size() > 0 && dto.shopImageDTOList[0].path != null}"
+                                     th:src="|/pamily/display?fileName=${dto.shopImageDTOList[0].getThumbnailURL()}|" style="margin-right: 30px;">[[${dto.title}]]</td>
                             <td><b>[[${dto.shopReplyCnt}]]</b></td>
                             <td>[[${dto.name}]]</td>
                             <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
@@ -113,6 +127,16 @@
         <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
         <script th:inline="javascript">
+            function read(sid, page, type, keyword){
+                    if(type==null){type="";}
+                    if(keyword==null){keyword="";}
+                      /*[+
+                      var urlword =[[@{/shop/read}]] + "?sid="+sid+"&page="+page+"&type="+type+"&keyword="+keyword;
+                      +]*/
+                      location.href=urlword;
+                }
+        </script>
+        <script th:inline="javascript">
             $('#Slim,#Slim2').slimScroll({
                 height:"auto",
                 position: 'right',
@@ -132,8 +156,13 @@
                     $(".getModal").modal('show');
                 });
 
-                var msg = [[${msg}]]
+                var msg = [[${result}]]
                 console.log(msg);
+                var nickName = [[${nickname}]];
+                console.log(nickName);
+
+                var category = [[${category}]];
+                console.log(category);
 
                 var searchForm = $("#searchForm");
                 $('.btn-search').click(function(e){
@@ -142,9 +171,8 @@
                 $('.btn-clear').click(function(e){
                     searchForm.empty().submit();
                 });
+
             });
-
-
         </script>
 
     </th:block>

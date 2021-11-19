@@ -5,6 +5,7 @@ import com.ds.pamily.dto.PageResultDTO;
 import com.ds.pamily.dto.PostDTO;
 import com.ds.pamily.entity.Post;
 import com.ds.pamily.entity.PostImage;
+import com.ds.pamily.repository.MainPostRepository;
 import com.ds.pamily.repository.PostImageRepository;
 import com.ds.pamily.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -72,12 +73,30 @@ public class PostServiceImpl implements PostService{
         Pageable pageable = requestDTO.getPageable(Sort.by("pid").descending());
 
         Page<Object[]> result = postRepository.getListPage(pageable);
-
-        Function<Object[], PostDTO> fn = (arr -> entitiesToDTO(
-                (Post) arr[0],
-                (List<PostImage>)(Arrays.asList((PostImage)arr[1])),
-                (Long) arr[2])
-        );
+        log.info("result >>>>>>>>" + result);
+        Function<Object[], PostDTO> fn = new Function<Object[], PostDTO>() {
+            @Override
+            public PostDTO apply(Object[] arr) {
+                log.info("arr>"+arr[0]);
+                log.info("arr>"+arr[1]);
+                log.info("arr>"+arr[2]);
+                PostDTO dto = entitiesToDTO(
+                    (Post) arr[0],
+                    (List<PostImage>)(Arrays.asList((PostImage)arr[1])),
+                    (Long) arr[2]
+                );
+                log.info("dto1>"+dto.getPid());
+                log.info("dto2>"+dto.getContent());
+                log.info("dto3>"+dto.getImageDTOList());
+                return dto;
+            }
+        };
+//        Function<Object[], PostDTO> fn = (arr -> entitiesToDTO(
+//                (Post) arr[0],
+//                (List<PostImage>)(Arrays.asList((PostImage)arr[1])),
+//                (Long) arr[2])
+//        );
         return new PageResultDTO<>(result, fn);
     }
+
 }

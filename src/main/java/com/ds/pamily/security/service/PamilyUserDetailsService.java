@@ -41,12 +41,12 @@ public class PamilyUserDetailsService implements UserDetailsService {
         //ClubMemberRole은 스프링 시큐리티에서 사용하는 SimpleGrantedAuthority로 변환
         //이때, "ROLE_"이라는 접두어를 추가 =>Enum에 있던 상수
         AuthMemberDTO authMemberDTO = new AuthMemberDTO(
-                member.getEmail(),
-                member.getPassword(),
-                member.isFromSocial(),
-                member.getRoleSet().stream()
-                        .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name()))
-                        .collect(Collectors.toSet())
+            member.getEmail(),
+            member.getPassword(),
+            member.isFromSocial(),
+            member.getRoleSet().stream()
+                    .map(role -> new SimpleGrantedAuthority("ROLE_"+role.name()))
+                    .collect(Collectors.toSet())
         );
         authMemberDTO.setMid(member.getMid());
         authMemberDTO.setName(member.getName());

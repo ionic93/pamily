@@ -6,6 +6,7 @@ import com.ds.pamily.dto.ShopDTO;
 import com.ds.pamily.entity.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,22 +45,33 @@ class ShopRepositoryTest {
                     .build();
             shopRepository.save(shop);
 
-            int count = (int)(Math.random()*3)+1;
-
-            for (int j = 0; j < count; j++) {
-                ShopImage shopImage = ShopImage.builder()
+//            int count = (int)(Math.random()*3)+1;
+//
+//            for (int j = 0; j < count; j++) {
+//                ShopImage shopImage = ShopImage.builder()
+//                        .uuid(UUID.randomUUID().toString())
+//                        .shop(shop)
+//                        .imgName("test"+j+".jpg")
+//                        .build();
+//                shopImageRepository.save(shopImage);
+//            }
+            ShopImage shopImage = ShopImage.builder()
                         .uuid(UUID.randomUUID().toString())
                         .shop(shop)
-                        .imgName("test"+j+".jpg")
+                        .imgName("test"+i+".jpg")
                         .build();
                 shopImageRepository.save(shopImage);
-            }
         });
     }
 
     @Test
     public void deleteAll() {
         shopRepository.deleteAll();
+    }
+
+    @Test
+    public void deleteImage() {
+        shopImageRepository.deleteAll();
     }
 
     @Test
@@ -73,26 +85,32 @@ class ShopRepositoryTest {
             shopRepository.save(shop);
         }
     }
+    @Transactional
     @Test
-    public void testSearch1() {
-        shopRepository.search1();
+    public void testSearch() {
+        Pageable pageable = PageRequest.of(0,10, Sort.by("sid").descending());
+        String type = "t";
+        String keyword = "30";
+
+        Page<Object[]> result = shopRepository.searchPage(type,keyword,pageable);
+
+        result.get().forEach(row->{
+            Object[] arr = (Object[]) row;
+            System.out.println(Arrays.toString(arr));
+        });
     }
 
     @Transactional
     @Test
-    public void testSearchPage() {
-        Pageable pageable = PageRequest.of(0,10,Sort.by("sid").descending());
-        Page<Object[]> result = shopRepository.searchPage("t","1",pageable);
-    }
+    public void testListPage() {
+        Pageable pageable = PageRequest.of(0,10, Sort.by("sid").descending());
 
-    @Test
-    public void testGetAll() {
-        List<Object[]> result = shopRepository.getShopWithAll(30L);
-        System.out.println(result);
+        Page<Object[]> result = shopRepository.getShopListPage(pageable);
 
-        for (Object[] arr : result) {
+        result.get().forEach(row->{
+            Object[] arr = (Object[]) row;
             System.out.println(Arrays.toString(arr));
-        }
+        });
     }
 
 }
