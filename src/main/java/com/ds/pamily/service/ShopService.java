@@ -59,7 +59,7 @@ public interface ShopService {
                 .member(Member.builder().mid(shopDTO.getMid()).name(shopDTO.getName()).build())
                 .scno(ShopCate.builder().scno(shopDTO.getScno()).build())
                 .build();
-
+        System.out.println("shop>>"+shop);
         entityMap.put("shop",shop);
         List<ShopImageDTO> shopImageDTOList = shopDTO.getShopImageDTOList();
 
@@ -78,4 +78,7 @@ public interface ShopService {
         }
         return entityMap;
     }
+
+    void remove(Long sid);
+    void modify(ShopDTO shopDTO);
 }

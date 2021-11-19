@@ -1,13 +1,11 @@
 package com.ds.pamily.controller;
 
 import com.ds.pamily.dto.MemberDTO;
-import com.ds.pamily.entity.Member;
 import com.ds.pamily.security.dto.AuthMemberDTO;
 import com.ds.pamily.security.service.PamilyUserDetailsService;
 import com.ds.pamily.service.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.catalina.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,11 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import static java.lang.System.out;
 
 @Controller
 @Log4j2
