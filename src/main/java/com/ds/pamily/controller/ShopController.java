@@ -72,12 +72,15 @@ public class ShopController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/shopreg")
-    public void exshopReg(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
+    public void exshopReg(ShopDTO shopDTO, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
         String name = authMemberDTO.getName();
+        Long mid = authMemberDTO.getMid();
+
         model.addAttribute("category",shopCateService.getCateList());
         model.addAttribute("authMid",authMemberDTO.getMid());
         model.addAttribute("authName",authMemberDTO.getName());
         model.addAttribute("name",name);
+        model.addAttribute("mid",mid);
         log.info("ShopReg...");
     }
 

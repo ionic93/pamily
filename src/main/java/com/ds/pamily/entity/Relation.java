@@ -11,14 +11,11 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = "member")
+@ToString(exclude = "member")
 public class Relation extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rid;
-
-    @ManyToOne
-    private Member name;
 
     @JsonBackReference
     @ManyToOne
