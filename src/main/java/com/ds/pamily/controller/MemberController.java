@@ -118,7 +118,7 @@ public class MemberController {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
         if (authMemberDTO.isFromSocial() == true) {
-            out.println("<script>alert('구글 회원은 정보를 업데이트 할 수 없습니다.');</script>");
+            out.println("<script>alert('수정 가능한 정보가 없습니다.');</script>");
             out.println("<script> location.href='/pamily/sample/main'; </script>");
         } else {
             out.println("<script> location.href='/pamily/member/updateMInfo'; </script>");
