@@ -84,6 +84,7 @@
                         <div class="list-group reviewList">
 
                         </div>
+                        <div>
                             <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
                                 <button class="btn btn-info">목록보기</button>
                             </a>
@@ -91,11 +92,12 @@
                                 <button  class="btn btn-warning">수정하기</button>
                             </span>
                             <span th:if="${#authentication.principal.name} == ${dto.name} or ${#authorization.expression('hasRole(''ADMIN'')')}">
-                                 <form id="delete-form">
+                                 <form id="delete-form" style="display:inline-block;">
                                         <input type="hidden" th:value="${dto.sid}"/>
                                         <button class="btn btn-danger">삭제</button>
                                  </form>
                             </span>
+                        </div>
                         <!--        페이지 목록 출력-->
                         <div style="margin-bottom: 20px;"></div>
                     </div>
@@ -113,8 +115,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Reviewer ID</label>
-                            <input type="text" class="form-control" th:value="${authName}" name="loginName" readonly>
-                            <input type="hidden" th:value="${authMid}" name="mid">
+                            <input type="text" class="form-control" name="mid" readonly>
                         </div>
                         <div class="form-group">
                             <label>Review Text</label>
@@ -126,6 +127,7 @@
                         <button type="button" class="btn btn-primary reviewSaveBtn">Save changes</button>
                         <button type="button" class="btn btn-warning modifyBtn">Modify</button>
                         <button type="button" class="btn btn-danger removeBtn">Remove</button>
+
                     </div>
                 </div>
             </div>
@@ -154,13 +156,15 @@
                 console.log(dto);
 
                 var sid = [[${dto.sid}]];
+                var loginName = [[${authName}]];
+                var loginMid = [[${authMid}]];
 
                 var reviewModal = $(".reviewModal");
                 var inputMid = $('input[name="mid"]');
                 var inputText = $('input[name="text"]');
 
                 $(".addReviewBtn").click(function(){
-                inputMid.val();
+                inputMid.val(loginName);
                 inputText.val();
                 $(".removeBtn, .modifyBtn").hide();
                 $(".reviewSaveBtn").show();
@@ -177,7 +181,7 @@
 
                 //리뷰 저장
                 $('.reviewSaveBtn').click(function(){
-                    var data = {sid:sid, text:inputText.val(), mid:inputMid.val()};
+                    var data = {sid:sid, text:inputText.val(), mid:loginMid};
                     console.log(data);
 
                     $.ajax({
@@ -212,7 +216,7 @@
                         $.each(arr, function(idx, reply){
                             console.log(reply);
 
-                            str += '<div class="card-body" data-srid='+reply.srid+' data-mid='+reply.mid+'>';
+                            str += '<div class="card-body" data-srid='+reply.srid+' data-mid='+reply.mid+' data-name='+reply.name+'>';
                             str += '<h4 class="card-subtitle mb-2 text-muted">'+reply.name+'</h4>';
                             str += '<h4 class="card-title">'+reply.text+'</h4>';
                             str += '<p class="card-text">'+formatTime(reply.regDate)+'</p>';
@@ -233,8 +237,16 @@
 
                     var targetReview = $(this);
                     srid = targetReview.data("srid");
+
+                    rpName = targetReview.data("name");
+                    if(loginName != rpName){
+                        $(".removeBtn, .modifyBtn").hide();
+                    }
                     console.log("srid: "+srid);
-                    inputMid.val(targetReview.data("mid"));
+                    console.log("loginName: "+loginName);
+                    console.log("rpName: "+rpName);
+
+                    inputMid.val(targetReview.data("name"));
                     // children() : 자식 태그를 들고 오되 주석이나 태그가 아닌 문자들은 전부 제외
                     // childNodes() : 자식 태그들 들고 오되 주석이나 태그들을 전부 들고옴
                     // end() : 선택한 요소의 이전 요소
@@ -242,6 +254,46 @@
                     .remove().end().text());
 
                     $('.reviewModal').modal('show');
+                });
+
+                //리뷰 수정
+                $(".modifyBtn").on("click", function(){
+                    var data = {srid:srid, sid:sid, text:inputText.val()
+                    , mid:loginMid};
+
+                    console.log(data);
+
+                    $.ajax({
+                        url: '/pamily/shop/reviews/'+sid+"/"+srid,
+                        type: "PUT",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        success: function(result){
+                            console.log("result: "+result);
+                            self.location.reload();
+                        }
+                    })
+                    reviewModal.modal('hide');
+                });
+
+                //리뷰 삭제
+                $(".removeBtn").on("click", function(){
+                    var data = {srid:srid};
+
+                    console.log(data);
+
+                    $.ajax({
+                        url: '/pamily/shop/reviews/'+sid+"/"+srid,
+                        type: "DELETE",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "text",
+                        success: function(result){
+                            console.log("result: "+result);
+                            self.location.reload();
+                        }
+                    })
+                    reviewModal.modal('hide');
                 });
             });
         </script>
