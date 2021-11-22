@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RelationDTO {
     private Long rid;
-    private Member name;
+
     private Member following;
     private Member follower;
 }
