@@ -95,8 +95,8 @@
                                 </div><!--/ media -->
                             </div>
                             <div class="col-lg-3">
-                                <div class="follow-box">
-                                    <a href="" class="kafe-btn kafe-btn-mint"><i class="fa fa-check"></i> Following</a>
+                                <div class="profileModify">
+                                    <a th:href="@{/sample/profileModify}" class="kafe-btn kafe-btn-mint"><i class="fa fa-check"></i> 프로필 이미지 수정</a>
                                 </div><!--/ dropdown -->
                             </div>
                         </div><!--/ details-box -->
@@ -133,7 +133,7 @@
 
                 <div class="row">
 
-                    <div class="col-lg-6" th:each="dto : ${msg}" style="overflow: hidden;">
+                    <div class="col-lg-4" th:each="dto : ${msg}" style="overflow: hidden;">
                         <a href="#myModal" th:onclick="javascript:showModal([[${dto.imageDTOList[0].thumbnailURL}]])" data-toggle="modal">
                             <div class="explorebox"
                                  style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
