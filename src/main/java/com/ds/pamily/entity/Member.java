@@ -33,6 +33,13 @@ public class Member extends BaseEntity{
 
     private boolean fromSocial;
 
+    @OneToMany(mappedBy = "following", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Relation> following;
+
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Relation> followers;
+
+
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<MemberRole> roleSet = new HashSet<>();

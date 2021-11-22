@@ -7,6 +7,7 @@ import com.ds.pamily.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -78,4 +79,11 @@ public class MemberServiceImpl implements MemberService {
     public void remove(Long mid) {
         memberRepository.deleteById(mid);
     }
+
+
+    @Transactional(readOnly = true)
+    public Optional<Member> findById(Long id) {
+        return memberRepository.findById(id);
+    }
+
 }

@@ -3,6 +3,8 @@ package com.ds.pamily.service;
 import com.ds.pamily.dto.MemberDTO;
 import com.ds.pamily.entity.Member;
 
+import java.util.Optional;
+
 public interface MemberService {
     Member add(Member member) throws Exception;
 
@@ -39,4 +41,6 @@ public interface MemberService {
                 .build();
         return memberDTO;
     }
+
+    public Optional<Member> findById(Long id);
 }
