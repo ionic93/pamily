@@ -35,8 +35,8 @@ class ShopRepositoryTest {
     @Test
     public void insertDummies() {
         IntStream.rangeClosed(1,30).forEach(i->{
-        Long mid = (long)(Math.random()*10)+1;
-        Long scno = (long)(Math.random()*4)+1;
+            Long mid = (long)(Math.random()*10)+1;
+            Long scno = (long)(Math.random()*4)+1;
             Shop shop = Shop.builder()
                     .title("테스트 사요..."+i)
                     .content("물건 삽니다..."+i)

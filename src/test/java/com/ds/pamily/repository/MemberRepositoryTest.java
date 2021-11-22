@@ -23,6 +23,7 @@ class MemberRepositoryTest {
                 .email("ionic94@ds.com")
                 .password(passwordEncoder.encode("1"))
                 .name("ionic2")
+                .mobile("01011111111")
                 .fromSocial(false)
                 .build();
         member.addMemberRole(MemberRole.USER);
@@ -37,6 +38,7 @@ class MemberRepositoryTest {
                 .email("testuser@ds.com")
                 .password(passwordEncoder.encode("1"))
                 .name("test")
+                .mobile("01011111111")
                 .fromSocial(false)
                 .build();
         member.addMemberRole(MemberRole.USER);
@@ -47,6 +49,7 @@ class MemberRepositoryTest {
         Member member = Member.builder()
                 .email("testmanager@ds.com")
                 .password(passwordEncoder.encode("1"))
+                .mobile("01011111111")
                 .name("manager")
                 .fromSocial(false)
                 .build();
@@ -66,7 +69,7 @@ class MemberRepositoryTest {
                     .name("user"+i)
                     .mobile("000-1111-0000")
                     .fromSocial(false)
-                    .password(passwordEncoder.encode("123456"))
+                    .password(passwordEncoder.encode("1"))
                     .build();
 
             //default role
