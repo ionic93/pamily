@@ -12,7 +12,6 @@ public interface RelationService {
     default Relation dtoToEntity(RelationDTO relationDTO) {
         Relation relation = Relation.builder()
                 .rid(relationDTO.getRid())
-                .name(relationDTO.getName())
                 .following(relationDTO.getFollowing())
                 .follower(relationDTO.getFollower())
                 .build();
@@ -22,7 +21,6 @@ public interface RelationService {
     default RelationDTO entityToDTO(Relation relation) {
         RelationDTO relationDTO = RelationDTO.builder()
                 .rid((relation.getRid()))
-                .name(relation.getName())
                 .following(relation.getFollowing())
                 .follower(relation.getFollower())
                 .build();
