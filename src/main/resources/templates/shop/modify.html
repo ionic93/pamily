@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/demos/interest.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/skins/skin_two.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet"/>
+        <style>
+            .form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{background-color:#ffffff;opacity:1}
+        </style>
+        <section class="channel-one">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <aside class="sidebar">
+                            <ul>
+                                <li class="sideText ctg" th:each=" cate : ${category}">
+                                    <i class="fa fa-align-left"></i>
+                                    <a href="" th:text="${cate.cateName}"></a>
+                                <li class="hr"></li>
+                                </li>
+                            </ul>
+                        </aside>
+                    </div><!--/ col-lg-3 -->
+
+                    <h1 class="mt-4">Pamily Mart
+                    </h1>
+                    <div class="col-lg-9">
+                        <!--        검색 창-->
+                        <form th:action="@{/shop/modify}" th:method="post">
+                            <!--            페이지 번호 유지용-->
+                            <input type="hidden" name="page" th:value="${requestDTO.page}">
+                            <input type="hidden" name="type" th:value="${requestDTO.type}">
+                            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+                            <input type="hidden" name="sid" th:value="${dto.sid}">
+
+                            <div class="form-group">
+                                <label>닉네임</label>
+                                <input type="text" class="form-control" name="name"
+                                       th:value="${dto.name}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>카테고리</label>
+                                <select class="form-control" name="scno" id="cateSelected">
+                                    <option th:selected="${dto.cateName} == ${cate.cateName}" th:each=" cate : ${category}" th:value="${cate.scno}" th:text="${cate.cateName}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>제목</label>
+                                <input type="text" class="form-control" name="title"
+                                       th:value="${dto.title}" >
+                            </div>
+                            <div class="form-inline">
+                                <label for="exampleInputFile">파일 업로드</label>
+                                <input type="file" id="exampleInputFile" style="margin-bottom:10px;">
+                                <label>등록 일자</label>
+                                <input type="text" class="form-control"  readonly
+                                       th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}">
+                                <label>수정 일자</label>
+                                <input type="text" class="form-control" readonly
+                                       th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd HH:mm:ss')}">
+                            </div>
+                            <div class="form-group" style="margin-top:10px;">
+                                <label>내용</label>
+                                <div class="uploadResult">
+                                    <ul>
+                                        <li th:each="dto: ${dto.shopImageDTOList}"
+                                            th:data-file="${dto.getImageURL()}"
+                                            th:data-uuid="${dto.uuid}">
+                                            <button type='button' th:data-file="${dto.getImageURL()}"
+                                                    class='btn-warning btn-sm'>X</button><br>
+                                            <img
+                                                 th:if="${dto.path != null}"
+                                                 th:src="|/pamily/display?fileName=${dto.getImageURL()}|">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <textarea class="form-control" name="content"
+                                          rows="20">[[${dto.content}]]</textarea>
+                            </div>
+                            <div class="box"></div>
+                        </form>
+                        <div style="margin-bottom: 20px;"></div>
+
+                        <div>
+                            <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
+                                <button class="btn btn-info">목록보기</button>
+                            </a>
+                                <button  class="btn modifyBtn btn-warning">수정하기</button>
+                        </div>
+                        <!--        페이지 목록 출력-->
+                        <div style="margin-bottom: 20px;"></div>
+                    </div>
+                </div><!--/ row -->
+            </div><!--/ container -->
+        </section><!--/ newsfeed -->
+        <!--모달 창-->
+
+
+        <!-- ==============================================
+        Scripts
+        =============================================== -->
+        <script th:src="@{/assets/js/jquery.min.js}"></script>
+        <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+        <script th:src="@{/assets/js/base.js}"></script>
+        <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+        <script th:inline="javascript">
+            $('.close').click(function(e){
+                $('.reviewModal').hide();
+            })
+            $('#Slim,#Slim2').slimScroll({
+                height:"auto",
+                position: 'right',
+                railVisible: true,
+                alwaysVisible: true,
+                size:"8px",
+            });
+
+            var actionForm = $("form");
+            $(".modifyBtn").click(function(e){
+                e.preventDefault();
+                var cateName =  $("#cateSelected option:checked").text();
+                var authMid = [[${authMid}]];
+
+                console.log(cateName);
+                console.log(authMid);
+
+                var str = "";
+                if(!confirm("수정하시겠습니까?")){
+                return;
+                }
+                $(".uploadResult li").each(function(i, obj){
+                        var target = $(obj);
+                        str += "<input type='hidden' name='shopImageDTOList[" + i
+                            + "].imgName' value='" + target.data('name') + "'>";
+                        str += "<input type='hidden' name='shopImageDTOList[" + i
+                            + "].path' value='" + target.data('path') + "'>";
+                        str += "<input type='hidden' name='shopImageDTOList[" + i
+                            + "].uuid' value='" + target.data('uuid') + "'>";
+                    });
+                $(".box").html(str);
+                var str2 = "";
+
+                str2 += "<input type='hidden' name='cateName' value='"+cateName+"'>";
+                str2 += "<input type='hidden' name='mid' value='"+authMid+"'>";
+
+                $(".box").html(str2);
+                var data1 = actionForm.serializeArray();
+                console.log(data1);
+                $("form").submit();
+            });
+
+            $(document).ready(function(){
+
+                var actionForm = $("form");
+
+                var deleteFrom = $("#delete-form");
+                $(".btn-danger").click(function(){
+                    if(!confirm("삭제하시겠습니까?")){
+                        return;
+                    }
+                    deleteFrom.attr("action", "/pamily/shop/remove")
+                    .attr("method", "post");
+                    deleteFrom.submit();
+                });
+
+                var dto = [[${dto}]]
+                console.log(dto);
+
+                var sid = [[${dto.sid}]];
+
+                $('.uploadResult').on('click','li button',function(e){
+                    if(!confirm("삭제하시겠습니까?")){
+                        return;
+                    }
+                    console.log("delete file");
+                    var targetFile = $(this).data("file");
+                    console.log(targetFile);
+                    var targetLi = $(this).closest("li");
+                    var targetUuid = targetLi.attr('data-uuid');
+                    console.log(targetUuid);
+
+                    $.ajax({
+                        url: '/pamily/removeFile',
+                        data: {fileName: targetFile},
+                        dataType: 'text',
+                        type: 'POST',
+                        success: function(result){
+                            targetLi.remove();
+                            $('.'+ targetUuid).remove();
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </th:block>
+</th:block>

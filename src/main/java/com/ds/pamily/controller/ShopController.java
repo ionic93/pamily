@@ -23,18 +23,36 @@ public class ShopController {
     private final ShopService shopService;
     private final ShopCateService shopCateService;
 
-    @GetMapping("/read")
+    @GetMapping({"/read","/modify"})
     public void shopRead(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, @ModelAttribute("requestDTO") PageRequestDTO pageRequestDTO, Long sid, Model model) {
         log.info("sid: "+ sid);
         ShopDTO shopDTO = shopService.getShop(sid);
         log.info(shopDTO);
+        model.addAttribute("category",shopCateService.getCateList());
         model.addAttribute("authMid", authMemberDTO.getMid());
         model.addAttribute("authName", authMemberDTO.getName());
         model.addAttribute("dto",shopDTO);
     }
 
+    @PostMapping("/modify")
+    public String shopModify(ShopDTO shopDTO, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes){
+        log.info("shop modify.......................................");
+        log.info("modShop: "+shopDTO);
+
+        shopService.modify(shopDTO);
+
+        redirectAttributes.addAttribute("page",requestDTO.getPage());
+        redirectAttributes.addAttribute("type",requestDTO.getType());
+        redirectAttributes.addAttribute("keyword",requestDTO.getKeyword());
+
+        redirectAttributes.addAttribute("sid",shopDTO.getSid());
+        return "redirect:/shop/shop";
+    }
+
+
+
     @PostMapping("/remove")
-    public String remove(@PathVariable("sid") Long sid, RedirectAttributes redirectAttributes){
+    public String remove(long sid, RedirectAttributes redirectAttributes){
         log.info("deletesid: "+ sid);
         shopService.removeWithShopImageAndReply(sid);
         redirectAttributes.addFlashAttribute("msg",sid);
@@ -57,14 +75,15 @@ public class ShopController {
     public void exshopReg(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
         String name = authMemberDTO.getName();
         model.addAttribute("category",shopCateService.getCateList());
+        model.addAttribute("authMid",authMemberDTO.getMid());
+        model.addAttribute("authName",authMemberDTO.getName());
         model.addAttribute("name",name);
         log.info("ShopReg...");
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/shopreg")
-    public String exshopRegPost(ShopDTO shopDTO, RedirectAttributes redirectAttributes, PageRequestDTO pageRequestDTO, Model model
-                , MultipartFile[] uploadFiles) {
+    public String exshopRegPost(ShopDTO shopDTO, RedirectAttributes redirectAttributes) {
 
         log.info("shopDTO..."+shopDTO);
         Long sid = shopService.shopRegister(shopDTO);

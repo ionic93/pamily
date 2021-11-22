@@ -6,6 +6,7 @@ import com.ds.pamily.dto.PostDTO;
 import com.ds.pamily.dto.ShopDTO;
 import com.ds.pamily.entity.QShop;
 import com.ds.pamily.entity.Shop;
+import com.ds.pamily.entity.ShopCate;
 import com.ds.pamily.entity.ShopImage;
 import com.ds.pamily.repository.ShopImageRepository;
 import com.ds.pamily.repository.ShopReplyRepository;
