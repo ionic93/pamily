@@ -1,6 +1,7 @@
 package com.ds.pamily.controller;
 
 import com.ds.pamily.dto.MemberDTO;
+import com.ds.pamily.entity.MemberRole;
 import com.ds.pamily.security.dto.AuthMemberDTO;
 import com.ds.pamily.security.service.PamilyUserDetailsService;
 import com.ds.pamily.service.MemberServiceImpl;
@@ -14,10 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import static java.lang.System.out;
 
 @Controller
 @Log4j2
@@ -95,9 +99,11 @@ public class MemberController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/updateMInfo")
-    public void updateMInfo(MemberDTO memberDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
+    public void updateMInfo(MemberDTO memberDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, RedirectAttributes redirectAttributes) {
         log.info("g:" + authMemberDTO);
+
         model.addAttribute("mid", authMemberDTO.getMid());
+        model.addAttribute("fromSocial", authMemberDTO.isFromSocial());
         model.addAttribute("email", authMemberDTO.getEmail());
         model.addAttribute("nickname", authMemberDTO.getName());
         model.addAttribute("mobile", authMemberDTO.getMobile());
@@ -106,11 +112,27 @@ public class MemberController {
     }
 
     @PreAuthorize("hasRole('USER')")
+    @GetMapping("/update")
+    public void gogo( @AuthenticationPrincipal AuthMemberDTO authMemberDTO, HttpServletResponse response) throws IOException {
+
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        if (authMemberDTO.isFromSocial() == true) {
+            out.println("<script>alert('구글 회원은 정보를 업데이트 할 수 없습니다.');</script>");
+            out.println("<script> location.href='/pamily/sample/main'; </script>");
+        } else {
+            out.println("<script> location.href='/pamily/member/updateMInfo'; </script>");
+        }
+    }
+
+
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/updateMInfo")
     public void updateMInfo(MemberDTO changeMInfo, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, HttpServletResponse response) throws IOException {
         log.info("updateMInfo~");
 
         MemberDTO beforeMInfo = memberService.get(authMemberDTO.getUsername());
+
         if (!changeMInfo.getPassword().equals("")) {
             changeMInfo.setPassword(passwordEncoder.encode(changeMInfo.getPassword()));
         } else {
