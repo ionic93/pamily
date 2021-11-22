@@ -32,7 +32,7 @@ public class ShopUploadController {
   @Value("${com.ds.upload.path}")
   private String uploadPath;
 
-  @PostMapping("/shopuploadAjax")
+  @PostMapping("/shopUploadAjax")
   public ResponseEntity<List<ShopUploadResultDTO>> shopUploadFile(MultipartFile[] uploadFiles) {
     List<ShopUploadResultDTO> resultDTOList = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class ShopUploadController {
     return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
   }
 
-  @GetMapping("/shopdisplay")
+  @GetMapping("/shopDisplay")
   public ResponseEntity<byte[]> getFile(String fileName) {
     ResponseEntity<byte[]> result = null;
     try {
@@ -87,7 +87,7 @@ public class ShopUploadController {
     return result;
   }
 
-  @PostMapping("/shopremoveFile")
+  @PostMapping("/shopRemoveFile")
   public ResponseEntity<Boolean> removeFiles(String fileName) {
     String srcFileName = null;
     boolean result = false;

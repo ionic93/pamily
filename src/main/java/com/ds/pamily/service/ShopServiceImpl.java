@@ -37,7 +37,7 @@ public class ShopServiceImpl implements ShopService{
     @Override
     public Long shopRegister(ShopDTO shopDTO) {
         Map<String, Object> entityMap = dtoToEntity(shopDTO);
-        log.info(entityMap);
+        log.info("entityMap>>>>>"+entityMap);
         Shop shop = (Shop) entityMap.get("shop");
         log.info("HERE1111"+ shop);
         List<ShopImage> shopImageList = (List<ShopImage>) entityMap.get("shopImgList");

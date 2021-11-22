@@ -47,7 +47,7 @@
                             <div class="form-group">
                                 <label>카테고리</label>
                             <select class="form-control" name="scno">
-                                <option th:each=" cate : ${category}" th:value="${cate.scno}">[[${cate.cateName}]]</option>
+                                <option th:each=" cate : ${category}"  th:value="${cate.scno}">[[${cate.cateName}]]</option>
                             </select>
                             </div>
                             <div class="form-group">
@@ -64,8 +64,8 @@
                             <textarea class="form-control" rows="20" name="content"></textarea>
                             </div>
                             <button type="submit" class="btn btn-default">제출</button>
+                            <div class="box"></div>
                         </form>
-                        <div class="box"></div>
                         <!--        페이지 목록 출력-->
                         <style>
                                 .shopuploadResult { width: 100%;background:gray;margin-top:10px;}
@@ -127,7 +127,7 @@
                         str += "<div>";
                         str += "<button type='button' data-file='" + obj.imageURL
                             + "\' class='btn-warning btn-sm'>X</button><br>";
-                        str += "<img src='/shopdisplay?fileName="+obj.thumbnailURL+"'>";
+                        str += "<img src='/shopDisplay?fileName="+obj.thumbnailURL+"'>";
                         str += "</div>";
                         str += "</li>";
                     });
@@ -152,7 +152,7 @@
                         console.log(value);
                     }
                     $.ajax({
-                        url: '/shopuploadAjax',
+                        url: '/pamily/shopUploadAjax',
                         processData: false,
                         contentType: false,
                         data: formData,
@@ -171,7 +171,7 @@
                         var targetFile = $(this).data("file");
                         var targetLi = $(this).closest("li");
                         $.ajax({
-                            url: '/shopremoveFile',
+                            url: '/pamily/shopRemoveFile',
                             data: {fileName: targetFile},
                             dataType: 'text',
                             type: 'POST',
@@ -187,11 +187,11 @@
                     var str = "";
                     $(".shopuploadResult li").each(function(i, obj){
                         var target = $(obj);
-                        str += "<input type='hidden' name='imageDTOList[" + i
+                        str += "<input type='hidden' name='shopImageDTOList[" + i
                             + "].imgName' value='" + target.data('name') + "'>";
-                        str += "<input type='hidden' name='imageDTOList[" + i
+                        str += "<input type='hidden' name='shopImageDTOList[" + i
                             + "].path' value='" + target.data('path') + "'>";
-                        str += "<input type='hidden' name='imageDTOList[" + i
+                        str += "<input type='hidden' name='shopImageDTOList[" + i
                             + "].uuid' value='" + target.data('uuid') + "'>";
                     });
                     $(".box").html(str);

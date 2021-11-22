@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet"/>
         <link type="text/css" th:href="@{/assets/css/demos/interest.css}" rel="stylesheet"/>
-        <link type="text/css" th:href="@{/assets/css/skins/skin_two.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/skins/two.css}" rel="stylesheet"/>
         <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet"/>
+        <script th:src="@{/assets/js/modernizr-custom.js}"></script>
         <style>
-            .form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{background-color:#ffffff;opacity:1}
+            th {
+                text-align:center;
+            }
+            .tr-list{
+                cursor: pointer;
+            }
+            .tr-list:hover {
+                background: #c2d2ff;
+            }
+
         </style>
         <section class="channel-one">
             <div class="container-fluid">
