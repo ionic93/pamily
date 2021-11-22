@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="setContent(content)">
+    <head>
+        <!-- ==============================================
+        Title and Meta Tags
+        =============================================== -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fluffs - Ultimate Bootstrap Social Network UI Kit</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta property="og:title" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:description" content="" />
+
+        <!-- ==============================================
+        Favicons
+        =============================================== -->
+        <link rel="icon" th:href="@{/assets/img/logo.jpg}">
+        <link rel="apple-touch-icon" th:href="@{/img/favicons/apple-touch-icon.png}">
+        <link rel="apple-touch-icon" sizes="72x72" th:href="@{/img/favicons/apple-touch-icon-72x72.png}">
+        <link rel="apple-touch-icon" sizes="114x114" th:href="@{/img/favicons/apple-touch-icon-114x114.png}">
+
+        <!-- ==============================================
+        CSS
+        =============================================== -->
+        <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet" />
+        <link type="text/css" th:href="@{/assets/css/customFilter.css}" rel="stylesheet" />
+    </head>
+    <body>
+    <div th:fragment="sidebar" class="col-lg-3">
+        <div class="messages-container">
+
+            <div class="message-header">
+                <div class="message-title">
+                    <h4>친구 목록</h4>
+                </div><!--/ message-title-->
+                <div class="search-area">
+                    <div class="input-field">
+                        <input placeholder="Search" type="text">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </div><!--/ search-area-->
+            </div><!--/ message-header-->
+
+            <div class="suggestion-box full-width">
+                <div class="suggestions-list">
+                    <div class="suggestion-body">
+                        <img class="img-responsive img-circle" src="assets/img/users/1.jpg" alt="">
+                        <div class="name-box">
+                            <table>
+                                <tr>
+                                    <!--                                <tr th:each="dto : ${result?.dtoList}">-->
+
+                                </tr>
+                            </table>
+
+                            <span>@vannessa</span>
+                        </div>
+                        <span><i class="fa fa-plus"></i></span>
+                    </div>
+                </div><!--suggestions-list end-->
+            </div>
+
+        </div><!--/ messages-container-->
+    </div><!--/ col-lg-4 -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script th:href="@{/assets/js/sidebar.js}"></script>
+    <script th:inline="javascript">
+    $(document).ready(function() {
+            var msg = [[${result}]];
+            console.log(msg);
+    });
+    </script>
+
+    </body>
+</th:block>

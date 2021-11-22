@@ -65,45 +65,9 @@
 
                             </div><!--/ row -->
                         </div>
-                        <!--                    메인 페이지중 유명인들을 추가할수 있는 섹션-->
-                        <div class="col-lg-3">
+                        <!--                    메인 페이지중 팔로우 할수 있는 섹션-->
+                        <div th:replace="~{/layout/sidebar :: sidebar}">
 
-                            <div class="suggestion-box full-width">
-                                <div class="suggestions-list">
-                                    <!--                                여기서부터 반복하면 됨-->
-                                    <div class="suggestion-body">
-                                        <img class="img-responsive img-circle" th:src="@{/assets/img/users/1.jpg}"
-                                             alt="">
-                                        <div class="name-box">
-                                            <h4>Vanessa Wells</h4>
-                                            <span>@vannessa</span>
-                                        </div>
-                                        <span><i class="fa fa-plus"></i></span>
-                                    </div>
-
-                                </div><!--suggestions-list end-->
-                            </div>
-                            <!--                        랜덤 농장이 보여지는 라인-->
-                            <div class="trending-box">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h2>Best Parms</h2>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="trending-box">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <a href="#"><img th:src="@{/assets/img/posts/17.jpg}" class="img-responsive"
-                                                         alt="Image"/></a>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <a href="#"><img th:src="@{/assets/img/posts/12.jpg}" class="img-responsive"
-                                                         alt="Image"/></a>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div><!--/ row-->
                 </div><!--/ container -->
