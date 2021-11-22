@@ -26,7 +26,7 @@ class ShopCateRepositoryTest {
 
     @Test
     public void insertCate() {
-        String[] cate = {"분양","악세사리","사료","기타"};
+        String[] cate = {"분양","입양","동물찾기","공동구매"};
         IntStream.rangeClosed(0,3).forEach(i->{
             ShopCate shopCate = ShopCate.builder()
                     .cateName(cate[i])

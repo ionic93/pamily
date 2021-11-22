@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface SearchShopRepository {
     Page<Object[]> searchPage(String type, String keyword, Pageable pageable);
 
-//    Page<Object[]> searchCatePage(Long scno, Pageable pageable);
+    Page<Object[]> searchPage2(Long scno, String type, String keyword, Pageable pageable);
 
 }
