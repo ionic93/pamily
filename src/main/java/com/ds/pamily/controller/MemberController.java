@@ -93,7 +93,7 @@ public class MemberController {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<script>alert('변경되었습니다.');</script>");
-        out.println("<script> location.href='/pamily/member/login; </script>");
+        out.println("<script> location.href='/pamily; </script>");
         out.flush();
     }
 

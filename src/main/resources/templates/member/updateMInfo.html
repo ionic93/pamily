@@ -113,6 +113,18 @@ Scripts
             name.focus();
             return;
          }
+         if(password.value == undefined || password.value == '') {
+            alert("비밀번호가 입력되지 않았습니다.");
+            password.focus();
+            return;
+         }
+         if (!reg_pw.test(password.value)){
+            alert("비밀번호는 6-18 글자여야 합니다.");
+            password.value = "";
+            check_password.value = "";
+            password.focus();
+            return;
+         }
          if(check_password.value != password.value) {
             alert("비밀번호가 일치하지 않습니다.");
             password.value = "";
