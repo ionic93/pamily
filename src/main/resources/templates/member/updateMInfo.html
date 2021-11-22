@@ -60,7 +60,7 @@ Header Section
                     <input type="text" class="form-control border-bottom-radius" id="name" name="name" placeholder="Nickname" th:value="${nickname}">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control border-bottom-radius" id="password" name="password" placeholder="Password">
+                    <input type="password" class="form-control border-bottom-radius" id="password" name="password" placeholder="Password" >
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control border-bottom-radius" id="check-password" name="check-password" placeholder="Check-Password">
@@ -111,6 +111,18 @@ Scripts
          if(name.value == undefined || name.value == '') {
             alert("사용할 닉네임을 입력해주세요.");
             name.focus();
+            return;
+         }
+         if(password.value == undefined || password.value == '') {
+            alert("비밀번호가 입력되지 않았습니다.");
+            password.focus();
+            return;
+         }
+         if (!reg_pw.test(password.value)){
+            alert("비밀번호는 6-18 글자여야 합니다.");
+            password.value = "";
+            check_password.value = "";
+            password.focus();
             return;
          }
          if(check_password.value != password.value) {

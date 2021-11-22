@@ -60,6 +60,7 @@ public class OAuth2UserDetailsService extends DefaultOAuth2UserService {
                         .map(role->new SimpleGrantedAuthority("ROLE_"+role.name())).collect(Collectors.toList()),
                 oAuth2User.getAttributes()
         );
+        authMemberDTO.setMid(member.getMid());
         authMemberDTO.setName(member.getName());
         return authMemberDTO;
     }

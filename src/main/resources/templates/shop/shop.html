@@ -16,6 +16,14 @@
             .tr-list:hover {
                 background: #c2d2ff;
             }
+            .cateBtn{
+                border:none;
+                background-color: #ffffff;
+            }
+            .cateBtn:focus, .cateBtn:hover{
+                outline: none;
+                box-shadow: none;
+            }
 
         </style>
         <section class="channel-one">
@@ -26,7 +34,7 @@
                             <ul>
                                 <li class="sideText ctg" th:each=" cate : ${category}">
                                     <i class="fa fa-align-left"></i>
-                                    <a href="" th:text="${cate.cateName}"></a>
+                                    <button type="button" class="cateBtn" th:value="${cate.scno}" th:text="${cate.cateName}"></button>
                                 <li class="hr"></li>
                                 </li>
                             </ul>
@@ -117,7 +125,24 @@
                 </div><!--/ row -->
             </div><!--/ container -->
         </section><!--/ newsfeed -->
-
+        <!--        Modal창-->
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">되었습니다.</h5>
+                        <button type="button" class="close btn" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modalMsg"> 번 글이 <span class="modal-title"></span>되었습니다.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- ==============================================
         Scripts
         =============================================== -->
@@ -137,6 +162,20 @@
                 }
         </script>
         <script th:inline="javascript">
+            var msg = [[${msg}]];
+            var noti = [[${noti}]];
+            console.log(msg);
+            console.log(noti);
+            if(msg){
+                $('#modalMsg').prepend(msg);
+                $('.modal-title').prepend(noti);
+                $('.modal').modal();
+            }
+
+            $('.close').click(function(e){
+                $('.modal').hide();
+            })
+
             $('#Slim,#Slim2').slimScroll({
                 height:"auto",
                 position: 'right',
@@ -145,24 +184,6 @@
                 size:"8px",
             });
             $(document).ready(function(){
-
-                var itemmodal = $(".item-modal");
-
-                $(".modal-btn").click(function() {
-
-                    itemmodal.modal('show');
-                });
-                $(".get-btn").click(function(){
-                    $(".getModal").modal('show');
-                });
-
-                var msg = [[${result}]]
-                console.log(msg);
-                var nickName = [[${nickname}]];
-                console.log(nickName);
-
-                var category = [[${category}]];
-                console.log(category);
 
                 var searchForm = $("#searchForm");
                 $('.btn-search').click(function(e){

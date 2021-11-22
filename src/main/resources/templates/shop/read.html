@@ -85,15 +85,20 @@
 
                         </div>
                         <div>
+                            <hr class="hr">
+                        </div>
+                        <div>
                             <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
                                 <button class="btn btn-info">목록보기</button>
                             </a>
                             <span th:if="${#authentication.principal.name} == ${dto.name}">
-                                <button  class="btn btn-warning">수정하기</button>
+                                <a th:href="@{/shop/modify(sid=${dto.sid},page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
+                                    <button class="btn btn-primary">수정하기</button>
+                                </a>
                             </span>
                             <span th:if="${#authentication.principal.name} == ${dto.name} or ${#authorization.expression('hasRole(''ADMIN'')')}">
                                  <form id="delete-form" style="display:inline-block;">
-                                        <input type="hidden" th:value="${dto.sid}"/>
+                                        <input type="hidden" th:value="${dto.sid}" name="sid"/>
                                         <button class="btn btn-danger">삭제</button>
                                  </form>
                             </span>
@@ -110,7 +115,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Shop Reply</h5>
-                        <button type="button" class="btn btn-close replyClose" data-dismiss="modal" aria-label="Close"/>
+                        <button type="button" class="close btn" aria-label="Close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
@@ -142,6 +147,9 @@
         <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
         <script th:inline="javascript">
+            $('.close').click(function(e){
+                $('.reviewModal').hide();
+            })
             $('#Slim,#Slim2').slimScroll({
                 height:"auto",
                 position: 'right',
@@ -151,6 +159,16 @@
             });
             $(document).ready(function(){
                 var actionForm = $("form");
+
+                var deleteFrom = $("#delete-form");
+                $(".btn-danger").click(function(){
+                    if(!confirm("삭제하시겠습니까?")){
+                        return;
+                    }
+                    deleteFrom.attr("action", "/pamily/shop/remove")
+                    .attr("method", "post");
+                    deleteFrom.submit();
+                });
 
                 var dto = [[${dto}]]
                 console.log(dto);

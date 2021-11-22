@@ -11,8 +11,6 @@ import java.util.List;
 public interface ShopCateService {
     public List<ShopCateDTO> getCateList();
 
-    public List<ShopCateDTO> getCate();
-
     default ShopCate dtoToEntity(ShopCateDTO shopCateDTO) {
         ShopCate shopCate = ShopCate.builder()
                 .scno(shopCateDTO.getScno())
