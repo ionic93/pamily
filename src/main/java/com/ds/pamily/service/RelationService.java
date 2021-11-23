@@ -1,10 +1,10 @@
 package com.ds.pamily.service;
 
-import com.ds.pamily.dto.PageRequestDTO;
-import com.ds.pamily.dto.PageResultDTO;
-import com.ds.pamily.dto.RelationDTO;
+import com.ds.pamily.dto.*;
 import com.ds.pamily.entity.Member;
 import com.ds.pamily.entity.Relation;
+
+import java.util.List;
 
 public interface RelationService {
     int check(Member member1, Member member2);
@@ -27,10 +27,22 @@ public interface RelationService {
         return relationDTO;
     }
 
-    void relation(Member member1, Member member2);
 
-    void unRelation(Member member1, Member member2);
+
+    void follow(Member member1, Member member2);
+
+    void unfollow(Member member1, Member member2);
 
     PageResultDTO<RelationDTO, Relation> getFollowList(PageRequestDTO requestDTO);
 
+    default MemberDTO entityToDTO2(Member member) {
+        MemberDTO memberDTO = MemberDTO.builder()
+                .name(member.getName())
+                .build();
+        return memberDTO;
+    }
+
+    PageResultDTO<MemberDTO, Member> getFriendList(PageRequestDTO pageRequestDTO);
+
+    List<Relation> getAll();
 }

@@ -197,9 +197,15 @@
                 $('#myModal img').attr('src' , '/pamily/display?fileName='+ str)
             }
 
-            var msg = [[${msg}]];
-            console.log(msg)
+            var msg = [[msg]];
+            console.log(msg);
 
+            var searchForm = $("#searchForm");
+            $('.btnSearch').click(function(e) {
+                var data1 = searchForm.serializeArray();
+<!--                console.log(data1);-->
+                searchForm.submit();
+            });
         </script>
     </th:block>
 </th:block>

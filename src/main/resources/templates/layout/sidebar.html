@@ -32,38 +32,58 @@
     <body>
     <div th:fragment="sidebar" class="col-lg-3">
         <div class="messages-container">
-
+            <form action="/pamily/sample/main" method="get" id="searchForm">
             <div class="message-header">
                 <div class="message-title">
-                    <h4>친구 목록</h4>
+                    <h4>추천 목록</h4>
                 </div><!--/ message-title-->
                 <div class="search-area">
                     <div class="input-field">
-                        <input placeholder="Search" type="text">
-                        <i class="fa fa-search"></i>
+                        <input type="hidden" name="page" value = "1" >
+                            <select name="type" style="display:none;">
+                               <option type="hidden" value="t" th:selected="${pageRequestDTO.type == 't'}" >Name</option>
+                            </select>
+                        <input name="keyword" th:value="${pageRequestDTO.keyword}" >
+                        <button class="fa fa-search btnSearch" type="button" style="border:0px" ></button>
                     </div>
                 </div><!--/ search-area-->
             </div><!--/ message-header-->
+            </form>
 
             <div class="suggestion-box full-width">
                 <div class="suggestions-list">
                     <div class="suggestion-body">
-                        <img class="img-responsive img-circle" src="assets/img/users/1.jpg" alt="">
                         <div class="name-box">
                             <table>
-                                <tr>
-                                    <!--                                <tr th:each="dto : ${result?.dtoList}">-->
-
+                                <tr th:each="dto : ${result.dtoList}" th:data-type="${pageRequestDTO.type}"
+                                    th:data-keyword="${pageRequestDTO.keyword}" >
+                                    <td><img src="/pamily/assets/img/users/1.jpg" class="img-responsive img-circle" alt=""></td>
+                                    <td><a th:href="@{/sample/myProfile}" style="color: black; font-size: 10pt;" >[[${dto.name}]] </a> </td>
+                                    <td><i class="fa fa-plus" style="cursor:pointer"></i></td>
                                 </tr>
                             </table>
 
-                            <span>@vannessa</span>
+                            <ul class="pagination h-100 justify-content-center align-items-center">
+                                <li class=" 'page-item' " th:if="${result.prev}" >
+                                    <a class="page-link" th:href="@{/sample/main(page= ${result.start -1},
+                                       type=${pageRequestDTO.type} , keyword = $ {pageRequestDTO.keyword} ) }"
+                                       tabindex="-1" >Previous</a>
+                                </li>
+                                <li th:class=" 'page-item ' + ${result.page == page?'active':''} "
+                                    th:each="page: ${result.pageList}" >
+                                    <a class="page-link" th:href="@{/sample/main(page= ${page} ,
+                                    type= ${pageRequestDTO.type} , keyword = ${pageRequestDTO.keyword}  )}" >[[${page}]]</a>
+                                </li>
+                                <li class=" 'page-item' " th:if="${result.next}" >
+                                    <a class="page-link" th:href="@{/sample/main(page= ${result.end + 1} ,
+                                    type= ${pageRequestDTO.type} , keyword= ${pageRequestDTO.keyword} )}" >Next</a>
+                                </li>
+                            </ul>
+
                         </div>
-                        <span><i class="fa fa-plus"></i></span>
                     </div>
                 </div><!--suggestions-list end-->
             </div>
-
         </div><!--/ messages-container-->
     </div><!--/ col-lg-4 -->
 
@@ -72,10 +92,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <script th:href="@{/assets/js/sidebar.js}"></script>
     <script th:inline="javascript">
-    $(document).ready(function() {
-            var msg = [[${result}]];
-            console.log(msg);
-    });
+
     </script>
 
     </body>
