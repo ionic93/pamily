@@ -56,7 +56,7 @@
                         <div class="name-box">
                             <table>
                                 <tr th:each="dto : ${result.dtoList}" th:data-type="${pageRequestDTO.type}"
-                                    th:data-keyword="${pageRequestDTO.keyword}" >
+                                    th:data-keyword="${pageRequestDTO.keyword}" th:if="${dto.name} != null" >
                                     <td><img src="/pamily/assets/img/users/1.jpg" class="img-responsive img-circle" alt=""></td>
                                     <td><a th:href="@{/sample/myProfile}" style="color: black; font-size: 10pt;" >[[${dto.name}]] </a> </td>
                                     <td><i class="fa fa-plus" style="cursor:pointer"></i></td>
