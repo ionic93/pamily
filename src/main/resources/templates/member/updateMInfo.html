@@ -73,9 +73,7 @@ Header Section
                 <input type="hidden" name="mid" th:value="${mid}"/>
                 <button class="kafe-btn kafe-btn-mint btn-block btn-M" id="updateBtn" type="submit" name="subm">Update</button>
                 <br/>
-            </form>
-            <form method="post" th:action="@{/logout}">
-                <button type="submit">로그아웃</button>
+                <a th:href="@{/logout}">로그아웃</a>
             </form>
 
         </div><!--/. banner-content -->
