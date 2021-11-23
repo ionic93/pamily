@@ -2,17 +2,12 @@ package com.ds.pamily.service;
 
 import com.ds.pamily.dto.PageRequestDTO;
 import com.ds.pamily.dto.PageResultDTO;
-import com.ds.pamily.dto.PostDTO;
 import com.ds.pamily.dto.ShopDTO;
-import com.ds.pamily.entity.QShop;
 import com.ds.pamily.entity.Shop;
-import com.ds.pamily.entity.ShopCate;
 import com.ds.pamily.entity.ShopImage;
 import com.ds.pamily.repository.ShopImageRepository;
 import com.ds.pamily.repository.ShopReplyRepository;
 import com.ds.pamily.repository.ShopRepository;
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
@@ -23,7 +18,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @Log4j2
