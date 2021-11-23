@@ -2,6 +2,7 @@ package com.ds.pamily.controller;
 
 import com.ds.pamily.dto.PageRequestDTO;
 import com.ds.pamily.dto.ShopDTO;
+import com.ds.pamily.dto.ShopImageDTO;
 import com.ds.pamily.security.dto.AuthMemberDTO;
 import com.ds.pamily.service.ShopCateService;
 import com.ds.pamily.service.ShopService;
@@ -72,22 +73,20 @@ public class ShopController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/shopreg")
-    public void exshopReg(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
-        String name = authMemberDTO.getName();
+    public void exshopReg(ShopDTO shopDTO, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
         model.addAttribute("category",shopCateService.getCateList());
-        model.addAttribute("authMid",authMemberDTO.getMid());
-        model.addAttribute("authName",authMemberDTO.getName());
-        model.addAttribute("name",name);
+        model.addAttribute("mid",authMemberDTO.getMid());
+        model.addAttribute("Authname",authMemberDTO.getName());
         log.info("ShopReg...");
     }
 
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/shopreg")
     public String exshopRegPost(ShopDTO shopDTO, RedirectAttributes redirectAttributes) {
-
-        log.info("shopDTO..."+shopDTO);
+        log.info("shopDTO>>"+shopDTO);
         Long sid = shopService.shopRegister(shopDTO);
         redirectAttributes.addFlashAttribute("msg",sid);
-        return "redirect:/shop";
+        log.info("getShopImageDTOList..."+shopDTO.getShopImageDTOList());
+        return "redirect:/shop/shop";
     }
 }

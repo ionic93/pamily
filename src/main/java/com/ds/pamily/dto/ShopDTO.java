@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class ShopDTO {
+
     private Long sid;
     private String title;
     private String content;

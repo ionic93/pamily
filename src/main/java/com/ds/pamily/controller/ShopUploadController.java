@@ -32,7 +32,7 @@ public class ShopUploadController {
   @Value("${com.ds.upload.path}")
   private String uploadPath;
 
-  @PostMapping("/shopuploadAjax")
+  @PostMapping("/shopUploadAjax")
   public ResponseEntity<List<ShopUploadResultDTO>> shopUploadFile(MultipartFile[] uploadFiles) {
     List<ShopUploadResultDTO> resultDTOList = new ArrayList<>();
 
@@ -43,7 +43,7 @@ public class ShopUploadController {
       }
       String originalName = uploadFile.getOriginalFilename();
       String fileName = originalName.substring(originalName.lastIndexOf("\\")+1);
-      log.info(fileName);
+      log.info("fileName>>"+fileName);
 
       String folderPath = makeFolder();
 
@@ -68,14 +68,15 @@ public class ShopUploadController {
     return new ResponseEntity<>(resultDTOList, HttpStatus.OK);
   }
 
-  @GetMapping("/shopdisplay")
+  @GetMapping("/shopDisplay")
   public ResponseEntity<byte[]> getFile(String fileName) {
+    log.info("shopDisplay>>"+fileName);
     ResponseEntity<byte[]> result = null;
     try {
       String srcFileName = URLDecoder.decode(fileName, "UTF-8");
       log.info("fileName : " + srcFileName);
       File file = new File(uploadPath + File.separator + srcFileName);
-      log.info("file : " + file);
+      log.info("file>>>: " + file);
       HttpHeaders header = new HttpHeaders();
       header.add("Content-Type", Files.probeContentType(file.toPath()));
       result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),
@@ -87,7 +88,7 @@ public class ShopUploadController {
     return result;
   }
 
-  @PostMapping("/shopremoveFile")
+  @PostMapping("/shopRemoveFile")
   public ResponseEntity<Boolean> removeFiles(String fileName) {
     String srcFileName = null;
     boolean result = false;

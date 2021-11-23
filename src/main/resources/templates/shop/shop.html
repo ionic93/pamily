@@ -32,9 +32,10 @@
                     <div class="col-lg-3">
                         <aside class="sidebar">
                             <ul>
-                                <li class="sideText ctg" th:each=" cate : ${category}">
+                                <li class="sideText ctg" \
+                                    th:each=" cate : ${category}">
                                     <i class="fa fa-align-left"></i>
-                                    <button type="button" class="cateBtn" th:value="${cate.scno}" th:text="${cate.cateName}"></button>
+                                    <button th:name="${cate.scno}" th:text="${cate.cateName}"></button>
                                 <li class="hr"></li>
                                 </li>
                             </ul>
@@ -160,6 +161,12 @@
                       +]*/
                       location.href=urlword;
                 }
+            function find(scno){
+                      /*[+
+                      var urlword =[[@{/shop/shop}]] + "?scno="+scno;
+                      +]*/
+                      location.href=urlword;
+                }
         </script>
         <script th:inline="javascript">
             var msg = [[${msg}]];
@@ -193,6 +200,10 @@
                     searchForm.empty().submit();
                 });
 
+                $(a).click(function(e){
+                    e.preventDefault()
+
+                })
             });
         </script>
 

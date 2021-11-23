@@ -15,9 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -63,12 +65,25 @@ public class MemberController {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        if (originMember.getMobile().equals(findMemberDTO.getMobile()) && originMember.getEmail().equals(findMemberDTO.getEmail())) {
-            out.println("<script>alert('확인되었습니다.');</script>");
-            out.println("<script> location.href='/pamily/member/newPass?email=" + originMember.getEmail() + "'; </script>");
-        } else {
+        if (originMember == null) {
+            log.info("fff...");
             out.println("<script>alert('가입되지 않은 이메일입니다.');</script>");
             out.println("<script> location.href='/pamily/member/findPass'; </script>");
+        } else {
+            if (originMember.getMobile().equals(findMemberDTO.getMobile())) {
+                log.info("originMember" + originMember.getMobile());
+                log.info("findMemberDTO" + findMemberDTO.getMobile());
+                log.info("originMember2>>" + originMember);
+                log.info("호홍");
+                out.println("<script>alert('확인되었습니다.');</script>");
+                out.println("<script> location.href='/pamily/member/newPass?email=" + originMember.getEmail() + "'; </script>");
+            } else {
+                log.info("originMember!!!" + originMember.getMobile());
+                log.info("findMemberDTO!!!" + findMemberDTO.getMobile());
+                log.info("ㅇㄴ...");
+                out.println("<script>alert('가입되지 않은 이메일 또는 전화번호입니다.');</script>");
+                out.println("<script> location.href='/pamily/member/findPass'; </script>");
+            }
         }
         out.flush();
     }
@@ -93,7 +108,7 @@ public class MemberController {
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
         out.println("<script>alert('변경되었습니다.');</script>");
-        out.println("<script> location.href='/pamily; </script>");
+        out.println("<script> location.href='/pamily'; </script>");
         out.flush();
     }
 
@@ -120,9 +135,11 @@ public class MemberController {
         if (authMemberDTO.isFromSocial() == true) {
             out.println("<script>alert('수정 가능한 정보가 없습니다.');</script>");
             out.println("<script> location.href='/pamily/sample/main'; </script>");
+
         } else {
             out.println("<script> location.href='/pamily/member/updateMInfo'; </script>");
         }
+        out.flush();
     }
 
 

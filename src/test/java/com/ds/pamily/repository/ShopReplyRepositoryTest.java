@@ -18,10 +18,10 @@ class ShopReplyRepositoryTest {
 
     @Test
     public void insertReply() {
-        IntStream.rangeClosed(1, 50).forEach(i->{
-            Long mid = (long)(Math.random()*10)+1;
+        IntStream.rangeClosed(1, 300).forEach(i->{
+            Long mid = (long)(Math.random()*30)+1;
 
-            Long sid = (long)(Math.random()*30)+1;
+            Long sid = (long)(Math.random()*120)+1;
             ShopReply shopReply = ShopReply.builder()
                     .text("댓글 남겨요"+i)
                     .member(Member.builder().mid(mid).build())

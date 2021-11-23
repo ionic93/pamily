@@ -45,7 +45,7 @@ public class JoinController {
             out.println("<script> location.href='/pamily'; </script>");
         } else {
             out.println("<script>alert('가입이 완료되었습니다.'); </script>");
-            out.println("<script> location.href='/pamily/sample/main'; </script>");
+            out.println("<script> location.href='/pamily'; </script>");
         }
         out.flush();
     }

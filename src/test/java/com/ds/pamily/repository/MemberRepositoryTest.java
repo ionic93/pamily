@@ -63,21 +63,21 @@ class MemberRepositoryTest {
         // 1~7 까지는 USER만 지정
         // 8~9 까지는 USER,MANGER 지정
         // 9~10 까지는 USER,MANGER,ADMIN 지정
-        IntStream.rangeClosed(1,10).forEach(i->{
+        IntStream.rangeClosed(1,30).forEach(i->{
             Member member = Member.builder()
                     .email("user"+i+"@ds.com")
                     .name("user"+i)
                     .mobile("000-1111-0000")
                     .fromSocial(false)
-                    .password(passwordEncoder.encode("1"))
+                    .password(passwordEncoder.encode("123456"))
                     .build();
 
             //default role
             member.addMemberRole(MemberRole.USER);
-            if (i > 7) {
+            if (i > 27) {
                 member.addMemberRole(MemberRole.MANAGER);
             }
-            if (i > 8) {
+            if (i > 29) {
                 member.addMemberRole(MemberRole.ADMIN);
             }
             memberRepository.save(member);
