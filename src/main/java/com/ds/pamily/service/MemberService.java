@@ -3,6 +3,8 @@ package com.ds.pamily.service;
 import com.ds.pamily.dto.MemberDTO;
 import com.ds.pamily.entity.Member;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.Optional;
 
 public interface MemberService {

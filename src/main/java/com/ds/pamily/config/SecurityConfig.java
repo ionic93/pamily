@@ -37,7 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(successHandler())
                 .failureUrl("/member/login?error");
         http.csrf().disable();
-        http.logout();
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "SOME", "OTHER", "COOKIES");
         http.oauth2Login().successHandler(successHandler());
         http.rememberMe().tokenValiditySeconds(60*60*24*7).userDetailsService(pamilyUserDetailsService);
         http.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
