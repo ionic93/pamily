@@ -38,9 +38,11 @@ public class ShopServiceImpl implements ShopService{
         List<ShopImage> shopImageList = (List<ShopImage>) entityMap.get("shopImgList");
         shopRepository.save(shop);
         log.info("HERE~"+shopImageList);
-        shopImageList.forEach(shopImage -> {
-            shopImageRepository.save(shopImage);
-        });
+        if (shopImageList != null) {
+            shopImageList.forEach(shopImage -> {
+                shopImageRepository.save(shopImage);
+            });
+        }
         log.info("HERE~2"+shopImageList);
         return shop.getSid();
     }
@@ -133,6 +135,7 @@ public class ShopServiceImpl implements ShopService{
             entity.setCate(ShopCate.builder().scno(shopDTO.getScno()).cateName(shopDTO.getCateName()).build());
             log.info("modEntity: "+entity);
             shopRepository.save(entity);
+
         }
     }
 }
