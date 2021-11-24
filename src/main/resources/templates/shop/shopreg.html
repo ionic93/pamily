@@ -4,9 +4,8 @@
     <th:block th:fragment="content">
         <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet"/>
         <link type="text/css" th:href="@{/assets/css/demos/interest.css}" rel="stylesheet"/>
-        <link type="text/css" th:href="@{/assets/css/skins/two.css}" rel="stylesheet"/>
+        <link type="text/css" th:href="@{/assets/css/skins/skin_two.css}" rel="stylesheet"/>
         <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet"/>
-        <script th:src="@{/assets/js/modernizr-custom.js}"></script>
         <style>
             th {
                 text-align:center;
@@ -17,6 +16,14 @@
             .tr-list:hover {
                 background: #c2d2ff;
             }
+            .cateBtn{
+                border:none;
+                background-color: #ffffff;
+            }
+            .cateBtn:focus, .cateBtn:hover{
+                outline: none;
+                box-shadow: none;
+            }
 
         </style>
         <section class="channel-one">
@@ -25,10 +32,31 @@
                     <div class="col-lg-3">
                         <aside class="sidebar">
                             <ul>
-                                <li class="sideText ctg" th:each=" cate : ${category}">
-                                    <i class="fa fa-align-left"></i>
-                                    <a href="" th:text="${cate.cateName}"></a>
-                                <li class="hr"></li>
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm1">
+                                        <button class="cateBtn1 kafe-btn kafe-btn-mint shopcateBtn"> 분 양</button>
+                                        <div class="box1" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm2">
+                                        <button class="cateBtn2 kafe-btn kafe-btn-mint shopcateBtn" value="2"> 입 양</button>
+                                        <div class="box2" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm3"> 동물찾기</button>
+                                        <div class="box3" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm4">
+                                        <button class="cateBtn4 kafe-btn kafe-btn-mint shopcateBtn" value="4"> 기 타</button>
+                                        <div class="box4" style="display:hidden;"></div>
+                                    </form>
                                 </li>
                             </ul>
                         </aside>

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 public class PageRequestDTO { //Get 방식으로 요청된 파라미터 처리
     private int page, size;
     private String type, keyword;
+    private Long scno;
 
     public PageRequestDTO(){ //기본 값
         page = 1;

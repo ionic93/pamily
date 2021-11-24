@@ -2,76 +2,78 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-            <section class="profile-two">
-                <div class="container-fluid">
-                    <div class="row">
-                        <!--                    메인 페이지 중 왼쪽 프로필 라인-->
-                        <div class="col-lg-3">
-                            <aside id="leftsidebar" class="sidebar">
-                                <ul class="list">
-                                    <li>
-                                        <div class="user-info">
-                                            <div class="image">
-                                                <a th:href="@{/sample/myProfile}">
-                                                    <img th:src="@{/assets/img/users/1.jpg}"
-                                                         class="img-responsive img-circle" alt="User">
-                                                    <span class="online-status online"></span>
-                                                </a>
-                                            </div>
-                                            <div class="detail">
-                                                <h4>Vanessa Wells</h4>
-                                            </div>
+        <section class="profile-two">
+            <div class="container-fluid">
+                <div class="row">
+                    <!--                    메인 페이지 중 왼쪽 프로필 라인-->
+                    <div class="col-lg-3">
+                        <aside id="leftsidebar" class="sidebar">
+                            <ul class="list">
+                                <li>
+                                    <div class="user-info">
+                                        <div class="image">
+                                            <a th:href="@{/sample/myProfile}">
+                                                <img th:src="@{/assets/img/users/17.jpeg}"
+                                                     class="img-responsive img-circle" alt="User">
+                                                <span class="online-status online"></span>
+                                            </a>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <small class="text-muted"><a th:href="@{/sample/myProfile}">320 Posts <em
-                                                class="fa fa-angle-right pull-right"></em></a> </small><br/>
-                                        <small class="text-muted"><a th:href="@{/sample/myProfile}">2456 Followers <em
-                                                class="fa fa-angle-right pull-right"></em></a> </small><br/>
-                                        <small class="text-muted"><a th:href="@{/sample/myProfile}">456 Following <em
-                                                class="fa fa-angle-right pull-right"></em></a> </small>
-                                    </li>
-                                </ul>
-                            </aside>
-                        </div><!--/ col-lg-3-->
+                                        <div class="detail">
+                                            <h4>Vanessa Wells</h4>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <small class="text-muted"><a th:href="@{/sample/myProfile}">320 Posts <em
+                                            class="fa fa-angle-right pull-right"></em></a> </small><br/>
+                                    <small class="text-muted"><a th:href="@{/sample/myProfile}">2456 Followers <em
+                                            class="fa fa-angle-right pull-right"></em></a> </small><br/>
+                                    <small class="text-muted"><a th:href="@{/sample/myProfile}">456 Following <em
+                                            class="fa fa-angle-right pull-right"></em></a> </small><br>
+                                    <small class="text-muted"><a th:href="@{/logout}">Logout <em
+                                            class="fa fa-angle-right pull-right"></em></a> </small>
+                                </li>
+                            </ul>
+                        </aside>
+                    </div><!--/ col-lg-3-->
 
-                        <!--                    메인 페이지중 자기가 팔로워한 글 + 본인 게시물 라인-->
-                        <div class="col-lg-6" style="background: #fff;">
+                    <!--                    메인 페이지중 자기가 팔로워한 글 + 본인 게시물 라인-->
+                    <div class="col-lg-6" style="background: #fff;">
 
-                            <div class="row">
+                        <div class="row">
 
 
-                                <div class="col-lg-6" th:each="dto : ${msg}" style="overflow: hidden;">
-                                    <a href="#myModal" th:onclick="javascript:showModal([[${dto.imageDTOList[0].thumbnailURL}]])" data-toggle="modal">
-                                        <div class="explorebox"
-                                             style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
+                            <div class="col-lg-6" th:each="dto : ${msg}" style="overflow: hidden;">
+                                <a href="#myModal" th:onclick="javascript:showModal([[${dto.imageDTOList[0].thumbnailURL}]])" data-toggle="modal">
+                                    <div class="explorebox"
+                                         style="background: linear-gradient( rgba(34,34,34,0.2), rgba(34,34,34,0.2)), no-repeat;
 					  background-size: cover;
 					  background-position: center center;
 					  -webkit-background-size: cover;
 					  -moz-background-size: cover;
 					  -o-background-size: cover;">
 
-                                            <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                                 th:src="|/pamily/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" class="explorebox"
-                                                 style="overflow: hidden; position: absolute; z-index=1" >
+                                        <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                             th:src="|/pamily/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" class="explorebox"
+                                             style="overflow: hidden; position: absolute; z-index=1" >
 
-                                            <div class="explore-top" style="position:absolute; z-index:2;">
-                                                <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span>
-                                                </div>
+                                        <div class="explore-top" style="position:absolute; z-index:2;">
+                                            <div class="explore-like"><i class="fa fa-heart"></i> <span>624</span>
                                             </div>
                                         </div>
-                                    </a>
-                                </div>
+                                    </div>
+                                </a>
+                            </div>
 
-                            </div><!--/ row -->
-                        </div>
-                        <!--                    메인 페이지중 팔로우 할수 있는 섹션-->
-                        <div th:replace="~{/layout/sidebar :: sidebar}">
+                        </div><!--/ row -->
+                    </div>
+                    <!--                    메인 페이지중 팔로우 할수 있는 섹션-->
+                    <div th:replace="~{/layout/sidebar :: sidebar}">
 
-                        </div>
-                    </div><!--/ row-->
-                </div><!--/ container -->
-            </section><!--/ profile -->
+                    </div>
+                </div><!--/ row-->
+            </div><!--/ container -->
+        </section><!--/ profile -->
         <!-- ==============================================
         Modal Section
         =============================================== -->

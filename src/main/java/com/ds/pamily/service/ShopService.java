@@ -23,37 +23,6 @@ public interface ShopService {
 
     PageResultDTO<ShopDTO, Object[]> getList(PageRequestDTO requestDTO); //목록처리
 
-    default Map<String, Object> dtoToEntity(ShopDTO shopDTO) {
-        Map<String, Object> entityMap = new HashMap<>();
-
-        Shop shop = Shop.builder()
-                .sid(shopDTO.getSid())
-                .title(shopDTO.getTitle())
-                .content(shopDTO.getContent())
-                .member(Member.builder().mid(shopDTO.getMid()).name(shopDTO.getName()).build())
-                .scno(ShopCate.builder().scno(shopDTO.getScno()).build())
-                .build();
-        System.out.println("shop>>"+shop);
-        entityMap.put("shop",shop);
-
-
-        if (shopDTO.getShopImageDTOList() != null && shopDTO.getShopImageDTOList().size() > 0) {
-            List<ShopImageDTO> shopImageDTOList = shopDTO.getShopImageDTOList();
-            List<ShopImage> shopImageList =shopImageDTOList.stream()
-                    .map(shopImageDTO -> {
-                        ShopImage shopImage = ShopImage.builder()
-                                .path(shopImageDTO.getPath())
-                                .imgName(shopImageDTO.getImgName())
-                                .uuid(shopImageDTO.getUuid())
-                                .shop(shop)
-                                .build();
-                        return shopImage;
-                    }).collect(Collectors.toList());
-            entityMap.put("shopImgList", shopImageList);
-        }
-        return entityMap;
-    }
-
     default ShopDTO entitiesToDTO(Shop shop, List<ShopImage> shopImages, Long shopReplyCnt ) {
         ShopDTO shopDTO = ShopDTO.builder()
                 .sid(shop.getSid())
@@ -68,6 +37,9 @@ public interface ShopService {
                 .build();
 
         List<ShopImageDTO> shopImageDTOList = shopImages.stream().map(shopImage -> {
+            if (shopImage == null) {
+                return ShopImageDTO.builder().build();
+            }
             return ShopImageDTO.builder().imgName(shopImage.getImgName())
                     .path(shopImage.getPath())
                     .uuid(shopImage.getUuid())
@@ -80,6 +52,36 @@ public interface ShopService {
         return shopDTO;
     }
 
+    default Map<String, Object> dtoToEntity(ShopDTO shopDTO) {
+        Map<String, Object> entityMap = new HashMap<>();
+
+        Shop shop = Shop.builder()
+                .sid(shopDTO.getSid())
+                .title(shopDTO.getTitle())
+                .content(shopDTO.getContent())
+                .member(Member.builder().mid(shopDTO.getMid()).name(shopDTO.getName()).build())
+                .scno(ShopCate.builder().scno(shopDTO.getScno()).build())
+                .build();
+        System.out.println("shop>>"+shop);
+        entityMap.put("shop",shop);
+        List<ShopImageDTO> shopImageDTOList = shopDTO.getShopImageDTOList();
+
+        if (shopImageDTOList != null && shopImageDTOList.size() > 0) {
+            List<ShopImage> shopImageList =shopImageDTOList.stream()
+                    .map(shopImageDTO -> {
+                        ShopImage shopImage = ShopImage.builder()
+                                .path(shopImageDTO.getPath())
+                                .imgName(shopImageDTO.getImgName())
+                                .uuid(shopImageDTO.getUuid())
+                                .shop(shop)
+                                .build();
+                        return shopImage;
+                    }).collect(Collectors.toList());
+            System.out.println("shopImgList>>"+shopImageList);
+            entityMap.put("shopImgList", shopImageList);
+        }
+        return entityMap;
+    }
 
     void remove(Long sid);
     void modify(ShopDTO shopDTO);

@@ -36,7 +36,7 @@
     transition-duration: 0;
 }
 a.navbar-brand:hover {
-    color: #0fc19e !important;
+    color: #9bc9a7 !important;
 }
 .navbar-default .navbar-nav li a:hover, 
 .navbar-default .navbar-nav li.active>a, 
@@ -67,7 +67,7 @@ a.navbar-brand:hover {
     transition-duration: 0;
 }
 .navbar-default .navbar-nav li a:hover{
-    color: #0fc19e !important;
+    color: #9bc9a7 !important;
 }
 .navbar-default .navbar-nav li i{
     padding: 15px 2px;
@@ -743,10 +743,10 @@ a.navbar-brand:hover {
   font-weight: 600;
 }
 .form-control:focus {
-  border: 1px solid #0fc19e !important;
+  border: 1px solid #9bc9a7 !important;
 }
 .form-control:focus + .input-group .input-group-addon i:focus {
-  color: #0fc19e !important;
+  color: #9bc9a7 !important;
 }
 .login-wrap {
   padding: 20px;
@@ -765,11 +765,11 @@ a.navbar-brand:hover {
 .login-wrap span a{
   font-family: 'Abhaya Libre', serif;
   font-size: 14px;
-  color: #0fc19e;
+  color: #9bc9a7;
 }
 .btn-theme {
   color: #fff;
-  background-color: #0fc19e;
+  background-color: #9bc9a7;
   border-color: #1ea88d;
   font-weight: 600;
   font-family: 'Abhaya Libre', serif;
@@ -936,3 +936,10 @@ a.navbar-brand:hover {
   text-decoration: none;	
   color: #fff;
 }
+
+.shopcateBtn{
+    width:200px;
+}
+
+.channel-one .col-lg-9{margin-right: 20px;}
+.searchmargin {margin-left: 5px;}

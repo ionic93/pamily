@@ -311,6 +311,7 @@
                     var str = "";
                     $(".uploadResult li").each(function(i, obj){
                         var target = $(obj);
+                        console.log(target);
                         str += "<input type='hidden' name='imageDTOList[" + i
                             + "].imgName' value='" + target.data('name') + "'>";
                         str += "<input type='hidden' name='imageDTOList[" + i
