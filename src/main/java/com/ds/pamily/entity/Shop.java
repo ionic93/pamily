@@ -32,7 +32,6 @@ public class Shop extends BaseEntity{
         this.scno = scno;
     }
 
-
     public void changeShopTitle(String title) {
         this.title = title;
     }

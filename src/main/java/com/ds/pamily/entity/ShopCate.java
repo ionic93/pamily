@@ -19,5 +19,4 @@ public class ShopCate {
 
     private String cateName;
 
-
 }
