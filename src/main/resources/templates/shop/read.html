@@ -4,9 +4,8 @@
     <th:block th:fragment="content">
         <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet"/>
         <link type="text/css" th:href="@{/assets/css/demos/interest.css}" rel="stylesheet"/>
-        <link type="text/css" th:href="@{/assets/css/skins/two.css}" rel="stylesheet"/>
         <link type="text/css" th:href="@{/assets/css/demos/shop.css}" rel="stylesheet"/>
-        <script th:src="@{/assets/js/modernizr-custom.js}"></script>
+
         <style>
             th {
                 text-align:center;
@@ -43,6 +42,7 @@
                             <input type="hidden" name="page" th:value="${requestDTO.page}">
                             <input type="hidden" name="type" th:value="${requestDTO.type}">
                             <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+                            <input type="hidden" name="scno" th:value="${requestDTO.scno}">
 
                             <div class="form-group">
                                 <label>닉네임</label>
@@ -76,7 +76,7 @@
                                         <li th:each="dto: ${dto.shopImageDTOList}"
                                             th:data-file="${dto.getImageURL()}">
                                             <img th:if="${dto.path != null}"
-                                                 th:src="|/pamily/display?fileName=${dto.getImageURL()}|">
+                                                 th:src="|/pamily/display?fileName=${dto.getImageURL()}|" style='width:320px; height:320px;'>
                                         </li>
                                     </ul>
                                 </div>
@@ -98,11 +98,11 @@
                             <hr class="hr">
                         </div>
                         <div>
-                            <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
+                            <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword},scno=${requestDTO.scno})}">
                                 <button class="btn btn-info">목록보기</button>
                             </a>
                             <span th:if="${#authentication.principal.name} == ${dto.name}">
-                                <a th:href="@{/shop/modify(sid=${dto.sid},page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
+                                <a th:href="@{/shop/modify(sid=${dto.sid},page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword},scno=${requestDTO.scno})}">
                                     <button class="btn btn-primary">수정하기</button>
                                 </a>
                             </span>

@@ -33,6 +33,7 @@
                             <input type="hidden" name="page" th:value="${requestDTO.page}">
                             <input type="hidden" name="type" th:value="${requestDTO.type}">
                             <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+                            <input type="hidden" name="scno" th:value="${requestDTO.scno}">
                             <input type="hidden" name="sid" th:value="${dto.sid}">
 
                             <div class="form-group">
@@ -54,7 +55,7 @@
                             </div>
                             <div class="form-inline">
                                 <label for="exampleInputFile">파일 업로드</label>
-                                <input type="file" id="exampleInputFile" style="margin-bottom:10px;">
+                                <input type="file" id="exampleInputFile"  class="custom-file-input files" style="margin-bottom:10px;">
                                 <label>등록 일자</label>
                                 <input type="text" class="form-control"  readonly
                                        th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}">
@@ -67,13 +68,21 @@
                                 <div class="uploadResult">
                                     <ul>
                                         <li th:each="dto: ${dto.shopImageDTOList}"
+                                            th:if="${dto.path != null}"
+                                            th:data-name="${dto.imgName}"
+                                            th:data-path="${dto.path}"
                                             th:data-file="${dto.getImageURL()}"
                                             th:data-uuid="${dto.uuid}">
-                                            <button type='button' th:data-file="${dto.getImageURL()}"
-                                                    class='btn-warning btn-sm'>X</button><br>
-                                            <img
-                                                 th:if="${dto.path != null}"
-                                                 th:src="|/pamily/display?fileName=${dto.getImageURL()}|">
+                                            <div>
+                                                <button type="button"
+                                                        th:data-file="${dto.getImageURL()}"
+                                                        class="btn-warning btn-sm">X</button>
+                                                <br>
+                                                <img
+                                                        th:if="${dto.path != null}"
+                                                        th:src="|/pamily/display?fileName=${dto.getImageURL()}|" style='width:320px; height:320px;'>
+                                            </div>
+
                                         </li>
                                     </ul>
                                 </div>
@@ -85,10 +94,10 @@
                         <div style="margin-bottom: 20px;"></div>
 
                         <div>
-                            <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword})}">
+                            <a th:href="@{/shop/shop(page=${requestDTO.page},type=${requestDTO.type},keyword=${requestDTO.keyword},scno=${requestDTO.scno})}">
                                 <button class="btn btn-info">목록보기</button>
                             </a>
-                                <button  class="btn modifyBtn btn-warning">수정하기</button>
+                                <button type="submit" data-oper="modify"  class="btn modifyBtn btn-warning">수정하기</button>
                         </div>
                         <!--        페이지 목록 출력-->
                         <div style="margin-bottom: 20px;"></div>
@@ -108,9 +117,6 @@
         <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
         <script th:inline="javascript">
-            $('.close').click(function(e){
-                $('.reviewModal').hide();
-            })
             $('#Slim,#Slim2').slimScroll({
                 height:"auto",
                 position: 'right',
@@ -120,8 +126,14 @@
             });
 
             var actionForm = $("form");
+
             $(".modifyBtn").click(function(e){
                 e.preventDefault();
+                var operation = $(this).data("oper");
+                console.log(operation);
+                if(!confirm("수정하시겠습니까?")){
+                return;
+                }
                 var cateName =  $("#cateSelected option:checked").text();
                 var authMid = [[${authMid}]];
 
@@ -129,31 +141,133 @@
                 console.log(authMid);
 
                 var str = "";
-                if(!confirm("수정하시겠습니까?")){
-                return;
-                }
+
                 $(".uploadResult li").each(function(i, obj){
                         var target = $(obj);
+                        console.log(target);
                         str += "<input type='hidden' name='shopImageDTOList[" + i
                             + "].imgName' value='" + target.data('name') + "'>";
                         str += "<input type='hidden' name='shopImageDTOList[" + i
                             + "].path' value='" + target.data('path') + "'>";
                         str += "<input type='hidden' name='shopImageDTOList[" + i
                             + "].uuid' value='" + target.data('uuid') + "'>";
+                        str += "<input type='hidden' name='cateName' value='"+cateName+"'>";
+                        str += "<input type='hidden' name='mid' value='"+authMid+"'>";
                     });
                 $(".box").html(str);
-                var str2 = "";
-
-                str2 += "<input type='hidden' name='cateName' value='"+cateName+"'>";
-                str2 += "<input type='hidden' name='mid' value='"+authMid+"'>";
-
-                $(".box").html(str2);
                 var data1 = actionForm.serializeArray();
                 console.log(data1);
-                $("form").submit();
-            });
+
+                //$("form").submit();
+            }); //end modify
+
+            $('.uploadResult').on('click','li button',function(e){
+                        console.log("delete file");
+                        var targetFile = $(this).data("file");
+                        var targetLi = $(this).closest("li");
+                        var targetUuid = targetLi.attr('data-uuid');
+                        console.log(targetUuid);
+
+                        $.ajax({
+                            url: '/pamily/shopRemoveFile',
+                            data: {fileName: targetFile},
+                            dataType: 'text',
+                            type: 'POST',
+                            success: function(result){
+                                targetLi.remove();
+                                $('.'+ targetUuid).remove();
+                            }
+                        });
+                    }); // end remove image button event
 
             $(document).ready(function(){
+                var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
+                var maxSize = 10485760;
+
+                function checkExtension(fileName, fileSize){
+                    if(fileSize >= maxSize){
+                        alert("파일 사이즈 초과");
+                        return false;
+                    }
+                    if(regex.test(fileName)){
+                        alert("해당 파일은 업로드 할 수 없습니다.");
+                        return false;
+                    }
+                    return true;
+                } // end function checkExtension
+
+                function showResult(uploadResultArr){
+                    var uploadUL = $(".uploadResult ul");
+                    var str = "";
+                    $(uploadResultArr).each(function(i,obj){
+                        str += "<li data-name='" + obj.fileName + "' data-path='"
+                            + obj.folderPath + "' data-uuid='"+obj.uuid+"'>";
+                        str += "<div>";
+                        str += "<button type='button' data-file='" + obj.imageURL
+                            + "\' class='btn-warning btn-sm'>X</button><br>";
+                        str += "<img src='/pamily/shopDisplay?fileName="+obj.imageURL+"' style='width:320px; height:320px;'>";
+                        str += "</div>";
+                        str += "</li>";
+                    });
+                    uploadUL.append(str);
+                } // end function showResult
+
+                $(".custom-file-input").on("change", function(){
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label")
+                        .addClass("selected").html(fileName);
+                    var formData = new FormData();
+                    var inputFile = $(this);
+                    var files = inputFile[0].files;
+                    var append = false;
+                    for(var i=0;i<files.length;i++){
+                        if(!checkExtension(files[i].name, files[i].size)) return false;
+                        console.log(files[i]);
+                        formData.append("uploadFiles", files[i]);
+                        append = true;
+                    }
+                    if(!append) return;
+                    for(var value of formData.values()) {
+                        console.log(value);
+                    }
+                    $.ajax({
+                        url: '/pamily/shopUploadAjax',
+                        processData: false,
+                        contentType: false,
+                        data: formData,
+                        type:'POST',
+                        dataType: 'json',
+                        success: function(result){
+                            console.log("result: " + result);
+                            showResult(result);
+
+
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            console.log(textStatus);
+                        }
+                    });
+
+                    $('.uploadResult').on('click','li button',function(e){
+                        console.log("delete file");
+                        var targetFile = $(this).data("file");
+                        var targetLi = $(this).closest("li");
+                        var targetUuid = targetLi.attr('data-uuid');
+                        console.log(targetUuid);
+
+                        $.ajax({
+                            url: '/pamily/shopRemoveFile',
+                            data: {fileName: targetFile},
+                            dataType: 'text',
+                            type: 'POST',
+                            success: function(result){
+                                targetLi.remove();
+                                $('.'+ targetUuid).remove();
+                            }
+                        });
+                    }); // end remove image button event
+                }); // end custom-file-input event
+
 
                 var actionForm = $("form");
 
@@ -165,36 +279,15 @@
                     deleteFrom.attr("action", "/pamily/shop/remove")
                     .attr("method", "post");
                     deleteFrom.submit();
-                });
+                }); // end delete
 
                 var dto = [[${dto}]]
                 console.log(dto);
 
                 var sid = [[${dto.sid}]];
 
-                $('.uploadResult').on('click','li button',function(e){
-                    if(!confirm("삭제하시겠습니까?")){
-                        return;
-                    }
-                    console.log("delete file");
-                    var targetFile = $(this).data("file");
-                    console.log(targetFile);
-                    var targetLi = $(this).closest("li");
-                    var targetUuid = targetLi.attr('data-uuid');
-                    console.log(targetUuid);
 
-                    $.ajax({
-                        url: '/pamily/removeFile',
-                        data: {fileName: targetFile},
-                        dataType: 'text',
-                        type: 'POST',
-                        success: function(result){
-                            targetLi.remove();
-                            $('.'+ targetUuid).remove();
-                        }
-                    });
-                });
-            });
+            }); //end document.ready
         </script>
 
     </th:block>

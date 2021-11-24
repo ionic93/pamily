@@ -12,5 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ShopImageRepositoryTest {
+    @Autowired
+    private ShopImageRepository shopImageRepository;
 
+    @Test
+    public void deleteImage() {
+        Long sid = (long)104;
+        shopImageRepository.deleteShopImageBySid(sid);
+    }
 }

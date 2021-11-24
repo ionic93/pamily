@@ -73,6 +73,7 @@ public class ShopServiceImpl implements ShopService{
         Page<Object[]> result = shopRepository.searchPage(
                 requestDTO.getType(),
                 requestDTO.getKeyword(),
+                requestDTO.getScno(),
                 pageable);
 
         log.info("serviceSearch: "+result);
@@ -115,11 +116,21 @@ public class ShopServiceImpl implements ShopService{
 
     @Override
     public void modify(ShopDTO shopDTO) {
+        shopImageRepository.deleteShopImageBySid(shopDTO.getSid());
+        Map<String, Object> entityMap = dtoToEntity(shopDTO);
+        List<ShopImage> shopImageList = (List<ShopImage>) entityMap.get("shopImgList");
+        shopImageList.forEach(shopImage -> {
+            shopImageRepository.save(shopImage);
+        });
+        log.info("shopImageList: "+shopImageList);
+
+
         Optional<Shop> result = shopRepository.findById(shopDTO.getSid());
         if (result.isPresent()) {
             Shop entity = result.get();
             entity.changeShopTitle(shopDTO.getTitle());
             entity.changeShopContent(shopDTO.getContent());
+            log.info("modEntity: "+entity);
             shopRepository.save(entity);
         }
     }

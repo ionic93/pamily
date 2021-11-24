@@ -54,12 +54,12 @@ class ShopRepositoryTest {
 //                        .build();
 //                shopImageRepository.save(shopImage);
 //            }
-            ShopImage shopImage = ShopImage.builder()
-                    .uuid(UUID.randomUUID().toString())
-                    .shop(shop)
-                    .imgName("test"+i+".jpg")
-                    .build();
-            shopImageRepository.save(shopImage);
+//            ShopImage shopImage = ShopImage.builder()
+//                    .uuid(UUID.randomUUID().toString())
+//                    .shop(shop)
+//                    .imgName("test"+i+".jpg")
+//                    .build();
+//            shopImageRepository.save(shopImage);
         });
     }
 
@@ -76,12 +76,12 @@ class ShopRepositoryTest {
                     .build();
             shopRepository.save(shop);
 
-            ShopImage shopImage = ShopImage.builder()
-                    .uuid(UUID.randomUUID().toString())
-                    .shop(shop)
-                    .imgName("test"+i+".jpg")
-                    .build();
-            shopImageRepository.save(shopImage);
+//            ShopImage shopImage = ShopImage.builder()
+//                    .uuid(UUID.randomUUID().toString())
+//                    .shop(shop)
+//                    .imgName("test"+i+".jpg")
+//                    .build();
+//            shopImageRepository.save(shopImage);
         });
     }
 
@@ -98,12 +98,12 @@ class ShopRepositoryTest {
                     .build();
             shopRepository.save(shop);
 
-            ShopImage shopImage = ShopImage.builder()
-                    .uuid(UUID.randomUUID().toString())
-                    .shop(shop)
-                    .imgName("test"+i+".jpg")
-                    .build();
-            shopImageRepository.save(shopImage);
+//            ShopImage shopImage = ShopImage.builder()
+//                    .uuid(UUID.randomUUID().toString())
+//                    .shop(shop)
+//                    .imgName("test"+i+".jpg")
+//                    .build();
+//            shopImageRepository.save(shopImage);
         });
     }
 
@@ -120,12 +120,12 @@ class ShopRepositoryTest {
                     .build();
             shopRepository.save(shop);
 
-            ShopImage shopImage = ShopImage.builder()
-                        .uuid(UUID.randomUUID().toString())
-                        .shop(shop)
-                        .imgName("test"+i+".jpg")
-                        .build();
-                shopImageRepository.save(shopImage);
+//            ShopImage shopImage = ShopImage.builder()
+//                        .uuid(UUID.randomUUID().toString())
+//                        .shop(shop)
+//                        .imgName("test"+i+".jpg")
+//                        .build();
+//                shopImageRepository.save(shopImage);
         });
     }
 //

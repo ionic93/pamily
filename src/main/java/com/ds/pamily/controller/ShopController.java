@@ -44,9 +44,10 @@ public class ShopController {
         redirectAttributes.addAttribute("page",requestDTO.getPage());
         redirectAttributes.addAttribute("type",requestDTO.getType());
         redirectAttributes.addAttribute("keyword",requestDTO.getKeyword());
+        redirectAttributes.addAttribute("scno",requestDTO.getScno());
 
         redirectAttributes.addAttribute("sid",shopDTO.getSid());
-        return "redirect:/shop/shop";
+        return "redirect:/shop/read";
     }
 
 

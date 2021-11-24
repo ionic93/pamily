@@ -37,6 +37,9 @@ public interface ShopService {
                 .build();
 
         List<ShopImageDTO> shopImageDTOList = shopImages.stream().map(shopImage -> {
+            if (shopImage == null) {
+                return ShopImageDTO.builder().build();
+            }
             return ShopImageDTO.builder().imgName(shopImage.getImgName())
                     .path(shopImage.getPath())
                     .uuid(shopImage.getUuid())

@@ -32,11 +32,36 @@
                     <div class="col-lg-3">
                         <aside class="sidebar">
                             <ul>
-                                <li class="sideText ctg" \
-                                    th:each=" cate : ${category}">
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm1">
                                     <i class="fa fa-align-left"></i>
-                                    <button th:name="${cate.scno}" th:text="${cate.cateName}"></button>
-                                <li class="hr"></li>
+                                    <button class="cateBtn1">분양</button>
+                                    <div class="box1" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm2">
+                                        <i class="fa fa-align-left"></i>
+                                        <button class="cateBtn2" value="2">입양</button>
+                                        <div class="box2" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm3">
+                                        <i class="fa fa-align-left"></i>
+                                        <button class="cateBtn3" value="3">동물찾기</button>
+                                        <div class="box3" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm4">
+                                        <i class="fa fa-align-left"></i>
+                                        <button class="cateBtn4" value="4">기타</button>
+                                        <div class="box4" style="display:hidden;"></div>
+                                    </form>
                                 </li>
                             </ul>
                         </aside>
@@ -53,7 +78,10 @@
                             <div class="col-lg-9">
                                 <form action="/pamily/shop/shop" method="get" id="searchForm">
                                 <div class="input-group">
+                                    <div class="bbox" style="display:hidden;">
                                     <input type="hidden" name="page" value="1">
+                                    <input type="hidden" name="scno" th:value="${pageRequestDTO.scno}">
+                                    </div>
                                     <select class="form-control" name="type" style="width:170px; float: right;">
                                         <option  th:selected="${pageRequestDTO.type == null}">----</option>
                                         <option value="t" th:selected="${pageRequestDTO.type == 't'}">제목</option>
@@ -87,7 +115,8 @@
                         <tr th:each="dto : ${result.dtoList}"
                             th:data-type="${pageRequestDTO.type}"
                             th:data-keyword="${pageRequestDTO.keyword}"
-                            th:onclick="|javascript:read('${dto.sid}','${result.page}',this.getAttribute('data-type'),this.getAttribute('data-keyword'))|"
+                            th:data-scno="${pageRequestDTO.scno}"
+                            th:onclick="|javascript:read('${dto.sid}','${result.page}',this.getAttribute('data-type'),this.getAttribute('data-keyword'),this.getAttribute('data-scno'))|"
                             class="tr-list">
                             <th scope="row">[[${dto.sid}]]</th>
                             <td>[[${dto.cateName}]]</td>
@@ -106,20 +135,23 @@
                         <li class="page-item" th:if="${result.prev}">
                             <a class="page-link" th:href="@{/shop/shop(page=${result.start-1},
                             type=${pageRequestDTO.type},
-                            keyword=${pageRequestDTO.keyword})}" tabindex="-1">Previous</a>
+                            keyword=${pageRequestDTO.keyword},
+                            scno=${pageRequestDTO.scno})}" tabindex="-1">Previous</a>
                         </li>
 
                         <li th:class=" 'page-item ' + ${result.page == page?'active':''}"
                             th:each="page: ${result.pageList}">
                             <a class="page-link" th:href="@{/shop/shop(page=${page},
                             type=${pageRequestDTO.type},
-                            keyword=${pageRequestDTO.keyword})}">[[${page}]]</a>
+                            keyword=${pageRequestDTO.keyword},
+                            scno=${pageRequestDTO.scno})}">[[${page}]]</a>
                         </li>
 
                         <li class="page-item" th:if="${result.next}">
                             <a class="page-link" th:href="@{/shop/shop(page=${result.end+1},
                             type=${pageRequestDTO.type},
-                            keyword=${pageRequestDTO.keyword})}">Next</a>
+                            keyword=${pageRequestDTO.keyword},
+                            scno=${pageRequestDTO.scno})}">Next</a>
                         </li>
                     </ul>
                     </div>
@@ -153,20 +185,16 @@
         <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
         <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
         <script th:inline="javascript">
-            function read(sid, page, type, keyword){
+            function read(sid, page, type, keyword, scno){
                     if(type==null){type="";}
                     if(keyword==null){keyword="";}
+                    if(scno==null){scno="";}
                       /*[+
-                      var urlword =[[@{/shop/read}]] + "?sid="+sid+"&page="+page+"&type="+type+"&keyword="+keyword;
+                      var urlword =[[@{/shop/read}]] + "?sid="+sid+"&page="+page+"&type="+type+"&keyword="+keyword+"&scno="+scno;
                       +]*/
                       location.href=urlword;
                 }
-            function find(scno){
-                      /*[+
-                      var urlword =[[@{/shop/shop}]] + "?scno="+scno;
-                      +]*/
-                      location.href=urlword;
-                }
+
         </script>
         <script th:inline="javascript">
             var msg = [[${msg}]];
@@ -193,17 +221,59 @@
             $(document).ready(function(){
 
                 var searchForm = $("#searchForm");
+
+
                 $('.btn-search').click(function(e){
+
+                    var data1 = searchForm.serializeArray();
+                    console.log(data1);
                     searchForm.submit();
                 });
                 $('.btn-clear').click(function(e){
                     searchForm.empty().submit();
                 });
 
-                $(a).click(function(e){
-                    e.preventDefault()
+                $('.cateBtn1').click(function(e){
+                    var cateForm1 = $("#cateForm1");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='1'>";
+                    $('.box1').html(str);
+                    var data1 = cateForm1.serializeArray();
+                    console.log(data1);
+                    cateForm1.submit();
+                });
+                $('.cateBtn2').click(function(e){
+                    var cateForm2 = $("#cateForm2");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='2'>";
+                    $('.box2').html(str);
+                    var data2 = cateForm2.serializeArray();
+                    console.log(data2);
+                    cateForm2.submit();
+                });
+                $('.cateBtn3').click(function(e){
+                    var cateForm3 = $("#cateForm3");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='3'>";
+                    $('.box3').html(str);
+                    var data3 = cateForm3.serializeArray();
+                    console.log(data3);
+                    cateForm3.submit();
+                });
+                $('.cateBtn4').click(function(e){
+                    var cateForm4 = $("#cateForm4");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='4'>";
+                    $('.box4').html(str);
+                    var data4 = cateForm4.serializeArray();
+                    console.log(data4);
+                    cateForm4.submit();
+                });
 
-                })
             });
         </script>
 
