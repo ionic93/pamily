@@ -1,6 +1,7 @@
 package com.ds.pamily.controller;
 
 import com.ds.pamily.dto.PostDTO;
+import com.ds.pamily.dto.ProfileDTO;
 import com.ds.pamily.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,21 +21,5 @@ import java.security.Principal;
 public class ProfileController {
     private final ProfileService profileService;
 
-    @PreAuthorize("permitAll()")
-    @GetMapping("/profileModify")
-    public void register(Principal principal) {
-        log.info("principal>>"+principal.getName());
-        log.info("role>>");
-        log.info("uploadPage..........");
-    }
-
-//    @PreAuthorize("permitAll()")
-//    @PostMapping("/profileModify")
-//    public String register(PostDTO postDTO, RedirectAttributes redirectAttributes){
-//        Long pid = postService.register(postDTO);
-//        redirectAttributes.addFlashAttribute("msg", pid);
-//        log.info("postDTOpostDTO:>> " + postDTO);
-//        return "redirect:/sample/main";
-//    }
 
 }
