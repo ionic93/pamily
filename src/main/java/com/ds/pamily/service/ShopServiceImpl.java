@@ -130,6 +130,7 @@ public class ShopServiceImpl implements ShopService{
 
             entity.changeShopTitle(shopDTO.getTitle());
             entity.changeShopContent(shopDTO.getContent());
+            entity.setCate(ShopCate.builder().scno(shopDTO.getScno()).cateName(shopDTO.getCateName()).build());
             log.info("modEntity: "+entity);
             shopRepository.save(entity);
         }

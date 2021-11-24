@@ -51,4 +51,5 @@ class ShopCateRepositoryTest {
             System.out.println(result);
         }
     }
+
 }

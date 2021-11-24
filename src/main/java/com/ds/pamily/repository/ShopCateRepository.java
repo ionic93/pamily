@@ -4,6 +4,7 @@ import com.ds.pamily.entity.ShopCate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface ShopCateRepository extends JpaRepository<ShopCate, Long> {
 
     @Query("select c from ShopCate c where c.cateName = :catename")
     Optional<ShopCate> findByCateName(String catename);
+
+
 }

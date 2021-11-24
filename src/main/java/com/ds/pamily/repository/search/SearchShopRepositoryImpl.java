@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,6 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
     public SearchShopRepositoryImpl() {
         super(Shop.class);
     }
-
 
     @Override
     public Page<Object[]> searchPage(String type, String keyword, Long scno, Pageable pageable) {
@@ -40,6 +41,7 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
         log.info("jqplQuery:"+jpqlQuery);
         JPQLQuery<Tuple> tuple = jpqlQuery.select(shop, qShopImage, qShopReply.countDistinct());
         log.info("tuple: "+tuple);
+
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         BooleanExpression expression = shop.sid.gt(0L);
@@ -69,6 +71,7 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
             }
             booleanBuilder.and(conditionBuilder);
         }
+
         tuple.where(booleanBuilder);
 
         Sort sort = pageable.getSort();
@@ -85,7 +88,9 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
 
             //직접 코드로 처리시 = tuple.orderBy(board.bno.desc());
             tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));
+
         });
+
         tuple.groupBy(shop);
 
         //page 처리
