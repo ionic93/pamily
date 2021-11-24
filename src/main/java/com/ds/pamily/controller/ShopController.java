@@ -66,7 +66,7 @@ public class ShopController {
         return "redirect:/shop/shop";
     }
 
-    @PreAuthorize("permitAll()")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/shop")
     public void exshop(PageRequestDTO pageRequestDTO, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) {
         log.info("exitemshop..........");
@@ -79,6 +79,7 @@ public class ShopController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/shopreg")
     public void exshopReg(ShopDTO shopDTO, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
+
         model.addAttribute("category",shopCateService.getCateList());
         model.addAttribute("mid",authMemberDTO.getMid());
         model.addAttribute("Authname",authMemberDTO.getName());
