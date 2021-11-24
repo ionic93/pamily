@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <link type="text/css" th:href="@{/assets/css/demos/photo.css}" rel="stylesheet"/>
@@ -34,32 +34,28 @@
                             <ul>
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm1">
-                                        <button class="cateBtn1 kafe-btn kafe-btn-mint shopcateBtn">
-                                            <i class="fa fa-align-left"></i>분양</button>
+                                        <button class="cateBtn1 kafe-btn kafe-btn-mint shopcateBtn"> 분 양</button>
                                         <div class="box1" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm2">
-                                        <button class="cateBtn2 kafe-btn kafe-btn-mint shopcateBtn" value="2">
-                                            <i class="fa fa-align-left"></i>입양</button>
+                                        <button class="cateBtn2 kafe-btn kafe-btn-mint shopcateBtn" value="2"> 입 양</button>
                                         <div class="box2" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm3">
-                                        <button class="cateBtn3 kafe-btn kafe-btn-mint shopcateBtn" value="3">
-                                            <i class="fa fa-align-left"></i>동물찾기</button>
+                                        <button class="cateBtn3 kafe-btn kafe-btn-mint shopcateBtn" value="3"> 동물찾기</button>
                                         <div class="box3" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm4">
-                                        <button class="cateBtn4 kafe-btn kafe-btn-mint shopcateBtn" value="4">
-                                            <i class="fa fa-align-left"></i>기타</button>
+                                        <button class="cateBtn4 kafe-btn kafe-btn-mint shopcateBtn" value="4"> 기 타</button>
                                         <div class="box4" style="display:hidden;"></div>
                                     </form>
                                 </li>
@@ -79,32 +75,17 @@
                             <input type="hidden" name="scno" th:value="${requestDTO.scno}">
 
                             <div class="form-group">
-                                <label>닉네임</label>
-                                <input type="text" class="form-control" name="name"
-                                       th:value="${dto.name}" readonly>
+                                <div name="cateName"> <em class="fa fa-align-left"></em>[[${dto.cateName}]]</div>
                             </div>
                             <div class="form-group">
-                                <label>카테고리</label>
-                                <input type="text" class="form-control" name="cateName"
-                                       th:value="${dto.cateName}" readonly>
+                                <label>작성자</label>
+                                <span name="name" th:text="${dto.name}"> </span><span name="regDate"> [[${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}]]</span>
                             </div>
                             <div class="form-group">
                                 <label>제목</label>
-                                <input type="text" class="form-control" name="title"
-                                       th:value="${dto.title}" readonly>
+                                <span name="title" th:text="${dto.title}"></span>
                             </div>
-                            <div class="form-inline">
-                                <label for="exampleInputFile">파일 업로드</label>
-                                <input type="file" id="exampleInputFile" disabled style="margin-bottom:10px;">
-                                <label>등록 일자</label>
-                                <input type="text" class="form-control" name="regDate"  readonly
-                                       th:value="${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}">
-                                <label>수정 일자</label>
-                                <input type="text" class="form-control" name="modDate"  readonly
-                                       th:value="${#temporals.format(dto.modDate,'yyyy/MM/dd HH:mm:ss')}">
-                            </div>
-                            <div class="form-group" style="margin-top:10px;">
-                                <label>내용</label>
+                            <div class="form-group read-space" style="margin-top:10px;">
                                 <div class="uploadResult">
                                     <ul>
                                         <li th:each="dto: ${dto.shopImageDTOList}"
