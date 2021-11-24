@@ -14,6 +14,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -21,13 +23,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/sample/")
 public class MainController {
-
+    @Autowired
+    private final RelationService relationService;
     @Autowired
     private final PostService postService;
-
-    private final MemberService memberService;
-    private final RelationService relationService;
-
 
     @PreAuthorize("permitAll()")
     @GetMapping("/main")
@@ -35,23 +34,12 @@ public class MainController {
         PageResultDTO<PostDTO, Object[]> result = postService.getList(pageRequestDTO);
         log.info("result.getDtoList()>>>>>>>>>>>" + result.getDtoList());
         model.addAttribute("msg" , result.getDtoList());
+        model.addAttribute("result", relationService.getFriendList(pageRequestDTO));
+        log.info("result.getFriendList()>>>>>>>>>>>" + relationService.getFriendList(pageRequestDTO));
         log.info( "model >>>>>>" + model );
         log.info( "result1>>>>>>" + result );
         log.info("result2>>>>>>>>" + result.getDtoList());
     }
 
-    @PostMapping("/member/relation/{id1}/{id2}")
-    @ResponseBody
-    public void relation(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2) {
-        Member member1 = memberService.findById(id1).get();
-        Member member2 = memberService.findById(id2).get();
-        relationService.relation(member1, member2);
-    }
 
-    @PostMapping("/member/unRelation/{id1}/{id2}")
-    @ResponseBody
-    public void unRelation(@PathVariable("id1") Long id1, @PathVariable("id2") Long id2) {
-        Member member1 = memberService.findById(id1).get();
-        Member member2 = memberService.findById(id2).get();
-    }
 }
