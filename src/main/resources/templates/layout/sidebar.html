@@ -58,28 +58,15 @@
                                 <tr th:each="dto : ${result.dtoList}" th:data-type="${pageRequestDTO.type}"
                                     th:data-keyword="${pageRequestDTO.keyword}" th:if="${dto.name} != null" >
                                     <td><img src="/pamily/assets/img/users/1.jpg" class="img-responsive img-circle" alt=""></td>
-                                    <td><a th:href="@{/sample/myProfile}" style="color: black; font-size: 10pt;" >[[${dto.name}]] </a> </td>
-                                    <td><i class="fa fa-plus" style="cursor:pointer"></i></td>
+                                    <td><a th:href="@{/sample/myProfile}" style="color: black; font-size: 10pt;" th:value="${dto.mid}">[[${dto.name}]]&nbsp&nbsp</a> </td>
+<!--                                    <td><i class="fa fa-plus" style="cursor:pointer;"></i></td>-->
+                                    <td class="followMid">
+                                        <a style="none;" id="faltd1" href="#" th:onclick="javascript:followMid([[${dto.name}]])">Follow</a>
+<!--                                        <button id="faltd1"  class="fa fa-plus" style="border:0px; background:none;" th:value="${dto.mid}"></button>-->
+<!--                                        <button class="faltd2" style="border:0px; background:none;" th:value="${dto.mid}"><i class="fa fa-check" id="fal2" style="cursor:pointer; display:none;"></i></button>-->
+                                    </td>
                                 </tr>
                             </table>
-
-                            <ul class="pagination h-100 justify-content-center align-items-center">
-                                <li class=" 'page-item' " th:if="${result.prev}" >
-                                    <a class="page-link" th:href="@{/sample/main(page= ${result.start -1},
-                                       type=${pageRequestDTO.type} , keyword = $ {pageRequestDTO.keyword} ) }"
-                                       tabindex="-1" >Previous</a>
-                                </li>
-                                <li th:class=" 'page-item ' + ${result.page == page?'active':''} "
-                                    th:each="page: ${result.pageList}" >
-                                    <a class="page-link" th:href="@{/sample/main(page= ${page} ,
-                                    type= ${pageRequestDTO.type} , keyword = ${pageRequestDTO.keyword}  )}" >[[${page}]]</a>
-                                </li>
-                                <li class=" 'page-item' " th:if="${result.next}" >
-                                    <a class="page-link" th:href="@{/sample/main(page= ${result.end + 1} ,
-                                    type= ${pageRequestDTO.type} , keyword= ${pageRequestDTO.keyword} )}" >Next</a>
-                                </li>
-                            </ul>
-
                         </div>
                     </div>
                 </div><!--suggestions-list end-->

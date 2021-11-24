@@ -29,15 +29,16 @@ public interface RelationService {
 
 
 
-    void follow(Member member1, Member member2);
+    void follow(Member follower, Member following);
 
-    void unfollow(Member member1, Member member2);
+    void unfollow(Member follower, Member following);
 
     PageResultDTO<RelationDTO, Relation> getFollowList(PageRequestDTO requestDTO);
 
     default MemberDTO entityToDTO2(Member member) {
         MemberDTO memberDTO = MemberDTO.builder()
                 .name(member.getName())
+                .mid(member.getMid())
                 .build();
         return memberDTO;
     }

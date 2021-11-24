@@ -190,8 +190,7 @@
         <script th:src="@{/assets/js/base.js}"></script>
         <script th:src="@{/assets/plugins/slimscroll/jquery.slimscroll.js}"></script>
 
-        <script th:inline="javascript">
-
+    <script th:inline="javascript">
             function showModal(str){
                 console.log(str)
                 $('#myModal img').attr('src' , '/pamily/display?fileName='+ str)
@@ -206,6 +205,14 @@
 <!--                console.log(data1);-->
                 searchForm.submit();
             });
+
+            function followMid(str){
+                console.log(str);
+                alert(str + '님을 팔로우하였습니다.');
+<!--                $('#faltd1').removeClass('fa fa-plus');-->
+<!--                $('#faltd1').attr('class', 'fa fa-check');-->
+            }
+
         </script>
     </th:block>
 </th:block>
