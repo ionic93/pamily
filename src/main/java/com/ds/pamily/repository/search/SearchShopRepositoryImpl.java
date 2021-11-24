@@ -91,7 +91,7 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
 
         });
 
-        tuple.groupBy(shop);
+        tuple.groupBy(qShopImage,shop);
 
         //page 처리
         tuple.offset(pageable.getOffset());
@@ -103,10 +103,50 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
         log.info("fetchresult: "+result);
 
         //count 얻는 방법
-        long count = tuple.fetchCount();
+
+        JPQLQuery<Shop> jpqlQuery1 = from(shop);
+        jpqlQuery1.leftJoin(qShopReply).on(qShopReply.shop.eq(shop));
+
+        log.info("jqplQuery1:"+jpqlQuery1);
+        JPQLQuery<Tuple> tuple1 = jpqlQuery1.select(shop, qShopReply.countDistinct());
+        log.info("tuple1: "+tuple1);
+
+
+        BooleanBuilder booleanBuilder1 = new BooleanBuilder();
+        BooleanExpression expression1 = shop.sid.gt(0L);
+        if (scno != null) {
+            BooleanExpression exCate = shop.scno.scno.eq(scno);
+            booleanBuilder1.and(exCate);
+        }
+        booleanBuilder1.and(expression1);
+
+
+        if (type != null) {
+            String[] typeArr = type.split("");
+            BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+            for (String t : typeArr) {
+                switch (t){
+                    case "t":
+                        conditionBuilder.or(shop.title.contains(keyword));
+                        break;
+                    case "w":
+                        conditionBuilder.or(shop.member.name.contains(keyword));
+                        break;
+                    case "c":
+                        conditionBuilder.or(shop.content.contains(keyword));
+                        break;
+                }
+            }
+            booleanBuilder1.and(conditionBuilder);
+        }
+
+        tuple1.where(booleanBuilder1);
+        tuple1.groupBy(shop);
+
+        long count = tuple1.fetchCount();
         log.info("Count: " + count);
 
-        log.info("resultSearch: "+result);
         return new PageImpl<Object[]>(
                 result.stream().map(t-> t.toArray()).collect(Collectors.toList())
                 ,pageable, count);
