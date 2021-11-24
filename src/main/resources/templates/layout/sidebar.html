@@ -33,21 +33,21 @@
     <div th:fragment="sidebar" class="col-lg-3">
         <div class="messages-container">
             <form action="/pamily/sample/main" method="get" id="searchForm">
-            <div class="message-header">
-                <div class="message-title">
-                    <h4>추천 목록</h4>
-                </div><!--/ message-title-->
-                <div class="search-area">
-                    <div class="input-field">
-                        <input type="hidden" name="page" value = "1" >
+                <div class="message-header">
+                    <div class="message-title">
+                        <h4>추천 목록</h4>
+                    </div><!--/ message-title-->
+                    <div class="search-area">
+                        <div class="input-field">
+                            <input type="hidden" name="page" value = "1" >
                             <select name="type" style="display:none;">
-                               <option type="hidden" value="t" th:selected="${pageRequestDTO.type == 't'}" >Name</option>
+                                <option type="hidden" value="t" th:selected="${pageRequestDTO.type == 't'}" >Name</option>
                             </select>
-                        <input name="keyword" th:value="${pageRequestDTO.keyword}" >
-                        <button class="fa fa-search btnSearch" type="button" style="border:0px" ></button>
-                    </div>
-                </div><!--/ search-area-->
-            </div><!--/ message-header-->
+                            <input name="keyword" th:value="${pageRequestDTO.keyword}" >
+                            <button class="fa fa-search btnSearch" type="button" style="border:0px" ></button>
+                        </div>
+                    </div><!--/ search-area-->
+                </div><!--/ message-header-->
             </form>
 
             <div class="suggestion-box full-width">
@@ -56,7 +56,8 @@
                         <div class="name-box">
                             <table>
                                 <tr th:each="dto : ${result.dtoList}" th:data-type="${pageRequestDTO.type}"
-                                    th:data-keyword="${pageRequestDTO.keyword}" th:if="${dto.name} != null" >
+                                    th:data-keyword="${pageRequestDTO.keyword}"
+                                    th:if="${dto.name} !=null">
                                     <td><img src="/pamily/assets/img/users/1.jpg" class="img-responsive img-circle" alt=""></td>
                                     <td><a th:href="@{/sample/myProfile}" style="color: black; font-size: 10pt;" >[[${dto.name}]] </a> </td>
                                     <td><i class="fa fa-plus" style="cursor:pointer"></i></td>

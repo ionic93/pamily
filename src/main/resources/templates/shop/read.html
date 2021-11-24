@@ -24,10 +24,36 @@
                     <div class="col-lg-3">
                         <aside class="sidebar">
                             <ul>
-                                <li class="sideText ctg" th:each=" cate : ${category}">
-                                    <i class="fa fa-align-left"></i>
-                                    <a href="" th:text="${cate.cateName}"></a>
-                                <li class="hr"></li>
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm1">
+                                        <i class="fa fa-align-left"></i>
+                                        <button class="cateBtn1">분양</button>
+                                        <div class="box1" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm2">
+                                        <i class="fa fa-align-left"></i>
+                                        <button class="cateBtn2" value="2">입양</button>
+                                        <div class="box2" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm3">
+                                        <i class="fa fa-align-left"></i>
+                                        <button class="cateBtn3" value="3">동물찾기</button>
+                                        <div class="box3" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm4">
+                                        <i class="fa fa-align-left"></i>
+                                        <button class="cateBtn4" value="4">기타</button>
+                                        <div class="box4" style="display:hidden;"></div>
+                                    </form>
                                 </li>
                             </ul>
                         </aside>
@@ -108,6 +134,10 @@
                             </span>
                             <span th:if="${#authentication.principal.name} == ${dto.name} or ${#authorization.expression('hasRole(''ADMIN'')')}">
                                  <form id="delete-form" style="display:inline-block;">
+                                        <input type="hidden" name="page" th:value="${requestDTO.page}">
+                                        <input type="hidden" name="type" th:value="${requestDTO.type}">
+                                        <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+                                        <input type="hidden" name="scno" th:value="${requestDTO.scno}">
                                         <input type="hidden" th:value="${dto.sid}" name="sid"/>
                                         <button class="btn btn-danger">삭제</button>
                                  </form>
@@ -322,6 +352,47 @@
                         }
                     })
                     reviewModal.modal('hide');
+                });
+
+                $('.cateBtn1').click(function(e){
+                    var cateForm1 = $("#cateForm1");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='1'>";
+                    $('.box1').html(str);
+                    var data1 = cateForm1.serializeArray();
+                    console.log(data1);
+                    cateForm1.submit();
+                });
+                $('.cateBtn2').click(function(e){
+                    var cateForm2 = $("#cateForm2");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='2'>";
+                    $('.box2').html(str);
+                    var data2 = cateForm2.serializeArray();
+                    console.log(data2);
+                    cateForm2.submit();
+                });
+                $('.cateBtn3').click(function(e){
+                    var cateForm3 = $("#cateForm3");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='3'>";
+                    $('.box3').html(str);
+                    var data3 = cateForm3.serializeArray();
+                    console.log(data3);
+                    cateForm3.submit();
+                });
+                $('.cateBtn4').click(function(e){
+                    var cateForm4 = $("#cateForm4");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='4'>";
+                    $('.box4').html(str);
+                    var data4 = cateForm4.serializeArray();
+                    console.log(data4);
+                    cateForm4.submit();
                 });
             });
         </script>

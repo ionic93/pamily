@@ -28,6 +28,7 @@ public class Shop extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private ShopCate scno;
 
+
     public void changeShopTitle(String title) {
         this.title = title;
     }

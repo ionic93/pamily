@@ -54,11 +54,15 @@ public class ShopController {
 
 
     @PostMapping("/remove")
-    public String remove(long sid, RedirectAttributes redirectAttributes){
+    public String remove(long sid, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, RedirectAttributes redirectAttributes){
         log.info("deletesid: "+ sid);
         shopService.removeWithShopImageAndReply(sid);
         redirectAttributes.addFlashAttribute("msg",sid);
         redirectAttributes.addFlashAttribute("noti","삭제");
+        redirectAttributes.addAttribute("page",requestDTO.getPage());
+        redirectAttributes.addAttribute("type",requestDTO.getType());
+        redirectAttributes.addAttribute("keyword",requestDTO.getKeyword());
+        redirectAttributes.addAttribute("scno",requestDTO.getScno());
         return "redirect:/shop/shop";
     }
 

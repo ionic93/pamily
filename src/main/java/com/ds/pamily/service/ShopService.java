@@ -77,6 +77,7 @@ public interface ShopService {
                                 .build();
                         return shopImage;
                     }).collect(Collectors.toList());
+            System.out.println("shopImgList>>"+shopImageList);
             entityMap.put("shopImgList", shopImageList);
         }
         return entityMap;

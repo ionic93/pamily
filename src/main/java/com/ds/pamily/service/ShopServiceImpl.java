@@ -4,6 +4,7 @@ import com.ds.pamily.dto.PageRequestDTO;
 import com.ds.pamily.dto.PageResultDTO;
 import com.ds.pamily.dto.ShopDTO;
 import com.ds.pamily.entity.Shop;
+import com.ds.pamily.entity.ShopCate;
 import com.ds.pamily.entity.ShopImage;
 import com.ds.pamily.repository.ShopImageRepository;
 import com.ds.pamily.repository.ShopReplyRepository;
@@ -113,15 +114,20 @@ public class ShopServiceImpl implements ShopService{
         shopImageRepository.deleteShopImageBySid(shopDTO.getSid());
         Map<String, Object> entityMap = dtoToEntity(shopDTO);
         List<ShopImage> shopImageList = (List<ShopImage>) entityMap.get("shopImgList");
+        if (shopImageList != null) {
         shopImageList.forEach(shopImage -> {
             shopImageRepository.save(shopImage);
         });
+        }
         log.info("shopImageList: "+shopImageList);
 
 
         Optional<Shop> result = shopRepository.findById(shopDTO.getSid());
         if (result.isPresent()) {
+            log.info("result::" +result);
             Shop entity = result.get();
+            log.info("entity: "+entity);
+
             entity.changeShopTitle(shopDTO.getTitle());
             entity.changeShopContent(shopDTO.getContent());
             log.info("modEntity: "+entity);
