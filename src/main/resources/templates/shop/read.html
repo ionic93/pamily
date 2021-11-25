@@ -75,15 +75,14 @@
                             <input type="hidden" name="scno" th:value="${requestDTO.scno}">
 
                             <div class="form-group">
-                                <div name="cateName"> <em class="fa fa-align-left"></em>[[${dto.cateName}]]</div>
+                                <div name="cateName"> <em class="fa fa-align-left readmargintext"></em>[[${dto.cateName}]]</div>
                             </div>
-                            <div class="form-group">
-                                <label>작성자</label>
-                                <span name="name" th:text="${dto.name}"> </span><span name="regDate"> [[${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}]]</span>
-                            </div>
-                            <div class="form-group">
-                                <label>제목</label>
+                            <div class="form-group readTextcss readmargintext">
                                 <span name="title" th:text="${dto.title}"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="readmargintext">작성자</label>
+                                <span name="name" th:text="${dto.name}"> </span><span class="readmargintext" name="regDate"> [[${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}]]</span>
                             </div>
                             <div class="form-group read-space" style="margin-top:10px;">
                                 <div class="uploadResult">

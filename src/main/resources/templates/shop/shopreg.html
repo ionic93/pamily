@@ -47,7 +47,8 @@
                                 </li>
 
                                 <li class="sideText ctg" \>
-                                    <form action="/pamily/shop/shop" method="get" id="cateForm3"> 동물찾기</button>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm3">
+                                        <button class="cateBtn3 kafe-btn kafe-btn-mint shopcateBtn" value="3"> 동물찾기</button>
                                         <div class="box3" style="display:hidden;"></div>
                                     </form>
                                 </li>
@@ -75,7 +76,7 @@
                             <div class="form-group">
                                 <label>카테고리</label>
                             <select class="form-control" name="scno" id="scno">
-                                <option th:each=" cate : ${category}"  th:value="${cate.scno}">[[${cate.cateName}]]</option>
+                                <option th:each=" cate : ${category}"  th:value="${cate.scno}"> [[${cate.cateName}]]</option>
                             </select>
                                 <input type="hidden" name="cateName" id="cateName"/>
                             </div>
