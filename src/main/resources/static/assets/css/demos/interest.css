@@ -954,6 +954,6 @@ a.navbar-brand:hover {
 .channel-one .col-lg-9{margin-right: 20px;}
 .searchmargin {margin-left: 5px;}
 
-.usernamemargin{margin-right: 20px;}
+.usernamemargin{margin-right: 10px;}
 
-.modalxy{margin-right: 68px; width: 200px;}
+.modalxy{margin-right: 78px; width: 130px; min-width:130px;}
