@@ -55,14 +55,14 @@
                     <div class="suggestion-body">
                         <div class="name-box">
                             <table>
-                                <tr th:each="dto : ${result.dtoList}" th:data-type="${pageRequestDTO.type}"
+                                <tr id="centergogo" th:each="dto : ${result.dtoList}" th:data-type="${pageRequestDTO.type}"
                                     th:data-keyword="${pageRequestDTO.keyword}"
                                     th:if="${dto.name} !=null">
                                     <td><img src="/pamily/assets/img/users/1.jpg" class="img-responsive img-circle" alt=""></td>
-                                    <td><a th:href="@{/sample/myProfile}" style="color: black; font-size: 10pt;" th:value="${dto.mid}">[[${dto.name}]]&nbsp&nbsp</a> </td>
+                                    <td><a class="faltdname" th:href="@{/sample/myProfile}" th:value="${dto.mid}">[[${dto.name}]]&nbsp&nbsp</a> </td>
 <!--                                    <td><i class="fa fa-plus" style="cursor:pointer;"></i></td>-->
                                     <td class="followMid">
-                                        <a style="none;" id="faltd1" href="#" th:onclick="javascript:followMid([[${dto.name}]])">Follow</a>
+                                        <a style="none;" class="faltdbtn" id="faltd1" href="#" th:onclick="javascript:followMid([[${dto.name}]])">Follow</a>
 <!--                                        <button id="faltd1"  class="fa fa-plus" style="border:0px; background:none;" th:value="${dto.mid}"></button>-->
 <!--                                        <button class="faltd2" style="border:0px; background:none;" th:value="${dto.mid}"><i class="fa fa-check" id="fal2" style="cursor:pointer; display:none;"></i></button>-->
                                     </td>

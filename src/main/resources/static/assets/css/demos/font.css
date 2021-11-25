@@ -13,3 +13,11 @@
     -webkit-transition-duration: 0;
     transition-duration: 0;
 }
+
+a.faltdname{color: black; font-style:none; margin: 10px; font-size:13pt; vertical-align: middle; line-height:100%;}
+
+.name-box, table, tbody, tr {width: 100%;}
+
+.faltdbtn{color: black; font-size:12pt; vertical-align: middle; line-height:100%; float:right; font-family: 'Pacifico', serif; color: #595959; border: 1px solid #aaaaaa; padding: 5px; border-radius: 20px;}
+
+#centergogo, td {padding: 5px; margin 5px; vertical-align: middle;}

@@ -85,7 +85,7 @@ public class RelationServiceImpl implements RelationService {
 
     @Override
     public PageResultDTO<MemberDTO, Member> getFriendList(PageRequestDTO pageRequestDTO) {
-        Pageable pageable = pageRequestDTO.getPageable(Sort.by("mid").descending());
+        Pageable pageable = pageRequestDTO.getPageable(Sort.by("mid"));
         BooleanBuilder booleanBuilder = getSearch(pageRequestDTO);
         Page<Member> result = memberRepository.findAll(booleanBuilder, pageable);
         Function<Member, MemberDTO> fn = (entity -> entityToDTO2(entity));
