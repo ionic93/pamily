@@ -68,7 +68,7 @@ Header Section
                     <input name="check-password" type="password" id="check-password"  class="form-control border-bottom-radius" placeholder="Check-Password">
                 </div>
                 <div class="form-group">
-                    <input name="mobile" type="text" id="mobile"  class="form-control border-bottom-radius" placeholder="mobile">
+                    <input name="mobile" type="text" id="mobile"  class="form-control border-bottom-radius" placeholder="mobile(' - ')제외">
                 </div>
                 <button class="kafe-btn kafe-btn-mint btn-block btn-M" id="signupBtn" type="submit" name="subm">Sign Up</button>
                 <br/>
@@ -97,7 +97,7 @@ Scripts
         let check_password = document.getElementById('check-password');
         let mobile = document.getElementById('mobile');
         let reg_email = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-        let reg_pw = /^[a-z0-9_-]{6,18}$/;
+        let reg_pw = /^[a-z0-9_-`~!@#$%^&*|\\\'\";:\/?]{6,18}$/;
         let reg_mobile = /^\d{3}-?\d{3,4}-?\d{4}$/;
 
          if(email.value == undefined || email.value == '') {
