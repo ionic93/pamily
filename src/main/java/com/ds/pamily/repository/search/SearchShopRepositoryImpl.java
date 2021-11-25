@@ -147,6 +147,7 @@ public class SearchShopRepositoryImpl extends QuerydslRepositorySupport implemen
         long count = tuple1.fetchCount();
         log.info("Count: " + count);
 
+        log.info("pageResult: "+result);
         return new PageImpl<Object[]>(
                 result.stream().map(t-> t.toArray()).collect(Collectors.toList())
                 ,pageable, count);

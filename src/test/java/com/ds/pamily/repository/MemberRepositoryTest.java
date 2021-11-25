@@ -20,10 +20,10 @@ class MemberRepositoryTest {
     @Test
     public void insertAdmin() {
         Member member = Member.builder()
-                .email("ionic94@ds.com")
-                .password(passwordEncoder.encode("1"))
-                .name("ionic2")
-                .mobile("01011111111")
+                .email("admin@ds.com")
+                .password(passwordEncoder.encode("123456"))
+                .name("admin")
+                .mobile("010-1112-4465")
                 .fromSocial(false)
                 .build();
         member.addMemberRole(MemberRole.USER);
@@ -64,10 +64,14 @@ class MemberRepositoryTest {
         // 8~9 까지는 USER,MANGER 지정
         // 9~10 까지는 USER,MANGER,ADMIN 지정
         IntStream.rangeClosed(1,30).forEach(i->{
+            int num = (int)(Math.random()*9);
+            int num2 = (int)(Math.random()*9);
+            int num3 = (int)(Math.random()*9);
+            int num4 = (int)(Math.random()*9);
             Member member = Member.builder()
                     .email("user"+i+"@ds.com")
                     .name("user"+i)
-                    .mobile("000-1111-0000")
+                    .mobile("010-"+num+num2+num3+num4+"-"+num+num2+num3+num4)
                     .fromSocial(false)
                     .password(passwordEncoder.encode("123456"))
                     .build();

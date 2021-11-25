@@ -113,8 +113,8 @@ class ShopRepositoryTest {
             Long mid = (long)(Math.random()*10)+1;
             Long scno = (long)4;
             Shop shop = Shop.builder()
-                    .title("테스트 사요..."+i)
-                    .content("물건 삽니다..."+i)
+                    .title("공동 구매 하실분"+i)
+                    .content("공동 구매 물건"+i)
                     .member(Member.builder().mid(mid).build())
                     .scno(ShopCate.builder().scno(scno).build())
                     .build();

@@ -16,6 +16,9 @@ public class RootController {
     @PreAuthorize("permitAll()")
     @GetMapping({"","/"})
     public String exmainPage(@AuthenticationPrincipal AuthMemberDTO authMemberDTO, Model model) {
+        if (authMemberDTO != null) {
+            return "redirect:/sample/main";
+        }
         return "redirect:/member/login";
     }
 
