@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 .col-md-item{
 position:relative;min-height:1px;padding-right:15px;
 padding-left:15px;float:left
@@ -33,7 +41,7 @@ margin-bottom: 25px;
     margin-top: 20%;
 }
 .item-name{
- font-family: 'Abhaya Libre', serif;
+ font-family: 'GowunDodum-Regular', serif;
  font-size: 30pt;
 }
 .item-text-box{margin-bottom:40px;}
@@ -52,3 +60,18 @@ margin-bottom: 25px;
 .readTextcss{ font-size: 18pt;}
 
 .readmargintext{margin:10px;}
+.trlistfontcolor{color: #454545;}
+.listfontcolor{color: #595959; font-weight: 500; font-size: 12pt;}
+.thfonsize{font-size: 14pt;}
+
+.shop-btn-mint{
+  font-family: 'GowunDodum-Regular', sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+
+
+  padding: 13px 31px;
+  color: #fff !important;
+  background: #9bc9a7;
+  letter-spacing: 1px;
+}

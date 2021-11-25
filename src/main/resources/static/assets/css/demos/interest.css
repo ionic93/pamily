@@ -17,10 +17,20 @@
 @import url("https://fonts.googleapis.com/css?family=Pacifico");
 @import url("https://fonts.googleapis.com/css?family=Abhaya+Libre");
 @import url("https://fonts.googleapis.com/css?family=Lato");
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 /* ==========================================================================
    Navbar Styles
-   ========================================================================== */  
+   ========================================================================== */
+
+*, span, tr, td, th, b, div, shopcateBtn {font-family: 'GowunDodum-Regular', serif;}
+
 .navbar.navbar-default {
     margin-bottom: 0;
     border-radius: 0;
@@ -57,7 +67,7 @@ a.navbar-brand:hover {
 }
 .navbar-default .navbar-nav li a{
     text-decoration: none;
-    font-family: 'Abhaya Libre', serif;
+    font-family: 'GowunDodum-Regular', serif;
     color: #858686;
     font-size: 14px;
     text-transform: uppercase;
@@ -76,7 +86,7 @@ a.navbar-brand:hover {
     line-height: 25px;
 }
 .navbar-default .navbar-right .kafe-btn{
-    font-family: 'Abhaya Libre', serif;
+    font-family: 'GowunDodum-Regular', serif;
 	font-size: 14px;
     text-transform: uppercase;
     margin: 12px 2px;
@@ -146,7 +156,7 @@ a.navbar-brand:hover {
   top: 118% !important;
 }	
 .w a{
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 14px !important;
 }   
 
@@ -262,7 +272,7 @@ a.navbar-brand:hover {
   padding: 7px 20px;
 }
 .notification-list .noti-title h6 {
-  font-family: 'Abhaya Libre', serif;	
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 14px;
   color: #848484;
 }
@@ -307,7 +317,7 @@ a.navbar-brand:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
   text-transform: none;
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 15px;
 }
 .notification-list .notify-item .notify-details small {
@@ -320,7 +330,7 @@ a.navbar-brand:hover {
   background: #f4f4f4;
   padding: 0px 20px !important;  
   text-transform: none !important;
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 15px !important;
 }
 .notification-list a.notify-all:hover{
@@ -341,7 +351,7 @@ a.navbar-brand:hover {
   white-space: normal;
   line-height: 16px; 
   text-transform: none !important;
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 15px !important;
 }
 .font-13 {
@@ -492,7 +502,7 @@ a.navbar-brand:hover {
   margin-top: 0;
 }
 .banner-content h2 {
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 24px;
   margin-bottom: 0;
 }
@@ -572,7 +582,7 @@ a.navbar-brand:hover {
   margin-bottom: 50px;
 }
 .fluffs .photo-rounded-fluffs h1{
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 16px;
   font-weight: 700;
   color: #fff;
@@ -702,7 +712,7 @@ a.navbar-brand:hover {
   font-family: 'Pacifico', sans-serif;
 }
 .logo p {
-  font-family: 'Abhaya Libre', serif;	
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 0.9em;
   letter-spacing: 8px;
   color: #fff;
@@ -738,7 +748,7 @@ a.navbar-brand:hover {
   border-radius: 5px 5px 0 0;
   -webkit-border-radius: 5px 5px 0 0;
   color: #fff;
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 15px;
   font-weight: 600;
 }
@@ -759,11 +769,11 @@ a.navbar-brand:hover {
   text-align: center;
 }
 .login-wrap input{
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 15px;
 }
 .login-wrap span a{
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 14px;
   color: #9bc9a7;
 }
@@ -772,7 +782,7 @@ a.navbar-brand:hover {
   background-color: #9bc9a7;
   border-color: #1ea88d;
   font-weight: 600;
-  font-family: 'Abhaya Libre', serif;
+  font-family: 'GowunDodum-Regular', serif;
   font-size: 15px;
 }
 .btn-theme:hover,
@@ -833,7 +843,7 @@ a.navbar-brand:hover {
 	border: 2px solid #fc398a;
 }
 .stories-base .list-group .list-group-item span{
- font-family: 'Abhaya Libre', serif;	
+ font-family: 'GowunDodum-Regular', serif;
  font-size: 14px;
  margin-left: 5px;
 }
@@ -874,12 +884,12 @@ a.navbar-brand:hover {
  border-radius: 30px;
 }
 .sidebar ul li a {
- font-family: 'Abhaya Libre', serif;
+ font-family: 'GowunDodum-Regular', serif;
  font-size: 17px; 
  color: #546e7a;
 }
 .sidebar ul li.active a {
- font-family: 'Abhaya Libre', serif;
+ font-family: 'GowunDodum-Regular', serif;
  font-size: 17px; 
  color: #fff;
 }
@@ -938,7 +948,7 @@ a.navbar-brand:hover {
 }
 
 .shopcateBtn{
-    width:200px;
+    width:100%;
 }
 
 .channel-one .col-lg-9{margin-right: 20px;}

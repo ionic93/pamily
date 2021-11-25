@@ -18,6 +18,12 @@
 @import url("https://fonts.googleapis.com/css?family=Pacifico");
 @import url("https://fonts.googleapis.com/css?family=Abhaya+Libre");
 @import url("https://fonts.googleapis.com/css?family=Lato");
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 /* ==========================================================================
    Navbar Styles
@@ -2291,7 +2297,7 @@ a.navbar-brand:hover {
     box-shadow:none;
 }
 .form-signin .form-signin-heading {
- font-family: 'Abhaya Libre', serif;
+ font-family: 'GowunDodum-Regular', serif;
  font-size: 24px;
  color: #fff;
 }

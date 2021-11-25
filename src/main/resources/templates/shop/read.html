@@ -34,28 +34,28 @@
                             <ul>
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm1">
-                                        <button class="cateBtn1 kafe-btn kafe-btn-mint shopcateBtn"> 분 양</button>
+                                        <button class="cateBtn1 kafe-btn shop-btn-mint shopcateBtn"> 분 양 </button>
                                         <div class="box1" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm2">
-                                        <button class="cateBtn2 kafe-btn kafe-btn-mint shopcateBtn" value="2"> 입 양</button>
+                                        <button class="cateBtn2 kafe-btn shop-btn-mint shopcateBtn" value="2"> 입 양 </button>
                                         <div class="box2" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm3">
-                                        <button class="cateBtn3 kafe-btn kafe-btn-mint shopcateBtn" value="3"> 동물찾기</button>
+                                        <button class="cateBtn3 kafe-btn shop-btn-mint shopcateBtn" value="3"> 동물찾기 </button>
                                         <div class="box3" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm4">
-                                        <button class="cateBtn4 kafe-btn kafe-btn-mint shopcateBtn" value="4"> 기 타</button>
+                                        <button class="cateBtn4 kafe-btn shop-btn-mint shopcateBtn" value="4"> 기 타 </button>
                                         <div class="box4" style="display:hidden;"></div>
                                     </form>
                                 </li>
@@ -75,14 +75,14 @@
                             <input type="hidden" name="scno" th:value="${requestDTO.scno}">
 
                             <div class="form-group">
-                                <div name="cateName"> <em class="fa fa-align-left readmargintext"></em>[[${dto.cateName}]]</div>
+                                <div name="cateName"> <em class="fa fa-align-left readmargintext"></em><b>[[${dto.cateName}]]</b></div>
                             </div>
                             <div class="form-group readTextcss readmargintext">
                                 <span name="title" th:text="${dto.title}"></span>
                             </div>
                             <div class="form-group">
                                 <label class="readmargintext">작성자</label>
-                                <span name="name" th:text="${dto.name}"> </span><span class="readmargintext" name="regDate"> [[${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}]]</span>
+                                <span name="name"><b>[[${dto.name}]]</b> </span><span class="readmargintext" name="regDate"> [[${#temporals.format(dto.regDate,'yyyy/MM/dd HH:mm:ss')}]]</span>
                             </div>
                             <div class="form-group read-space" style="margin-top:10px;">
                                 <div class="uploadResult">
@@ -94,7 +94,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <div>[[${dto.content}]]</div>
+                                <div><b>[[${dto.content}]]</b></div>
                             </div>
                         </form>
                         <div style="margin-bottom: 20px;"></div>

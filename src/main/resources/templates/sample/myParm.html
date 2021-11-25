@@ -3,6 +3,7 @@
 <meta charset="UTF-8">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
 <th:block th:fragment="content">
+    <link type="text/css" th:href="@{/assets/css/demos/interest.css}" rel="stylesheet"/>
     <form action="/sample/myParm" class="parmbody" method="post"
                 th:style="'background-image:url(' + @{/assets/img/parm.png} + '); background-repeat: no-repeat;
                  background-size: contain;'">
