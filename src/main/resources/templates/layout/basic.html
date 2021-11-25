@@ -183,12 +183,16 @@ Navigation Section
                     </li>
 
                     <li class="dropdown mega-avatar">
-                        <a th:href="@{/member/update}" >
+                        <a th:href="@{/member/update}" data-toggle="dropdown" aria-expanded="true" >
                             <span class="avatar w-32"><img th:src="@{/assets/img/users/2.jpg}" class="img-resonsive img-circle" width="25" height="25" alt="..."></span>
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                            <span class="hidden-xs" style="font-size: 11pt">회원 정보수정
+                            <span class="hidden-xs" style="font-size: 11pt">user1
                             </span>
                         </a>
+                        <div class="dropdown-menu w dropdown-menu-scale pull-right">
+                            <a class="dropdown-item" th:href="@{/member/update}"><span>회원 정보 수정</span></a>
+                            <a class="dropdown-item" th:href="@{/logout}"><span>Logout</span></a>
+                        </div>
                     </li><!-- /navbar-item -->
 
                 </ul><!-- /.sign-in -->
