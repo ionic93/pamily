@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'GowunDodum-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/GowunDodum-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*, span, tr, td, th, b, div, shopcateBtn {font-family: 'GowunDodum-Regular', serif;}
+.navbar-brand {
+    font-family: 'Pacifico', serif;
+    font-size: 32px;
+    color: #848484 !important;
+    -webkit-transition-duration: 0;
+    transition-duration: 0;
+}
