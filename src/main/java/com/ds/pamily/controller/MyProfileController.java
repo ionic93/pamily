@@ -39,7 +39,6 @@ public class MyProfileController {
         PageResultDTO<ProfileDTO, Object[]> imageResult = profileService.getList(pageRequestDTO);
         log.info("imageResult.getDtoList()>>>>" + imageResult.getDtoList());
         model.addAttribute("imageResult",imageResult.getDtoList().get(imageResult.getSize() - result.getSize()).getProfileImageDTOList());
-
         log.info("lastImage>>>>>>>>>" + imageResult.getDtoList().get(imageResult.getSize() - result.getSize()).getProfileImageDTOList());
 
         log.info(model);
