@@ -159,13 +159,8 @@ public class MemberController {
 
         response.setContentType("text/html; charset=UTF-8");
         PrintWriter out = response.getWriter();
-        if (!beforeMInfo.equals(changeMInfo)) {
             out.println("<script>alert('변경되었습니다.');</script>");
             out.println("<script> location.href='/pamily/sample/main'; </script>");
-        } else {
-            out.println("<script>alert('정보 변경이 취소되었습니다.');</script>");
-            out.println("<script> location.href='/pamily/sample/main'; </script>");
-        }
         out.flush();
     }
 
