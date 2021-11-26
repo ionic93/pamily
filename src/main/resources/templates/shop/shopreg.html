@@ -34,29 +34,36 @@
                             <ul>
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm1">
-                                        <button class="cateBtn1 kafe-btn shop-btn-mint shopcateBtn"> 분 양 </button>
+                                        <button class="cateBtn1 kafe-btn shop-btn-mint shopcateBtn teacherColor"> 분 양 </button>
                                         <div class="box1" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm2">
-                                        <button class="cateBtn2 kafe-btn shop-btn-mint shopcateBtn" value="2"> 입 양 </button>
+                                        <button class="cateBtn2 kafe-btn shop-btn-mint shopcateBtn teacherColor" value="2"> 입 양 </button>
                                         <div class="box2" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm3">
-                                        <button class="cateBtn3 kafe-btn shop-btn-mint shopcateBtn" value="3"> 동물찾기 </button>
+                                        <button class="cateBtn3 kafe-btn shop-btn-mint shopcateBtn teacherColor" value="3"> 동물찾기 </button>
                                         <div class="box3" style="display:hidden;"></div>
                                     </form>
                                 </li>
 
                                 <li class="sideText ctg" \>
                                     <form action="/pamily/shop/shop" method="get" id="cateForm4">
-                                        <button class="cateBtn4 kafe-btn shop-btn-mint shopcateBtn" value="4"> 기 타 </button>
+                                        <button class="cateBtn4 kafe-btn shop-btn-mint shopcateBtn teacherColor" value="4"> 공동구매 </button>
                                         <div class="box4" style="display:hidden;"></div>
+                                    </form>
+                                </li>
+
+                                <li class="sideText ctg" \>
+                                    <form action="/pamily/shop/shop" method="get" id="cateForm5">
+                                        <button class="cateBtn5 kafe-btn shop-btn-mint shopcateBtn teacherColor" value="5"> 기 타 </button>
+                                        <div class="box5" style="display:hidden;"></div>
                                     </form>
                                 </li>
                             </ul>
@@ -239,6 +246,57 @@
                     $(".box").html(str);
                     $("form").submit();
                 });
+                                $('.cateBtn1').click(function(e){
+                    var cateForm1 = $("#cateForm1");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='1'>";
+                    $('.box1').html(str);
+                    var data1 = cateForm1.serializeArray();
+                    console.log(data1);
+                    cateForm1.submit();
+                });
+                $('.cateBtn2').click(function(e){
+                    var cateForm2 = $("#cateForm2");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='2'>";
+                    $('.box2').html(str);
+                    var data2 = cateForm2.serializeArray();
+                    console.log(data2);
+                    cateForm2.submit();
+                });
+                $('.cateBtn3').click(function(e){
+                    var cateForm3 = $("#cateForm3");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='3'>";
+                    $('.box3').html(str);
+                    var data3 = cateForm3.serializeArray();
+                    console.log(data3);
+                    cateForm3.submit();
+                });
+                $('.cateBtn4').click(function(e){
+                    var cateForm4 = $("#cateForm4");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='4'>";
+                    $('.box4').html(str);
+                    var data4 = cateForm4.serializeArray();
+                    console.log(data4);
+                    cateForm4.submit();
+                });
+                $('.cateBtn5').click(function(e){
+                    var cateForm5 = $("#cateForm5");
+                    e.preventDefault();
+                    var str = "";
+                    str += "<input type='hidden' name='scno' value ='5'>";
+                    $('.box5').html(str);
+                    var data5 = cateForm5.serializeArray();
+                    console.log(data5);
+                    cateForm5.submit();
+                });
+
             });
         </script>
 
