@@ -36,12 +36,13 @@ dependencies {
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
 	annotationProcessor 'javax.persistence:javax.persistence-api'
+	annotationProcessor 'javax.annotation:javax.annotation-api:1.3.2' // Added for QueryDSL and Java 9+
 	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-java8time
 	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time', version: '3.0.4.RELEASE'
 
 	// https://mvnrepository.com/artifact/com.querydsl/querydsl-jpa
-	implementation "com.querydsl:querydsl-jpa:5.0.0"
-	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jpa"
+	implementation "com.querydsl:querydsl-jpa:4.4.0"
+	annotationProcessor "com.querydsl:querydsl-apt:4.4.0:jpa"
 
 	// https://mvnrepository.com/artifact/net.coobird/thumbnailator
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.14'
@@ -50,14 +51,16 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	// For javax.annotation.Generated in Java 9+
+	implementation 'javax.annotation:javax.annotation-api:1.3.2'
 }
 
 test {
 	useJUnitPlatform()
 }
 
-
-
+// QueryDSL configuration
 def querydslDir = "$buildDir/generated/querydsl"
 
 sourceSets {
@@ -68,6 +71,14 @@ tasks.withType(JavaCompile) {
 	options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
 }
 
+task cleanQuerydsl(type: Delete) {
+    delete file(querydslDir)
+}
+
+// Ensure QueryDSL annotation processor runs before compilation
+compileJava {
+    dependsOn cleanQuerydsl
+}
 
 configurations {
 	querydsl.extendsFrom compileClasspath
